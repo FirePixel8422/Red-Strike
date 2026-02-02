@@ -111,7 +111,7 @@ namespace FirePixel.Networking
         }
 
 
-        [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
+        [ServerRpc(InvokePermission = RpcInvokePermission.Everyone, Delivery = RpcDelivery.Reliable)]
         public void AddClient_ServerRPC(FixedString64Bytes fixedClientName, int clientGameId)
         {
             clientNameField[clientGameId].text = fixedClientName.ToString();
@@ -124,7 +124,7 @@ namespace FirePixel.Networking
         }
 
 
-        [ClientRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
+        [ClientRpc(InvokePermission = RpcInvokePermission.Everyone, Delivery = RpcDelivery.Reliable)]
         public void SyncClientNames_ClientRPC(FixedString64Bytes[] fixedClientNames, int clientCount)
         {
             string targetUserName;

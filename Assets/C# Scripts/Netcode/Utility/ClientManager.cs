@@ -50,7 +50,7 @@ namespace FirePixel.Networking
             ReceivePlayerIdDataArray_ClientRPC(newValue, NetworkIdRPCTargets.SendToAllButServer());
         }
 
-        [ClientRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
+        [ClientRpc(InvokePermission = RpcInvokePermission.Everyone, Delivery = RpcDelivery.Reliable)]
         private void ReceivePlayerIdDataArray_ClientRPC(PlayerIdDataArray newValue, NetworkIdRPCTargets rpcTargets)
         {
             if (rpcTargets.IsTarget == false) return;
@@ -59,13 +59,13 @@ namespace FirePixel.Networking
         }
 
 
-        [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
+        [ServerRpc(InvokePermission = RpcInvokePermission.Everyone, Delivery = RpcDelivery.Reliable)]
         private void RequestPlayerIdDataArray_ServerRPC(ulong clientNetworkId)
         {
             ReceiveSilentPlayerIdDataArray_ClientRPC(playerIdDataArray.Value, NetworkIdRPCTargets.SendToTargetClient(clientNetworkId));
         }
 
-        [ClientRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
+        [ClientRpc(InvokePermission = RpcInvokePermission.Everyone, Delivery = RpcDelivery.Reliable)]
         private void ReceiveSilentPlayerIdDataArray_ClientRPC(PlayerIdDataArray newValue, NetworkIdRPCTargets rpcTargets)
         {
             if (rpcTargets.IsTarget == false) return;
@@ -169,7 +169,7 @@ namespace FirePixel.Networking
 
         #region Send/Recieve Username and GUID and set that data in PlayerIdDataArray
 
-        [ClientRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
+        [ClientRpc(InvokePermission = RpcInvokePermission.Everyone, Delivery = RpcDelivery.Reliable)]
         private void RequestUsernameAndGUID_ClientRPC(int fromPlayerGameId, NetworkIdRPCTargets rpcTargets)
         {
             if (rpcTargets.IsTarget == false) return;
@@ -177,7 +177,7 @@ namespace FirePixel.Networking
             SendUsernameAndGUID_ServerRPC(fromPlayerGameId, LocalUserName, LocalPlayerGUID);
         }
 
-        [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
+        [ServerRpc(InvokePermission = RpcInvokePermission.Everyone, Delivery = RpcDelivery.Reliable)]
         private void SendUsernameAndGUID_ServerRPC(int fromPlayerGameId, string username, string guid)
         {
             playerIdDataArray.SilentValue.SetUserNameAndGUID(fromPlayerGameId, username, guid);
@@ -317,7 +317,7 @@ namespace FirePixel.Networking
 
         #region Kick Client and kill Server Code
 
-        [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
+        [ServerRpc(InvokePermission = RpcInvokePermission.Everyone, Delivery = RpcDelivery.Reliable)]
         public void DisconnectClient_ServerRPC(int clientGameId)
         {
             ulong clientNetworkId = GetClientNetworkId(clientGameId);
@@ -327,13 +327,13 @@ namespace FirePixel.Networking
             NetworkManager.DisconnectClient(clientNetworkId);
         }
 
-        [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
+        [ServerRpc(InvokePermission = RpcInvokePermission.Everyone, Delivery = RpcDelivery.Reliable)]
         public void DisconnectAllClients_ServerRPC()
         {
             GetKicked_ClientRPC(GameIdRPCTargets.SendToAll());
         }
 
-        [ClientRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
+        [ClientRpc(InvokePermission = RpcInvokePermission.Everyone, Delivery = RpcDelivery.Reliable)]
         private void GetKicked_ClientRPC(GameIdRPCTargets rpcTargets)
         {
             if (rpcTargets.IsTarget == false) return;

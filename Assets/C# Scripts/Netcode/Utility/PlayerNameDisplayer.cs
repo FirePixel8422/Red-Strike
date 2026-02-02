@@ -21,13 +21,13 @@ namespace FirePixel.Networking
         }
 
 
-        [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
+        [ServerRpc(InvokePermission = RpcInvokePermission.Everyone, Delivery = RpcDelivery.Reliable)]
         private void SendPlayerName_ServerRPC(ulong playerNetworkId, string userName)
         {
             SendPlayerName_ClientRPC(playerNetworkId, userName);
         }
 
-        [ClientRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
+        [ClientRpc(InvokePermission = RpcInvokePermission.Everyone, Delivery = RpcDelivery.Reliable)]
         private void SendPlayerName_ClientRPC(ulong playerNetworkId, string userName)
         {
             // Only send to other player

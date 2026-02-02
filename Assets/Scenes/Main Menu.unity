@@ -144,6 +144,11 @@ PrefabInstance:
       objectReference: {fileID: 1805684028}
     - target: {fileID: 5287381020941622744, guid: aa2da3930e5c488489dd963262efde6f,
         type: 3}
+      propertyPath: nextSceneName
+      value: TEMPSCENE
+      objectReference: {fileID: 0}
+    - target: {fileID: 5287381020941622744, guid: aa2da3930e5c488489dd963262efde6f,
+        type: 3}
       propertyPath: invisibleScreenCover
       value: 
       objectReference: {fileID: 4949833827327076846}
@@ -4847,7 +4852,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameInputField: {fileID: 2667414720792394601}
   previewTextField: {fileID: 244088539743759644}
-  nameChosen: 0
   randomPlayerNames: {fileID: 11400000, guid: 5860e335346303f4198c877a3f240a2c, type: 2}
 --- !u!1 &6942660419197203838
 GameObject:

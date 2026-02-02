@@ -64,13 +64,13 @@ namespace FirePixel.Networking
             }
         }
 
-        [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
+        [ServerRpc(InvokePermission = RpcInvokePermission.Everyone, Delivery = RpcDelivery.Reliable)]
         private void RequestSyncMatchSettings_ServerRPC(ulong clientNetworkId)
         {
             SyncMatchSettings_ClientRPC(settings, NetworkIdRPCTargets.SendToTargetClient(clientNetworkId));
         }
 
-        [ClientRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
+        [ClientRpc(InvokePermission = RpcInvokePermission.Everyone, Delivery = RpcDelivery.Reliable)]
         private void SyncMatchSettings_ClientRPC(MatchSettings _settings, NetworkIdRPCTargets rpcTargets)
         {
             if (rpcTargets.IsTarget == false) return;
