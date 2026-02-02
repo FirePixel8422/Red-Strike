@@ -11,6 +11,7 @@ public class SkillBase
     }
 
     public SkillInfo Info = SkillInfo.Default;
+    public SkillStats Stats = SkillStats.Default;
     public SkillCosts Costs = SkillCosts.Default;
     public SkillGain Gain = SkillGain.Default;
 

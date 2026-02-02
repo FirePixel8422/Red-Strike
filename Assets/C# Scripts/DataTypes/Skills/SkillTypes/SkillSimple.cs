@@ -2,7 +2,7 @@
 
 
 [System.Serializable]
-public class DelayedSkill : SkillBase
+public class SkillSimple : SkillBase
 {
     public float etst12122;
 }

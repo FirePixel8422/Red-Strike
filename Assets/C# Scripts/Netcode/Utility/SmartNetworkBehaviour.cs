@@ -1,4 +1,5 @@
 ﻿using Unity.Netcode;
+using UnityEngine;
 
 
 namespace FirePixel.Networking
@@ -11,7 +12,7 @@ namespace FirePixel.Networking
         /// <summary>
         /// True 
         /// </summary>
-        public bool IsNetworkSystemInitilized;
+        [HideInInspector] public bool IsNetworkSystemInitilized;
 
 
         #region Usefull quick acces to data

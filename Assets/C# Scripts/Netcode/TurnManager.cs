@@ -12,11 +12,15 @@ public class TurnManager : SmartNetworkBehaviour
 
 
     private int clientOnTurnId;
+    public static int ClientOnTurnId => Instance.clientOnTurnId;
 
     public static bool IsMyTurn => Instance.clientOnTurnId == LocalClientGameId;
-    public static Action<int> OnTurnChanged { get; private set; }
-    public static Action OnTurnStarted { get; private set; }
-    public static Action OnTurnEnded { get; private set; }
+
+#pragma warning disable UDR0001
+    public static Action<int> OnTurnChanged;
+    public static Action OnTurnStarted;
+    public static Action OnTurnEnded;
+#pragma warning restore UDR0001
 
 
 

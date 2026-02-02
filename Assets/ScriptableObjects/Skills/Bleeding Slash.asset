@@ -10,19 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e328d94dd54b42742853a92270e0522e, type: 3}
-  m_Name: New SkillSO
+  m_Name: Bleeding Slash
   m_EditorClassIdentifier: Assembly-CSharp::BaseSkillSO
   Skill:
-    rid: 8095730567407730799
+    rid: 8095730567407730876
   references:
     version: 2
     RefIds:
-    - rid: 8095730567407730799
-      type: {class: DelayedSkill, ns: , asm: Assembly-CSharp}
+    - rid: 8095730567407730876
+      type: {class: SkillSimple, ns: , asm: Assembly-CSharp}
       data:
         Info:
-          Name: New Skill
+          Name: Bleeding Slash
           Description: You shouldve entered some skill info here...
+        Stats:
+          damage: 10
+          parryParamaters:
+            ParryWindow: 0.3
+            PerfectParryWindow: 0.1
         Costs:
           EnergyCost: 1
           HealthCost: 0
@@ -30,10 +35,11 @@ MonoBehaviour:
           EnergyGain: 1
           HealthGain: 0
         Effects:
-        - rid: 8095730567407730800
-        etst12122: 0.44
-    - rid: 8095730567407730800
-      type: {class: SkillEffectFire, ns: , asm: Assembly-CSharp}
+        - rid: 8095730567407730877
+        etst12122: 0
+    - rid: 8095730567407730877
+      type: {class: SkillEffectStatus, ns: , asm: Assembly-CSharp}
       data:
-        basef: 0.64
-        fire: 0
+        StatusEffect:
+          Type: 1
+          Duration: 0
