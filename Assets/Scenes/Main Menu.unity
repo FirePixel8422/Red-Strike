@@ -145,7 +145,7 @@ PrefabInstance:
     - target: {fileID: 5287381020941622744, guid: aa2da3930e5c488489dd963262efde6f,
         type: 3}
       propertyPath: nextSceneName
-      value: FPX_TestScene
+      value: FPX Main Scene
       objectReference: {fileID: 0}
     - target: {fileID: 5287381020941622744, guid: aa2da3930e5c488489dd963262efde6f,
         type: 3}

@@ -1,9 +1,8 @@
-﻿using Unity.Mathematics;
-using UnityEngine;
+﻿using UnityEngine;
 
 
 
-public class GameManager : MonoBehaviour
+public class DataInitializer : MonoBehaviour
 {
     [SerializeField] private StatusEffectSettingsSO statusEffectsRulesSO;
 
@@ -11,6 +10,5 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         GameRules.StatusEffectRules = statusEffectsRulesSO.StatusRules;
-        DontDestroyOnLoad(gameObject);
     }
 }

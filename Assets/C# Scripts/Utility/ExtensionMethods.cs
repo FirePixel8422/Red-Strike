@@ -437,4 +437,14 @@ public static class ExtensionMethods
     {
         return targetArray[UnityEngine.Random.Range(0, targetArray.Length)];
     }
+
+    /// <summary>
+    /// Modifies a struct element in a list safely by copying, running the modifier, then writing it back.
+    /// </summary>
+    public static void ModifyAt<T>(this List<T> list, int index, Action<T> modifier) where T : struct
+    {
+        T copy = list[index];
+        modifier(copy);
+        list[index] = copy;
+    }
 }

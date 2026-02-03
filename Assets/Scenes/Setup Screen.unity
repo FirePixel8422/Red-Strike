@@ -130,7 +130,6 @@ GameObject:
   - component: {fileID: 576584534}
   - component: {fileID: 576584533}
   - component: {fileID: 576584535}
-  - component: {fileID: 576584536}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -248,18 +247,6 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!114 &576584536
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 576584531}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0df807bc50c207b4c9851dbc76f24d89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SkyboxRotator
 --- !u!1 &652473530
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,7 +259,7 @@ GameObject:
   - component: {fileID: 652473531}
   - component: {fileID: 652473535}
   m_Layer: 0
-  m_Name: LoginHandler
+  m_Name: '>>LoginHandler<<'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -331,6 +318,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FirePixel.Networking.AutoLoginHandler
   mainSceneName: Main Menu
+--- !u!1 &802853697
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 802853699}
+  - component: {fileID: 802853698}
+  m_Layer: 0
+  m_Name: '>>GameManager<<'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &802853698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 802853697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9d173a07bc98b744a00ecff349db87e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  statusEffectsRulesSO: {fileID: 11400000, guid: f8b26322ee973bb4b9a0c45c99d9edaf,
+    type: 2}
+--- !u!4 &802853699
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 802853697}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1481049070
 GameObject:
   m_ObjectHideFlags: 0
@@ -344,7 +377,7 @@ GameObject:
   - component: {fileID: 1481049072}
   - component: {fileID: 1481049071}
   m_Layer: 0
-  m_Name: NetworkManager
+  m_Name: '>>NetworkManager<<'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -456,3 +489,4 @@ SceneRoots:
   - {fileID: 576584534}
   - {fileID: 1481049074}
   - {fileID: 652473534}
+  - {fileID: 802853699}

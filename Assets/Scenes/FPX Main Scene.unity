@@ -328,11 +328,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1779185552}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9d173a07bc98b744a00ecff349db87e, type: 3}
+  m_Script: {fileID: 11500000, guid: 6dcc15c6106c0b44db634567e5b75639, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  statusEffectsRulesSO: {fileID: 11400000, guid: f8b26322ee973bb4b9a0c45c99d9edaf,
-    type: 2}
+  m_EditorClassIdentifier: Assembly-CSharp::FirePixel.Networking.MatchManager
+  ShowTopMostFoldoutHeaderGroup: 1
+  IsNetworkSystemInitilized: 0
 --- !u!1 &2049360977
 GameObject:
   m_ObjectHideFlags: 0

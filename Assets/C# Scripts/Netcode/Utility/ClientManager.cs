@@ -110,14 +110,14 @@ namespace FirePixel.Networking
 
 #pragma warning disable UDR0001
         /// <summary>
-        /// Invoked after NetworkManager.OnClientConnected, before updating ClientManager gameId logic. returns: ulong clientId, int clientGamId, int clientInLobbyCount
+        /// Invoked after NetworkManager.OnClientConnected, before updating ClientManager gameId logic.
         /// </summary>
-        public static Action<ulong, int, int> OnClientConnectedCallback;
+        public static Action<ClientSessionContext> OnClientConnectedCallback;
 
         /// <summary>
-        /// Invoked after <see cref="NetworkManager.OnClientDisconnectCallback"/>, before updating <see cref="ClientManager"/> gameId logic. returns: ulong clientId, int clientGamId, int clientInLobbyCount
+        /// Invoked after <see cref="NetworkManager.OnClientDisconnectCallback"/>, before updating <see cref="ClientManager"/> gameId logic.
         /// </summary>
-        public static Action<ulong, int, int> OnClientDisconnectedCallback;
+        public static Action<ClientSessionContext> OnClientDisconnectedCallback;
 
         /// <summary>
         /// Invoked when a client is kicked from the server, before destroying the <see cref="ClientManager"/> gameObject.
@@ -262,7 +262,12 @@ namespace FirePixel.Networking
 
             RequestUsernameAndGUID_ClientRPC(GetClientGameId(clientNetworkId), NetworkIdRPCTargets.SendToTargetClient(clientNetworkId));
 
-            OnClientConnectedCallback?.Invoke(clientNetworkId, playerIdDataArray.Value.GetPlayerGameId(clientNetworkId), NetworkManager.ConnectedClients.Count);
+            OnClientConnectedCallback?.Invoke(new ClientSessionContext()
+            {
+                NetworkId = clientNetworkId,
+                GameId = playerIdDataArray.Value.GetPlayerGameId(clientNetworkId),
+                PlayerCount = NetworkManager.ConnectedClients.Count,
+            });
 
             DebugLogger.Log("Player " + GetClientGameId(clientNetworkId) + ", (NetworkId: " + clientNetworkId + "), connected to server!", logDebugInfo);
         }
@@ -283,7 +288,12 @@ namespace FirePixel.Networking
 
             playerIdDataArray.Value = updatedDataArray;
 
-            OnClientDisconnectedCallback?.Invoke(clientNetworkId, playerIdDataArray.Value.GetPlayerGameId(clientNetworkId), PlayerCount);
+            OnClientDisconnectedCallback?.Invoke(new ClientSessionContext()
+            {
+                NetworkId = clientNetworkId,
+                GameId = playerIdDataArray.Value.GetPlayerGameId(clientNetworkId),
+                PlayerCount = PlayerCount,
+            });
         }
 
         /// <summary>

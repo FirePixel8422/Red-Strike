@@ -17,8 +17,6 @@ public class RebindManager : MonoBehaviour
 #endif
 
 
-
-
     private void OnEnable()
     {
         cancelRebindAction.action.performed += OnCancelRebind;
@@ -53,7 +51,7 @@ public class RebindManager : MonoBehaviour
             .WithControlsExcluding("Mouse")
             .OnCancel(op =>
             {
-                if (logRebindOperations) DebugLogger.Log($"Rebind for {actionName} canceled.");
+                DebugLogger.Log($"Rebind for {actionName} canceled.", logRebindOperations);
 
                 action.Enable();
                 op.Dispose();
@@ -61,7 +59,7 @@ public class RebindManager : MonoBehaviour
             })
             .OnComplete(op =>
             {
-                if (logRebindOperations) DebugLogger.Log($"Rebound {actionName} to {action.bindings[bindingIndex].effectivePath}");
+                DebugLogger.Log($"Rebound {actionName} to {action.bindings[bindingIndex].effectivePath}", logRebindOperations);
 
                 action.Enable();
                 op.Dispose();

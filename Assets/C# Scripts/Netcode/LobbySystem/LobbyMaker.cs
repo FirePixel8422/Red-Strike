@@ -150,7 +150,7 @@ namespace FirePixel.Networking
 
                 CreateLobbyOptions options = new CreateLobbyOptions
                 {
-                    IsPrivate = MatchManager.Instance.settings.privateLobby,
+                    IsPrivate = false,
                     IsLocked = false,
 
                     Data = new Dictionary<string, DataObject>()
