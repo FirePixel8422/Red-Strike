@@ -2,6 +2,9 @@
 
 
 
+/// <summary>
+/// Container class uswd for handling attacking and defending player tracking.
+/// </summary>
 [System.Serializable]
 public class CombatContext
 {

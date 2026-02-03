@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e328d94dd54b42742853a92270e0522e, type: 3}
+  m_Name: New SkillSO
+  m_EditorClassIdentifier: Assembly-CSharp::BaseSkillSO
+  Skill:
+    rid: 8095730578942853120
+  references:
+    version: 2
+    RefIds:
+    - rid: 8095730578942853120
+      type: {class: SkillSimple, ns: , asm: Assembly-CSharp}
+      data:
+        Info:
+          Name: New Skill
+          Description: You shouldve entered some skill info here...
+        Stats:
+          damage: 10
+          parryParamaters:
+            ParryWindow: 0.3
+            PerfectParryWindow: 0.1
+        Costs:
+          EnergyCost: 1
+          HealthCost: 0
+        Gain:
+          EnergyGain: 1
+          HealthGain: 0
+        Effects:
+        - rid: 8095730578942853122
+        etst12122: 0
+    - rid: 8095730578942853122
+      type: {class: SkillEffectStatus, ns: , asm: Assembly-CSharp}
+      data:
+        StatusEffect:
+          Type: 0
+          Duration: 2

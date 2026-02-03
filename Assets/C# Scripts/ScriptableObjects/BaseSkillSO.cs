@@ -2,7 +2,7 @@
 
 
 
-[CreateAssetMenu(fileName = "New SkillSO", menuName = "ScriptableObjects/SkillSO", order = -1000)]
+[CreateAssetMenu(fileName = "New Skill", menuName = "ScriptableObjects/SkillSO", order = -1000)]
 public class BaseSkillSO : ScriptableObject
 {
     [SerializeReference]

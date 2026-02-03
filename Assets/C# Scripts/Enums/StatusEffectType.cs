@@ -4,9 +4,10 @@
 
 public enum StatusEffectType : byte
 {
-    Fire,
+    Burning,
     Bleeding,
     Broken,
     Weakened,
-    Vulnerable
+    Empowered,
+    Vulnerable,
 }
