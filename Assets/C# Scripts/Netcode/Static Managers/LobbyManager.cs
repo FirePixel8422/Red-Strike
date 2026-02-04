@@ -121,10 +121,10 @@ namespace FirePixel.Networking
 
             while (true)
             {
+                yield return delay;
+
                 _ = LobbyService.Instance.SendHeartbeatPingAsync(lobbyId);
                 _ = UpdateLobbyDataAsync(lobbyId, LobbyMaker.LOBBY_LAST_HEARTBEAT_UTC, DateTime.UtcNow.Ticks.ToString());
-
-                yield return delay;
             }
         }
     }
