@@ -1,4 +1,3 @@
-using Fire_Pixel.Utility;
 using System;
 using Unity.Netcode;
 using UnityEngine;
@@ -332,6 +331,29 @@ namespace FirePixel.Networking
         }
 
         #endregion
+
+
+
+        [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
+        public void KickTargetClient_ServerRPC(ulong clientNetworkId)
+        {
+            NetworkManager.DisconnectClient(clientNetworkId);
+        }
+
+        [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
+        public void ShutDownNetwork_ServerRPC()
+        {
+            if (IsServer == false) return;
+
+            for (int i = 1; i < PlayerCount; i++)
+            {
+                NetworkManager.DisconnectClient(GetClientNetworkId(i));
+            }
+
+            // Terminate lobby and shutdown network.
+            LobbyManager.DeleteLobbyInstant_OnServer();
+            NetworkManager.Shutdown();
+        }
 
 
         public override void OnDestroy()

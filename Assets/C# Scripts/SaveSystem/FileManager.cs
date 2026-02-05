@@ -161,8 +161,6 @@ public static class FileManager
     /// <returns>Whether the deletion was succesfull</returns>
     public static bool TryDeleteFile(string path)
     {
-        DebugLogger.LogWarning(path);
-
         EnsurePersistentDataPath(ref path);
         EnsureFileExtension(ref path);
 
