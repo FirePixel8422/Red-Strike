@@ -4,26 +4,27 @@
 namespace Fire_Pixel.Utility
 {
     /// <summary>
-    /// Container that stores an <see cref="Action"/> which can be subscribed to and is invoked only once. If subscribed too after invoke already happened, call the subscriber instantly
+    /// Container that stores an <see cref="Action"/> which can be subscribed to and is invoked only once.
+    /// If subscribed too after invoke already happened, call the subscriber instantly
     /// </summary>
     public class OneTimeAction
     {
-        private event Action internalAction;
+        private event Action InternalAction;
         private bool hasExecuted;
         public bool HasExecuted => hasExecuted;
 
 
         public void Invoke()
         {
-            internalAction?.Invoke();
-            internalAction = null;
+            InternalAction?.Invoke();
+            InternalAction = null;
             hasExecuted = true;
         }
         public static OneTimeAction operator +(OneTimeAction e, Action action)
         {
             if (!e.hasExecuted)
             {
-                e.internalAction += action;
+                e.InternalAction += action;
             }
             else
             {
@@ -35,7 +36,7 @@ namespace Fire_Pixel.Utility
         {
             if (!e.hasExecuted)
             {
-                e.internalAction -= action;
+                e.InternalAction -= action;
             }
             return e;
         }
@@ -46,7 +47,7 @@ namespace Fire_Pixel.Utility
     /// </summary>
     public class OneTimeAction<T>
     {
-        private event Action<T> internalAction;
+        private event Action<T> InternalAction;
         private bool hasExecuted;
         private T invokedValue;
         public bool HasExecuted => hasExecuted;
@@ -56,8 +57,8 @@ namespace Fire_Pixel.Utility
         {
             if (hasExecuted) return;
 
-            internalAction?.Invoke(value);
-            internalAction = null;
+            InternalAction?.Invoke(value);
+            InternalAction = null;
             hasExecuted = true;
             invokedValue = value;
         }
@@ -65,7 +66,7 @@ namespace Fire_Pixel.Utility
         {
             if (!e.hasExecuted)
             {
-                e.internalAction += action;
+                e.InternalAction += action;
             }
             else
             {
@@ -77,7 +78,7 @@ namespace Fire_Pixel.Utility
         {
             if (!e.hasExecuted)
             {
-                e.internalAction -= action;
+                e.InternalAction -= action;
             }
             return e;
         }

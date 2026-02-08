@@ -14,7 +14,7 @@ namespace Fire_Pixel.Networking
 
 
 #pragma warning disable UDR0001
-        public static OneTimeAction OnStartMatch_OnServer = new OneTimeAction();
+        public static OneTimeAction StartMatch_OnServer = new OneTimeAction();
         private int playerReadyCount;
 #pragma warning restore UDR0001
 
@@ -28,7 +28,7 @@ namespace Fire_Pixel.Networking
             playerReadyCount += 1;
             if (playerReadyCount == GlobalGameData.MaxPlayers)
             {
-                OnStartMatch_OnServer?.Invoke();
+                StartMatch_OnServer?.Invoke();
                 NetworkManager.Singleton.SceneManager.OnSynchronizeComplete -= ClientLoadedNetworkScene_ServerCallback;
 
                 DebugLogger.Log("Game Ready");

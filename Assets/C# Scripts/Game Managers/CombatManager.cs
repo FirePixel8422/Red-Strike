@@ -8,8 +8,9 @@ public class CombatManager : MonoBehaviour
     public static CombatManager Instance { get; private set; }
 
     [SerializeField] private PlayerStats defPlayerStats;
-
     [SerializeField] private CombatContext combatContext;
+
+    private static SyncedAction QuitGame = new SyncedAction();
 
 
     private void Awake()
@@ -24,8 +25,15 @@ public class CombatManager : MonoBehaviour
 
         combatContext = new CombatContext(playerStats);
 
-        TurnManager.OnTurnStarted += StartAttackingPhase;
+        TurnManager.TurnStarted += StartAttackingPhase;
+
+        QuitGame.Create();
+        QuitGame += () =>
+        {
+            Application.Quit();
+        };
     }
+
 
     public void StartAttackingPhase()
     {
@@ -47,7 +55,7 @@ public class CombatManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        TurnManager.OnTurnStarted -= StartAttackingPhase;
+        TurnManager.TurnStarted -= StartAttackingPhase;
     }
 
 
@@ -56,6 +64,8 @@ public class CombatManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             SkillManager.Instance.GlobalSkillList.SelectRandom().Resolve(combatContext, DefenseResult.None);
+
+            QuitGame.Schedule_ServerRPC(3);
         }
     }
 }
