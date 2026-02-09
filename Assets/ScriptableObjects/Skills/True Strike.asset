@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e328d94dd54b42742853a92270e0522e, type: 3}
-  m_Name: Bleeding Slash
+  m_Name: True Strike
   m_EditorClassIdentifier: Assembly-CSharp::BaseSkillSO
   Skill:
     rid: 8095730567407730876
@@ -22,8 +22,7 @@ MonoBehaviour:
       data:
         info:
           Name: Bleeding Slash
-          Description: Single quick slash that deals medium damage and applies 1
-            bleeding stack
+          Description: Single slow slash that deals low damage and low true damage
         costs:
           EnergyCost: 0
           HealthCost: 0
@@ -33,14 +32,12 @@ MonoBehaviour:
           PerfectParry: 0.1
         effects:
         - rid: 8095730677368750153
-        - rid: 8095730677368750154
+        - rid: 8095730704316104988
     - rid: 8095730677368750153
       type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
       data:
-        damage: 25
-    - rid: 8095730677368750154
-      type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
+        damage: 10
+    - rid: 8095730704316104988
+      type: {class: SkillTrueDamageEffect, ns: , asm: Assembly-CSharp}
       data:
-        ToApplyStatusEffect:
-          Type: 3
-          Duration: 2
+        trueDamage: 10

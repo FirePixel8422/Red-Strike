@@ -94,6 +94,9 @@ public class PlayerStats
         int effectCount = effectsList.Count;
         for (int i = 0; i < effectCount; i++)
         {
+            // Bleeding doesnt go away by itself
+            if (effectsList[i].Type == StatusEffectType.Bleeding) continue;
+
             int newDuration = effectsList[i].Duration;
             newDuration -= 1;
 

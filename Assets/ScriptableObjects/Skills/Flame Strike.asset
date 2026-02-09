@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e328d94dd54b42742853a92270e0522e, type: 3}
+  m_Name: Flame Strike
+  m_EditorClassIdentifier: Assembly-CSharp::BaseSkillSO
+  Skill:
+    rid: 8095730567407730876
+  references:
+    version: 2
+    RefIds:
+    - rid: 8095730567407730876
+      type: {class: SkillSimple, ns: , asm: Assembly-CSharp}
+      data:
+        info:
+          Name: Bleeding Slash
+          Description: Single quick slash that deals high damage and applies 1 burning
+            stack for 2 turns.
+        costs:
+          EnergyCost: 0
+          HealthCost: 0
+        DefenseWindows:
+          Block: 0.5
+          Parry: 0.25
+          PerfectParry: 0.1
+        effects:
+        - rid: 8095730677368750153
+        - rid: 8095730677368750154
+    - rid: 8095730677368750153
+      type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damage: 40
+    - rid: 8095730677368750154
+      type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
+      data:
+        ToApplyStatusEffect:
+          Type: 0
+          Duration: 2

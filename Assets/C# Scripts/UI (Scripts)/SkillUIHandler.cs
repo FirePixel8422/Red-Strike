@@ -2,15 +2,12 @@ using UnityEngine;
 
 public class SkillUIHandler : MonoBehaviour
 {
-    public static SkillUIHandler Instance { get; private set; }
-
-    [SerializeField] private SkillUIBlock[] skillUIBlocks;
+    private static SkillUIBlock[] skillUIBlocks;
+    private static TooltipHandler toolTipHandler;
 
 
     private void Awake()
     {
-        Instance = this;
-
         skillUIBlocks = GetComponentsInChildren<SkillUIBlock>(true);
     }
 
@@ -19,7 +16,30 @@ public class SkillUIHandler : MonoBehaviour
         int skillCount = weapon.Skills.Length;
         for (int i = 0; i < skillCount; i++)
         {
-            Instance.skillUIBlocks[i].UpdateUI(weapon.Skills[i].Skill.Info);
+            skillUIBlocks[i].UpdateUI(weapon.Skills[i].Skill.Info);
+        }
+        // Update tooltip systems
+        toolTipHandler.UpdateColoredWords();
+    }
+
+    public static void UpdateSkillsActiveState(bool isActive)
+    {
+        int skillCount = skillUIBlocks.Length;
+        for (int i = 0; i < skillCount; i++)
+        {
+            skillUIBlocks[i].UpdateSkillActiveState(isActive);
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Q))
+        {
+            UpdateSkillsActiveState(true);
+        }
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+            UpdateSkillsActiveState(false);
         }
     }
 }

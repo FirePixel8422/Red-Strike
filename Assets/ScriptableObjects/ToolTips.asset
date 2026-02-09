@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42f3e6260e0126e4fa09a4c341a6c365, type: 3}
+  m_Name: ToolTips
+  m_EditorClassIdentifier: Assembly-CSharp::ToolTipsSO
+  ToolTips:
+  - word: bleeding
+    wordColor: {r: 0.8113208, g: 0.12460067, b: 0.04133137, a: 1}
+    toolTip: Bleeding stacks deal 10 damage every turn untill healed.
+    width: 500
+    height: 150
+  - word: burning
+    wordColor: {r: 0.8490566, g: 0.4341402, b: 0.4341402, a: 1}
+    toolTip: Burning stacks deal 10 damage every turn.
+    width: 500
+    height: 100

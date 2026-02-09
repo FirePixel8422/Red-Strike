@@ -39,6 +39,7 @@ public class SkillBase
 public struct SkillInfo
 {
     public string Name;
+    [TextArea]
     public string Description;
 
     public static SkillInfo Default => new SkillInfo()
