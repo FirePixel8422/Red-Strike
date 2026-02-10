@@ -1,6 +1,7 @@
 using Fire_Pixel.Networking;
 using UnityEngine;
 
+
 public class SkillUIHandler : MonoBehaviour
 {
 #pragma warning disable UDR0001
@@ -14,8 +15,26 @@ public class SkillUIHandler : MonoBehaviour
         skillUIBlocks = GetComponentsInChildren<SkillUIBlock>(true);
         toolTipHandler = GetComponent<TooltipHandler>();
 
+        UpdateSkillUIActiveState(TurnState.Ended);
+
+        TurnManager.TurnChanged += OnGameStart;
         TurnManager.TurnStateChanged += UpdateSkillUIActiveState;
+
+        DebugLogger.LogError("DEBUG TEST");
     }
+    private void OnGameStart(int clientOnTurnGameId)
+    {
+        TurnState turnState = clientOnTurnGameId == ClientManager.LocalClientGameId ?
+            TurnState.Started :
+            TurnState.Ended;
+
+        DebugLogger.LogError("GaME sTARTED");
+        DebugLogger.LogError("You first", turnState == TurnState.Started);
+
+        UpdateSkillUIActiveState(turnState);
+        TurnManager.TurnChanged -= OnGameStart;
+    }
+
 
     private void UpdateSkillUIActiveState(TurnState state)
     {
@@ -42,5 +61,6 @@ public class SkillUIHandler : MonoBehaviour
     private void OnDestroy()
     {
         TurnManager.TurnStateChanged -= UpdateSkillUIActiveState;
+        TurnManager.TurnChanged -= OnGameStart;
     }
 }

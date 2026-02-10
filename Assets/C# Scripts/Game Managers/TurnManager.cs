@@ -1,6 +1,7 @@
 using Unity.Netcode;
 using UnityEngine;
 using System;
+using System.Data.Common;
 
 
 namespace Fire_Pixel.Networking
@@ -14,7 +15,7 @@ namespace Fire_Pixel.Networking
         private void Awake() => Instance = this;
 
 
-        [SerializeField] private int clientOnTurnId;
+        private int clientOnTurnId = -1;
         public static int ClientOnTurnId => Instance.clientOnTurnId;
 
         public static bool IsMyTurn => Instance.clientOnTurnId == LocalClientGameId;
@@ -31,44 +32,55 @@ namespace Fire_Pixel.Networking
         {
             if (IsServer)
             {
-                MatchManager.StartMatch_OnServer += StartGame_ServerRPC;
+                MatchManager.StartMatch_OnServer += StartGame_OnServer;
             }
         }
-
-        [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
-        public void StartGame_ServerRPC()
+        private void StartGame_OnServer()
         {
             clientOnTurnId = EzRandom.Range(0, GlobalGameData.MAX_PLAYERS);
-            OnTurnSwapped_ClientRPC(clientOnTurnId);
+
+            OnTurnSwapped_ClientRPC(clientOnTurnId, GameIdRPCTargets.SendToOppositeClient(0));
+            OnTurnSwapped_Local(clientOnTurnId);
         }
+
         [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
-        public void EndTurn_ServerRPC()
+        public void EndTurn_ServerRPC(ServerRpcParams rpcParams = default)
         {
+            ulong senderNetworkId = rpcParams.Receive.SenderClientId;
+            int senderGameId = ClientManager.GetClientGameId(senderNetworkId);
+
             clientOnTurnId.IncrementSmart(GlobalGameData.MAX_PLAYERS);
 
-            OnTurnSwapped_ClientRPC(clientOnTurnId);
+            OnTurnSwapped_ClientRPC(clientOnTurnId, GameIdRPCTargets.SendToOppositeClient(senderGameId));
+        }
+        [ClientRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
+        private void OnTurnSwapped_ClientRPC(int newClientTurnId, GameIdRPCTargets rpcTargets)
+        {
+            if (rpcTargets.IsTarget == false) return;
+
+            OnTurnSwapped_Local(newClientTurnId);
         }
 
-        [ClientRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
-        private void OnTurnSwapped_ClientRPC(int newClientTurnId)
+        private void OnTurnSwapped_Local(int newClientTurnId)
         {
             int prevClientOnTurnId = clientOnTurnId;
             clientOnTurnId = newClientTurnId;
 
+            // Invoke OnTurnChanged with new clientId.
+            TurnChanged?.Invoke(clientOnTurnId);
+
             // If it becomes or stays local clients turn, Invoke OnMyTurnStarted.
             if (IsMyTurn)
             {
-                TurnStarted?.Invoke();
                 TurnStateChanged?.Invoke(TurnState.Started);
+                TurnStarted?.Invoke();
             }
             // If its not local clients turn, check if they lost the turn and Invoke OnTurnEnded if so.
             else if (prevClientOnTurnId == LocalClientGameId)
             {
-                TurnEnded?.Invoke();
                 TurnStateChanged?.Invoke(TurnState.Ended);
+                TurnEnded?.Invoke();
             }
-            // Invoke OnTurnChanged with new clientId.
-            TurnChanged?.Invoke(clientOnTurnId);
         }
     }
 }

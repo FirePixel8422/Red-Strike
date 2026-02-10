@@ -20,6 +20,10 @@ namespace Fire_Pixel.Networking
         private static Coroutine heartBeatCo;
 #pragma warning restore UDR0001
 
+#if Enable_Debug_Logging
+        private static bool LogDebugInfo => ClientManager.Instance.LogDebugInfo;
+#endif
+
 
         /// <summary>
         /// Set the lobby reference for host and clients here and start heartbeat coroutine if called from the server (or host)
@@ -39,15 +43,6 @@ namespace Fire_Pixel.Networking
             await FileManager.SaveInfoAsync(new ValueWrapper<string>(LobbyId), LobbyMaker.REJOINDATA_PATH);
         }
 
-
-        /// <summary>
-        /// MUST be called on server. Deletes Lobby Async
-        /// </summary>
-        public async static Task DeleteLobbyAsync_OnServer()
-        {
-            await LobbyService.Instance.DeleteLobbyAsync(LobbyId);
-        }
-
         /// <summary>
         /// MUST be called on server. Deletes Lobby instantly
         /// </summary>
@@ -60,7 +55,6 @@ namespace Fire_Pixel.Networking
             }
 
             _ = UpdateLobbyDataAsync(LobbyId, LobbyMaker.LOBBY_TERMINATED_STR, "true");
-
             _ = LobbyService.Instance.DeleteLobbyAsync(LobbyId);
         }
 
@@ -104,7 +98,9 @@ namespace Fire_Pixel.Networking
 
                     CurrentLobby = await LobbyService.Instance.UpdateLobbyAsync(lobbyId, updateOptions);
 
-                    DebugLogger.Log($"Lobby updated: {key} = {value}");
+#if Enable_Debug_Logging
+                    DebugLogger.Log($"Lobby updated: {key} = {value}", LogDebugInfo);
+#endif
                 }
                 else
                 {

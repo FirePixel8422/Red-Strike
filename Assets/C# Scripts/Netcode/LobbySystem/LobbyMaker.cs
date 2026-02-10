@@ -79,6 +79,7 @@ namespace Fire_Pixel.Networking
 
                     bool lobbyAlive =
                         lobby != null &&
+                        lobby.Data[LOBBY_TERMINATED_STR].Value == "false" &&
                         DateTime.UtcNow.Ticks - long.Parse(lobby.Data[LOBBY_LAST_HEARTBEAT_STR].Value) < TimeSpan.FromSeconds(30).Ticks;
 
                     if (lobbyAlive)

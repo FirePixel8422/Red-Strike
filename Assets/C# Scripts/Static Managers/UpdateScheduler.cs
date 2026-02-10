@@ -31,13 +31,17 @@ namespace Fire_Pixel.Utility
 
             GameObject.DontDestroyOnLoad(gameManager.gameObject);
         }
+        public static void EnableNetworkTickEvents()
+        {
+            UpdateCallbackManager.Instance.EnableNetworkTickEvent();
+        }
 
 
         #region void Update
 
-        /// <summary>
-        /// Register a method to call every frame like Update()
-        /// </summary>
+            /// <summary>
+            /// Register a method to call every frame like Update()
+            /// </summary>
         public static void RegisterUpdate(Action action)
         {
             Update += action;
@@ -184,12 +188,18 @@ namespace Fire_Pixel.Utility
         /// </summary>
         private class UpdateCallbackManager : MonoBehaviour
         {
+            public static UpdateCallbackManager Instance { get; set; }
+
             public void Init()
             {
+                Instance = this;
                 gameObject.isStatic = true;
 
-                NetworkManager.Singleton.NetworkTickSystem.Tick += InvokeNetworkTick;
                 StartCoroutine(UpdateLoop());
+            }
+            public void EnableNetworkTickEvent()
+            {
+                NetworkManager.Singleton.NetworkTickSystem.Tick += InvokeNetworkTick;
             }
             private void InvokeNetworkTick()
             {
@@ -243,8 +253,6 @@ namespace Fire_Pixel.Utility
                 Update = null;
                 LateUpdate = null;
                 FixedUpdate = null;
-
-                NetworkManager.Singleton.NetworkTickSystem.Tick -= InvokeNetworkTick;
 
                 LateDestroy = null;
                 LateApplicationQuit = null;

@@ -17,10 +17,13 @@ namespace Fire_Pixel.Networking
         [Header("Scene to load when exiting a lobby for any reason")]
         [SerializeField] private string mainMenuSceneName = "MainMenu";
 
-        [Header("Log Debug information")]
-        [SerializeField] private bool logDebugInfo = true;
         [Space(8)]
         [SerializeField] private NetworkStruct<PlayerIdDataArray> playerIdDataArray = new NetworkStruct<PlayerIdDataArray>();
+
+#if Enable_Debug_Logging
+        [Header("Log Debug information")]
+        [SerializeField] public bool LogDebugInfo = true;
+#endif
 
 
         #region PlayerIdDataArray var get, set and sync methods
@@ -265,7 +268,9 @@ namespace Fire_Pixel.Networking
                 PlayerCount = NetworkManager.ConnectedClients.Count,
             });
 
-            DebugLogger.Log("Player " + GetClientGameId(clientNetworkId) + ", (NetworkId: " + clientNetworkId + "), connected to server!", logDebugInfo);
+#if Enable_Debug_Logging
+            DebugLogger.Log("Player " + GetClientGameId(clientNetworkId) + ", (NetworkId: " + clientNetworkId + "), connected to server!", LogDebugInfo);
+#endif
         }
 
         /// <summary>
@@ -273,7 +278,9 @@ namespace Fire_Pixel.Networking
         /// </summary>
         private void OnClientDisconnected_OnServer(ulong clientNetworkId)
         {
-            DebugLogger.Log("Player " + GetClientGameId(clientNetworkId) + ", (NetworkId: " + clientNetworkId + "), disconnected from server", logDebugInfo);
+#if Enable_Debug_Logging
+            DebugLogger.Log("Player " + GetClientGameId(clientNetworkId) + ", (NetworkId: " + clientNetworkId + "), disconnected from server", LogDebugInfo);
+#endif
 
             // If the diconnecting client is the host dont update data, the server is shut down anyways.
             if (clientNetworkId == 0) return;
@@ -314,9 +321,14 @@ namespace Fire_Pixel.Networking
             // If The host disconnected
             if (clientNetworkId == 0)
             {
+#if Enable_Debug_Logging
                 // Destroy the rejoin reference on the kicked client
                 bool deletionSucces = FileManager.TryDeleteFile(LobbyMaker.REJOINDATA_PATH);
-                DebugLogger.Log($"{LobbyMaker.REJOINDATA_PATH} deleted: " + deletionSucces, logDebugInfo);
+                DebugLogger.Log($"{LobbyMaker.REJOINDATA_PATH} deleted: " + deletionSucces, LogDebugInfo);
+#else
+                // Destroy the rejoin reference on the kicked client
+                FileManager.TryDeleteFile(LobbyMaker.REJOINDATA_PATH)
+#endif
 
                 if (MessageHandler.Instance != null)
                 {
