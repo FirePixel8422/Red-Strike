@@ -426,7 +426,7 @@ public static class ExtensionMethods
     }
 
     /// <summary>
-    /// Randomly shuffles the content of the array in place using Fisher–Yates.
+    /// Selects and returns a random entry of array.
     /// </summary>
     public static T SelectRandom<T>(this T[] targetArray)
     {

@@ -2,7 +2,7 @@
 
 
 
-[CreateAssetMenu(fileName = "New ToolTips list", menuName = "ScriptableObjects/ToolTipsSO", order = -1000)]
+[CreateAssetMenu(fileName = "New ToolTips list", menuName = "ScriptableObjects/Misc/ToolTipsSO", order = -1000)]
 public class ToolTipsSO : ScriptableObject
 {
     public ToolTipWord[] Data;
