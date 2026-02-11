@@ -25,7 +25,7 @@ public class SkillUIBlock : MonoBehaviour
     }
     private void AttackWithTargetSkill()
     {
-        CombatManager.Instance.Attack_ServerRPC(currentSkillId, ClientManager.LocalClientGameId);
+        CombatManager.Instance.Attack_ServerRPC(currentSkillId);
     }
 
     /// <summary>

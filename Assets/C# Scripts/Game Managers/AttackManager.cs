@@ -3,7 +3,7 @@ using Unity.Netcode;
 using UnityEngine;
 
 
-public static class DefenseManager
+public static class AttackManager
 {
 #pragma warning disable UDR0001
     private static DefenseWindowParameters defenseWindow;
@@ -11,8 +11,6 @@ public static class DefenseManager
 
     private static DefenseResult defenseResult;
     private static int skillId;
-
-    public static event Action<int, DefenseResult> AttackImpact;
 #pragma warning restore UDR0001
 
 
@@ -25,11 +23,13 @@ public static class DefenseManager
 
         defenseResult = DefenseResult.None;
         skillId = incomingSkillId;
-        AttackImpact = null;
 
         ExtensionMethods.Invoke(NetworkManager.Singleton, skill.AttackStartupTime, () =>
         {
-            AttackImpact.Invoke(skillId, defenseResult);
+            if (CombatManager.Instance != null)
+            {
+                CombatManager.Instance.ResolveAttack_OnDefender(skillId, defenseResult);
+            }
         });
     }
 

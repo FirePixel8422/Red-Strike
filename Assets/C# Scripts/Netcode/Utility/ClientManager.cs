@@ -50,13 +50,13 @@ namespace Fire_Pixel.Networking
 
         private void SendPlayerIdDataArrayChange_OnServer(PlayerIdDataArray newValue)
         {
-            ReceivePlayerIdDataArray_ClientRPC(newValue, NetworkIdRPCTargets.SendToAllButServer());
+            ReceivePlayerIdDataArray_ClientRPC(newValue, RPCTargetFilters.SendToAllButServer());
         }
 
         [ClientRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
-        private void ReceivePlayerIdDataArray_ClientRPC(PlayerIdDataArray newValue, NetworkIdRPCTargets rpcTargets)
+        private void ReceivePlayerIdDataArray_ClientRPC(PlayerIdDataArray newValue, ClientRpcParams rpcParams = default)
         {
-            if (rpcTargets.IsTarget == false) return;
+            if (IsHost && RPCTargetFilters.ShouldHostSkip(rpcParams)) return;
 
             playerIdDataArray.Value = newValue;
         }
@@ -65,13 +65,13 @@ namespace Fire_Pixel.Networking
         [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
         private void RequestPlayerIdDataArray_ServerRPC(ulong clientNetworkId)
         {
-            ReceiveSilentPlayerIdDataArray_ClientRPC(playerIdDataArray.Value, NetworkIdRPCTargets.SendToTargetClient(clientNetworkId));
+            ReceiveSilentPlayerIdDataArray_ClientRPC(playerIdDataArray.Value, RPCTargetFilters.SendToTargetClient(clientNetworkId));
         }
 
         [ClientRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
-        private void ReceiveSilentPlayerIdDataArray_ClientRPC(PlayerIdDataArray newValue, NetworkIdRPCTargets rpcTargets)
+        private void ReceiveSilentPlayerIdDataArray_ClientRPC(PlayerIdDataArray newValue, ClientRpcParams rpcParams = default)
         {
-            if (rpcTargets.IsTarget == false) return;
+            if (IsHost && RPCTargetFilters.ShouldHostSkip(rpcParams)) return;
 
             playerIdDataArray.SilentValue = newValue;
         }
@@ -168,9 +168,9 @@ namespace Fire_Pixel.Networking
         #region Send/Recieve Username and GUID and set that data in PlayerIdDataArray
 
         [ClientRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
-        private void RequestUsernameAndGUID_ClientRPC(int fromPlayerGameId, NetworkIdRPCTargets rpcTargets)
+        private void RequestUsernameAndGUID_ClientRPC(int fromPlayerGameId, ClientRpcParams rpcParams = default)
         {
-            if (rpcTargets.IsTarget == false) return;
+            if (IsHost && RPCTargetFilters.ShouldHostSkip(rpcParams)) return;
 
             SendUsernameAndGUID_ServerRPC(fromPlayerGameId, LocalUserName, LocalPlayerGUID);
         }
@@ -259,7 +259,7 @@ namespace Fire_Pixel.Networking
 
             playerIdDataArray.Value = updatedDataArray;
 
-            RequestUsernameAndGUID_ClientRPC(GetClientGameId(clientNetworkId), NetworkIdRPCTargets.SendToTargetClient(clientNetworkId));
+            RequestUsernameAndGUID_ClientRPC(GetClientGameId(clientNetworkId), RPCTargetFilters.SendToTargetClient(clientNetworkId));
 
             OnClientConnectedCallback?.Invoke(new ClientSessionContext()
             {

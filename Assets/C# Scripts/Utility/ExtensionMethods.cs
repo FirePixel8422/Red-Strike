@@ -408,22 +408,7 @@ public static class ExtensionMethods
     #endregion
 
 
-    /// <summary>
-    /// Get PlayerGameId through ClientManager using OwnerClientId.
-    /// </summary>
-    public static int GetOwnerClientGameId(this NetworkObject networkObj)
-    {
-        return ClientManager.GetClientGameId(networkObj.OwnerClientId);
-    }
-
-    /// <summary>
-    /// Try finding an action by name, returns true if found, false if not. Outputs the found action
-    /// </summary>
-    public static bool TryFindAction(this InputActionAsset actionAsset, string actionName, out InputAction action)
-    {
-        action = actionAsset.FindAction(actionName);
-        return action != null;
-    }
+    #region Array Utility
 
     /// <summary>
     /// Selects and returns a random entry of array.
@@ -454,5 +439,36 @@ public static class ExtensionMethods
     public static bool IsNullOrEmpty<T>(this T[] array)
     {
         return array == null || array.Length == 0;
+    }
+
+    #endregion
+
+
+    #region Netcode Utility
+
+    /// <summary>
+    /// Get PlayerGameId through ClientManager using OwnerClientId.
+    /// </summary>
+    public static int GetOwnerClientGameId(this NetworkObject networkObj)
+    {
+        return ClientManager.GetClientGameId(networkObj.OwnerClientId);
+    }
+    /// <summary>
+    /// Gets <see cref="ServerRpcParams.Receive"/>.SenderClientId and converts it to gameId using <see cref="ClientManager"/> gamdeId system
+    /// </summary>
+    public static int GetSenderClientGameId(this ServerRpcParams receive)
+    {
+        return ClientManager.GetClientGameId(receive.Receive.SenderClientId);
+    }
+
+    #endregion
+
+    /// <summary>
+    /// Try finding an action by name, returns true if found, false if not. Outputs the found action
+    /// </summary>
+    public static bool TryFindAction(this InputActionAsset actionAsset, string actionName, out InputAction action)
+    {
+        action = actionAsset.FindAction(actionName);
+        return action != null;
     }
 }

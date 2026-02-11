@@ -17,9 +17,12 @@ public static class WeaponManager
             SkillSets[i] = globalWeaponListSO.WeaponList[i].GetAsSkillSet();
         }
     }
-    public static void SwapToWeapon(int weaponId)
+    public static int SwapToRandomWeapon()
     {
-        ActiveWeapon_Local = SkillSets[weaponId];
+        int r = EzRandom.Range(0, SkillSets.Length);
+        ActiveWeapon_Local = SkillSets[r];
+
         SkillUIHandler.UpdateSkillUI(ActiveWeapon_Local);
+        return r;
     }
 }

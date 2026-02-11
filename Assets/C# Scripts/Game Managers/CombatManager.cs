@@ -25,31 +25,30 @@ public class CombatManager : NetworkBehaviour
     }
     private void Start()
     {
-        WeaponManager.SwapToWeapon(0);
+        WeaponManager.SwapToRandomWeapon();
     }
 
 
     [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
-    public void Attack_ServerRPC(int skillId, int attackerClientGameId)
+    public void Attack_ServerRPC(int skillId, ServerRpcParams rpcParams = default)
     {
-        StartDefensePhase_ClientRPC(skillId, GameIdRPCTargets.SendToOppositeClient(attackerClientGameId));
+        int attackerClientGameId = rpcParams.GetSenderClientGameId();
+
+        StartDefensePhase_ClientRPC(skillId, RPCTargetFilters.SendToOppositeClient(attackerClientGameId));
     }
     [ClientRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
-    private void StartDefensePhase_ClientRPC(int skillId, GameIdRPCTargets rpcTargets)
+    private void StartDefensePhase_ClientRPC(int skillId, ClientRpcParams rpcParams = default)
     {
-        if (rpcTargets.IsTarget == false) return;
+        if (IsHost && RPCTargetFilters.ShouldHostSkip(rpcParams)) return;
 
-        DefenseManager.StartAttackSequence(skillId);
-        DefenseManager.AttackImpact += ResolveAttack;
+        AttackManager.StartAttackSequence(skillId);
     }
 
 
     #region Resolve Attack on defender and attacker
 
-    private void ResolveAttack(int skillId, DefenseResult defenseResult)
+    public void ResolveAttack_OnDefender(int skillId, DefenseResult defenseResult)
     {
-        DefenseManager.AttackImpact -= ResolveAttack;
-
         ResolveAttack_ServerRPC(skillId, defenseResult);
         ResolveAttack_Local(skillId, defenseResult);
     }
@@ -58,13 +57,13 @@ public class CombatManager : NetworkBehaviour
     {
         int attackerClientGameId = ClientManager.GetClientGameId(rpcParams.Receive.SenderClientId);
 
-        ResolveAttack_ClientRPC(skillId, defenseResult, GameIdRPCTargets.SendToOppositeClient(attackerClientGameId));
+        ResolveAttack_ClientRPC(skillId, defenseResult, RPCTargetFilters.SendToOppositeClient(attackerClientGameId));
     }
 
     [ClientRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
-    private void ResolveAttack_ClientRPC(int skillId, DefenseResult defenseResult, GameIdRPCTargets rpcTargets)
+    private void ResolveAttack_ClientRPC(int skillId, DefenseResult defenseResult, ClientRpcParams rpcParams = default)
     {
-        if (rpcTargets.IsTarget == false) return;
+        if (IsHost && RPCTargetFilters.ShouldHostSkip(rpcParams)) return;
 
         ResolveAttack_Local(skillId, defenseResult);
     }
@@ -84,6 +83,5 @@ public class CombatManager : NetworkBehaviour
     public override void OnDestroy()
     {
         base.OnDestroy();
-        DefenseManager.AttackImpact -= ResolveAttack;
     }
 }

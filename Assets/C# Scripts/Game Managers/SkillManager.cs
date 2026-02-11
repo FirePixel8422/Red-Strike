@@ -5,7 +5,6 @@ public static class SkillManager
 {
     public static SkillBase[] GlobalSkillList { get; private set; }
 
-
     public static void Init(GlobalSkillListSO globalSkillListSO)
     {
         int skillCount = globalSkillListSO.SkillList.Length;
