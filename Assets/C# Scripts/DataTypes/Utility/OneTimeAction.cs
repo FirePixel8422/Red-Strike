@@ -5,7 +5,7 @@ namespace Fire_Pixel.Utility
 {
     /// <summary>
     /// Container that stores an <see cref="Action"/> which can be subscribed to and is invoked only once.
-    /// If subscribed too after invoke already happened, call the subscriber instantly
+    /// If subscribed to after invoke already happened, call the subscriber instantly
     /// </summary>
     public class OneTimeAction
     {
@@ -43,7 +43,7 @@ namespace Fire_Pixel.Utility
     }
 
     /// <summary>
-    /// Container that stores an <see cref="Action{T}"/> which can be subscribed to and is invoked only once. If subscribed too after invoke already happened, call the subscriber instantly
+    /// Container that stores an <see cref="Action{T}"/> which can be subscribed to and is invoked only once. If subscribed to after invoke already happened, call the subscriber instantly
     /// </summary>
     public class OneTimeAction<T>
     {

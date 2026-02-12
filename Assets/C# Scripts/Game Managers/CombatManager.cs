@@ -1,6 +1,7 @@
 using Fire_Pixel.Networking;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 
 public class CombatManager : NetworkBehaviour
@@ -9,6 +10,9 @@ public class CombatManager : NetworkBehaviour
 
     [SerializeField] private CombatContext combatContext;
     private bool canDefend;
+
+    [SerializeField] private InputActionReference BlockInput;
+    [SerializeField] private InputActionReference ParryInput;
 
 
     private void Awake()
@@ -20,7 +24,6 @@ public class CombatManager : NetworkBehaviour
         {
             playerStats[i] = GameRules.DefaultPlayerStats.GetStatsCopy();
         }
-
         combatContext = new CombatContext(playerStats);
     }
     private void Start()

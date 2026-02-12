@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-[ExecuteAlways]
+
 public class AutoSizeBackground : UpdateMonoBehaviour
 {
     [SerializeField] private RectTransform background;
@@ -13,24 +13,22 @@ public class AutoSizeBackground : UpdateMonoBehaviour
 
     private void Awake()
     {
-        if (background != null)
-        {
-            // Calculate the initial right edge position in local space
-            initialRightEdgeX = background.anchoredPosition.x + background.sizeDelta.x * (1 - background.pivot.x);
-        }
+        // Calculate the initial right edge position in local space
+        initialRightEdgeX = background.anchoredPosition.x + background.sizeDelta.x * (1 - background.pivot.x);
+    }
+    private void Start()
+    {
+        text.ForceMeshUpdate();
+        UpdateUIScaling();
     }
 
-    protected override void OnUpdate()
+    protected override void OnUpdate() => UpdateUIScaling();
+    private void UpdateUIScaling()
     {
-        if (background == null || text == null) return;
-
-        // Get current text width
+        // Get current text width and scale background to it
         float textWidth = text.GetRenderedValues(false).x;
-
-        // Update background width
         Vector2 size = background.sizeDelta;
         size.x = textWidth + extraSizeDeltaX;
-
         background.sizeDelta = size;
 
         // Keep the **right edge fixed**, adjust anchoredPosition

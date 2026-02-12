@@ -1,12 +1,26 @@
+using Fire_Pixel.Utility;
 using System.Linq;
 using System.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
 public class RebindManager : MonoBehaviour
 {
+    public static RebindManager Instance { get; private set; }
+
+#pragma warning disable UDR0001
+    public static OneTimeAction RebindsReloaded = new OneTimeAction();
+#pragma warning restore UDR0001
+
+
     [SerializeField] private InputActionAsset inputActions;
     [SerializeField] private InputActionReference cancelRebindAction;
+
+    [SerializeField] private GameObject rebindPopupObj;
+    [SerializeField] private TextMeshProUGUI toRebindControlText;
+
 
     private InputActionRebindingExtensions.RebindingOperation currentOperation;
 
@@ -28,8 +42,9 @@ public class RebindManager : MonoBehaviour
         cancelRebindAction.action.Disable();
     }
 
-    private void Start()
+    private void Awake()
     {
+        Instance = this;
         _ = LoadRebindsAsync();
     }
 
@@ -42,7 +57,7 @@ public class RebindManager : MonoBehaviour
     }
 
 
-    public void StartRebind(string actionName, string bindingId)
+    public void StartRebind(string actionName, string bindingId, TextMeshProUGUI rebindKeyText)
     {
         if (currentOperation != null)
         {
@@ -73,6 +88,8 @@ public class RebindManager : MonoBehaviour
         }
 
         action.Disable();
+        rebindPopupObj.SetActive(true);
+        toRebindControlText.text = $"Rebinding '{actionName}' ({action.GetBindingDisplayString(bindingIndex)})";
 
         currentOperation = action
             .PerformInteractiveRebinding(bindingIndex)
@@ -90,6 +107,9 @@ public class RebindManager : MonoBehaviour
                     logRebindOperations
                 );
 
+                rebindKeyText.text = action.GetBindingDisplayString(bindingIndex);
+                rebindPopupObj.SetActive(false);
+
                 Cleanup(action, operation);
                 _ = SaveRebindsAsync();
             });
@@ -100,6 +120,7 @@ public class RebindManager : MonoBehaviour
     public void CancelRebind()
     {
         currentOperation?.Cancel();
+        rebindPopupObj.SetActive(false);
     }
     private void Cleanup(InputAction action, InputActionRebindingExtensions.RebindingOperation operation)
     {
@@ -116,6 +137,7 @@ public class RebindManager : MonoBehaviour
         if (success && !string.IsNullOrEmpty(rebindJson.Value))
         {
             inputActions.LoadBindingOverridesFromJson(rebindJson.Value);
+            RebindsReloaded.Invoke();
             DebugLogger.Log("Rebinds loaded.", logRebindOperations);
         }
     }
@@ -152,5 +174,6 @@ public class RebindManager : MonoBehaviour
     private void OnDestroy()
     {
         CancelRebind();
+        RebindsReloaded = null;
     }
 }

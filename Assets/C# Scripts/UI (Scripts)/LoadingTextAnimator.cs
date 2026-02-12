@@ -11,7 +11,7 @@ public class LoadingTextAnimator : UpdateMonoBehaviour
     private float time;
 
 
-    private void Start()
+    private void Awake()
     {
         loadingText = loadingtext.text;
         time = animationSpeed * 2;
