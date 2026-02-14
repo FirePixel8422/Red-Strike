@@ -22,6 +22,9 @@ public class HUDHandler : MonoBehaviour
         canvasGroup = GetComponent<CanvasGroup>();
     }
 
+
+    #region Fade In/Out system
+
     public void FadeIn()
     {
         Instance.screenBlock.enabled = false;
@@ -52,6 +55,9 @@ public class HUDHandler : MonoBehaviour
             UpdateScheduler.UnRegisterUpdate(FadeOutSequence);
         }
     }
+
+    #endregion
+
 
     private void OnDestroy()
     {

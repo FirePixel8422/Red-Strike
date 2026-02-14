@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 
 
-
 public class DataInitializer : MonoBehaviour
 {
     [SerializeField] private DefaultPlayerStatsSO defPlayerStats;
