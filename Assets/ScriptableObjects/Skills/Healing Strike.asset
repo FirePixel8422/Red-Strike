@@ -22,7 +22,7 @@ MonoBehaviour:
       data:
         info:
           Name: Healing Strike
-          Description: Deals no damage. Restores 15 health and cleanses
+          Description: Deals no damage. Restores 25 health and cleanses
         costs:
           Type: 1
           Amount: 3
@@ -37,8 +37,8 @@ MonoBehaviour:
     - rid: 9051887009059045537
       type: {class: SkillRestoreEffect, ns: , asm: Assembly-CSharp}
       data:
-        ToAddHealth: 15
-        ToAddEnergy: 0
+        type: 0
+        amount: 25
     - rid: 9051887009059045538
       type: {class: SkillCleanseEffect, ns: , asm: Assembly-CSharp}
       data:

@@ -28,10 +28,31 @@ public class SkillUIBlock : MonoBehaviour
     public void Init()
     {
         button.enabled = true;
-        button.onClick.AddListener(() =>
+        button.onClick.AddListener(UseSkill);
+    }
+
+    private void UseSkill()
+    {
+        SkillUIManager.Instance.UpdateSkillUIActiveState(false);
+
+        SkillCosts skillCosts = SkillManager.GlobalSkillList[currentSkillId].Costs;
+        if (skillCosts.Amount > 0)
         {
-            CombatManager.Instance.Attack_ServerRPC(currentSkillId);
-        });
+            switch (skillCosts.Type)
+            {
+                case PlayerResourceType.Health:
+                    PlayerStats.Local.TakeDamage(skillCosts.Amount);
+                    break;
+
+                case PlayerResourceType.Energy:
+                    PlayerStats.Local.SpendEnergy(skillCosts.Amount);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+        CombatManager.Instance.Attack_ServerRPC(currentSkillId);
     }
 
     /// <summary>

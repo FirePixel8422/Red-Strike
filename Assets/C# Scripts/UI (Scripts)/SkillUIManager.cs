@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SkillUIManager : MonoBehaviour
 {
+    public static SkillUIManager Instance { get; private set; }
+
 #pragma warning disable UDR0001
     private static SkillUIBlock[] skillUIBlocks;
     private static TooltipHandler toolTipHandler;
@@ -12,11 +14,15 @@ public class SkillUIManager : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
+
         skillUIBlocks = GetComponentsInChildren<SkillUIBlock>(true);
         toolTipHandler = GetComponent<TooltipHandler>();
 
+        UpdateSkillUIActiveState(false);
+
         TurnManager.TurnChanged += OnGameStart;
-        TurnManager.TurnStateChanged += UpdateSkillUIActiveState;
+        TurnManager.TurnStarted += OnTurnStarted;
     }
     private void OnGameStart(int clientOnTurnGameId)
     {
@@ -28,22 +34,16 @@ public class SkillUIManager : MonoBehaviour
             skillUIBlocks[i].Init();
         }
 
-        TurnState turnState = clientOnTurnGameId == ClientManager.LocalClientGameId ?
-            TurnState.Started :
-            TurnState.Ended;
-
-        UpdateSkillUIActiveState(turnState);
+        UpdateSkillUIActiveState(TurnManager.IsMyTurn);
     }
 
-
-    private void UpdateSkillUIActiveState(TurnState state)
+    private void OnTurnStarted() => UpdateSkillUIActiveState(true);
+    public void UpdateSkillUIActiveState(bool state)
     {
-        bool isActive = state == TurnState.Started;
-
         int skillSlotCount = skillUIBlocks.Length;
         for (int i = 0; i < skillSlotCount; i++)
         {
-            skillUIBlocks[i].UpdateSkillActiveState(isActive);
+            skillUIBlocks[i].UpdateSkillActiveState(state);
         }
     }
 
@@ -67,6 +67,6 @@ public class SkillUIManager : MonoBehaviour
     private void OnDestroy()
     {
         TurnManager.TurnChanged -= OnGameStart;
-        TurnManager.TurnStateChanged -= UpdateSkillUIActiveState;
+        TurnManager.TurnStarted -= OnTurnStarted;
     }
 }

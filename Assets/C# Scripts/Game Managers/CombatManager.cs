@@ -91,6 +91,8 @@ public class CombatManager : SmartNetworkBehaviour
     {
         ResolveAttack_ServerRPC(skillId, defenseResult);
         ResolveAttack_Local(skillId, defenseResult);
+
+        TurnManager.Instance.EndTurn_ServerRPC();
     }
     [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
     private void ResolveAttack_ServerRPC(int skillId, DefenseResult defenseResult, ServerRpcParams rpcParams = default)
@@ -113,8 +115,6 @@ public class CombatManager : SmartNetworkBehaviour
 
         DebugLogger.LogError("Defender Health: " + combatContext.Defender.Health);
         DebugLogger.LogError("Defender Effect Count: " + combatContext.Defender.EffectsList.Count);
-
-        TurnManager.Instance.EndTurn_ServerRPC();
     }
 
     #endregion

@@ -35,7 +35,7 @@ public class PlayerStats
 
     public void Heal(float amount)
     {
-        DebugLogger.Assert("amount MUST be > 0", amount <= 0f);
+        DebugLogger.LogError("amount MUST be > 0", amount <= 0f);
         for (int i = effectsList.Count - 1; i >= 0; i--)
         {
             if (effectsList[i].Type == StatusEffectType.Bleeding)
@@ -44,12 +44,12 @@ public class PlayerStats
             }
         }
 
-        Health += amount;
+        Health = math.clamp(Health + amount, 0, GameRules.DefaultPlayerStats.MaxHealth);
         UpdateHealthBar();
     }
     public void TakeDamage(float amount)
     {
-        DebugLogger.Assert("amount MUST be > 0", amount <= 0f);
+        DebugLogger.LogError("amount MUST be > 0", amount <= 0f);
 
         Health -= amount;
         UpdateHealthBar();
@@ -57,14 +57,14 @@ public class PlayerStats
 
     public void RestoreEnergy(float amount)
     {
-        DebugLogger.Assert("amount MUST be > 0", amount <= 0f);
+        DebugLogger.LogError("amount MUST be > 0", amount <= 0f);
 
-        Energy += amount;
+        Energy = math.clamp(Energy + amount, 0, GameRules.DefaultPlayerStats.MaxEnergy);
         UpdateEnergyBar();
     }
     public void SpendEnergy(float amount)
     {
-        DebugLogger.Assert("amount MUST be > 0", amount <= 0f);
+        DebugLogger.LogError("amount MUST be > 0", amount <= 0f);
 
         Energy -= amount;
         UpdateEnergyBar();
@@ -181,7 +181,7 @@ public class PlayerStats
     public void CleanseStatusEffects()
     {
         int effectCount = effectsList.Count;
-        for (int i = 0; i < effectCount; i++)
+        for (int i = effectCount - 1; i >= 0; i--)
         {
             StatusEffectType type = effectsList[i].Type;
             
@@ -189,7 +189,6 @@ public class PlayerStats
             if (type != StatusEffectType.Empowered)
             {
                 effectsList.RemoveAtSwapBack(i);
-                i--;
             }
         }
     }

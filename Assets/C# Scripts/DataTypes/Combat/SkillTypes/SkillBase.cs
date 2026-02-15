@@ -12,7 +12,7 @@ public class SkillBase
 
     [SerializeField] private SkillInfo info = SkillInfo.Default;
     [SerializeField] private SkillCosts costs = SkillCosts.Default;
-    [SerializeField] private DefenseWindowParameters defenseWindows = new DefenseWindowParameters(0.5f, 0.25f, 0.1f);
+    [SerializeField] private DefenseWindowParameters defenseWindows = DefenseWindowParameters.Default;
     [SerializeField] private float attackStartupTime;
 
     [SerializeReference] public SkillBaseEffect[] effects;
@@ -61,5 +61,20 @@ public struct SkillCosts
     {
         Type = PlayerResourceType.Energy,
         Amount = 0,
+    };
+}
+
+[System.Serializable]
+public struct DefenseWindowParameters
+{
+    public float Block;
+    public float Parry;
+    public float PerfectParry;
+
+    public static DefenseWindowParameters Default => new DefenseWindowParameters()
+    {
+        Block = 0.75f,
+        Parry = 0.4f,
+        PerfectParry = 0.15f,
     };
 }
