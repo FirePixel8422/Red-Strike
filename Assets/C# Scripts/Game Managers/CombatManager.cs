@@ -40,6 +40,14 @@ public class CombatManager : SmartNetworkBehaviour
     protected override void OnNetworkSystemsSetupPostStart()
     {
         PlayerStats.Local = combatContext.Players[LocalClientGameId];
+        for (int i = 0; i < GlobalGameData.MAX_PLAYERS; i++)
+        {
+            combatContext.Players[i].UpdateHealthBar();
+            combatContext.Players[i].UpdateEnergyBar();
+        }
+
+        TurnManager.TurnStarted += PlayerStats.Local.ApplyAndTickDownStatusEffects;
+
         WeaponManager.SwapToRandomWeapon();
     }
 
@@ -115,6 +123,8 @@ public class CombatManager : SmartNetworkBehaviour
     public override void OnDestroy()
     {
         base.OnDestroy();
+
+        TurnManager.TurnStarted -= PlayerStats.Local.ApplyAndTickDownStatusEffects;
 
         blockInput.action.performed -= OnBlock;
         blockInput.action.Disable();

@@ -15,25 +15,13 @@ public class PlayerStats
     public float Health
     {
         get => Resources[(int)PlayerResourceType.Health];
-        set
-        {
-            // If player healed
-            if (Resources[(int)PlayerResourceType.Health] < value)
-            {
-
-            }
-            Resources[(int)PlayerResourceType.Health] = value;
-        }
+        private set => Resources[(int)PlayerResourceType.Health] = value;
     }
     public float Energy
     {
         get => Resources[(int)PlayerResourceType.Energy];
-        set => Resources[(int)PlayerResourceType.Energy] = value;
+        private set => Resources[(int)PlayerResourceType.Energy] = value;
     }
-
-    [SerializeField] private List<StatusEffectInstance> effectsList = new List<StatusEffectInstance>();
-    public List<StatusEffectInstance> EffectsList => effectsList;
-
 
     public PlayerStats(float health, int energy)
     {
@@ -41,6 +29,71 @@ public class PlayerStats
         Health = health;
         Energy = energy;
     }
+
+
+    #region Update Resources and auto update UI bars
+
+    public void Heal(float amount)
+    {
+        DebugLogger.Assert("amount MUST be > 0", amount <= 0f);
+        for (int i = effectsList.Count - 1; i >= 0; i--)
+        {
+            if (effectsList[i].Type == StatusEffectType.Bleeding)
+            {
+                effectsList.RemoveAtSwapBack(i);
+            }
+        }
+
+        Health += amount;
+        UpdateHealthBar();
+    }
+    public void TakeDamage(float amount)
+    {
+        DebugLogger.Assert("amount MUST be > 0", amount <= 0f);
+
+        Health -= amount;
+        UpdateHealthBar();
+    }
+
+    public void RestoreEnergy(float amount)
+    {
+        DebugLogger.Assert("amount MUST be > 0", amount <= 0f);
+
+        Energy += amount;
+        UpdateEnergyBar();
+    }
+    public void SpendEnergy(float amount)
+    {
+        DebugLogger.Assert("amount MUST be > 0", amount <= 0f);
+
+        Energy -= amount;
+        UpdateEnergyBar();
+    }
+
+    public void UpdateHealthBar()
+    {
+        float healthPercent01 = Health / GameRules.DefaultPlayerStats.MaxHealth;
+
+        ResourceBarUI healthBar = this == Local ? HUDHandler.Instance.LocalHealthBar : HUDHandler.Instance.OpponentHealthBar;
+        healthBar?.UpdateBar(healthPercent01);
+    }
+    public void UpdateEnergyBar()
+    {
+        float energyPercent01 = math.round(Energy / GameRules.DefaultPlayerStats.MaxEnergy * 10) * 0.1f;
+
+        // other client doesn’t update your energy bar
+        if (this == Local)
+        { 
+            HUDHandler.Instance.LocalEnergyBar.UpdateBar(energyPercent01);
+        }
+    }
+
+    #endregion
+
+
+    [SerializeField] private List<StatusEffectInstance> effectsList = new List<StatusEffectInstance>();
+    public List<StatusEffectInstance> EffectsList => effectsList;
+
 
 
     #region Status Effects
@@ -99,7 +152,7 @@ public class PlayerStats
     public void ApplyAndTickDownStatusEffects()
     {
         int effectCount = effectsList.Count;
-        for (int i = 0; i < effectCount; i++)
+        for (int i = effectCount - 1; i >= 0; i--)
         {
             // Bleeding doesnt go away by itself
             if (effectsList[i].Type == StatusEffectType.Bleeding) continue;
@@ -110,7 +163,6 @@ public class PlayerStats
             if (newDuration <= 0)
             {
                 effectsList.RemoveAtSwapBack(i);
-                i--;
                 continue;
             }
 

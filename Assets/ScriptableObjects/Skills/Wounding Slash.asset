@@ -25,8 +25,8 @@ MonoBehaviour:
           Description: Single slow slash that deals low damage and applies 2 bleeding
             stacks.
         costs:
-          Type: 0
-          Amount: 0
+          Type: 1
+          Amount: 2
         defenseWindows:
           Block: 0.5
           Parry: 0.25

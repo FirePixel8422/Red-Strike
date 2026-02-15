@@ -1,13 +1,22 @@
 ﻿using Fire_Pixel.Utility;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
 
 [RequireComponent(typeof(CanvasGroup))]
-public class HUDHandler : MonoBehaviour
+public class HUDHandler : NetworkBehaviour
 {
     public static HUDHandler Instance { get; private set; }
 
+
+    [SerializeField] private ResourceBarUI localHealthBar, opponentHealthBar;
+    [SerializeField] private ResourceBarUI localEnergyBar;
+    public ResourceBarUI LocalHealthBar => localHealthBar;
+    public ResourceBarUI OpponentHealthBar => opponentHealthBar;
+    public ResourceBarUI LocalEnergyBar => localEnergyBar;
+
+    [Space(15)]
 
     [SerializeField] private float fadeOutTime;
     [SerializeField] private float fadeInTime;
@@ -59,9 +68,28 @@ public class HUDHandler : MonoBehaviour
     #endregion
 
 
-    private void OnDestroy()
+    public override void OnDestroy()
     {
+        base.OnDestroy();
+
         UpdateScheduler.UnRegisterUpdate(FadeInSequence);
         UpdateScheduler.UnRegisterUpdate(FadeOutSequence);
+    }
+
+
+    private float value01;
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            value01 += 0.1f;
+            localEnergyBar.UpdateBar(value01);
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            value01 -= 0.1f;
+            localEnergyBar.UpdateBar(value01);
+        }
     }
 }

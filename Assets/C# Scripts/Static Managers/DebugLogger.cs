@@ -45,4 +45,9 @@ public static class DebugLogger
             throw new System.Exception(message.ToString());
         }
     }
+    [System.Diagnostics.Conditional(ScriptingDefineSymbol)]
+    public static void Assert(object message, bool assertCondition = true)
+    {
+        Debug.Assert(assertCondition, message);
+    }
 }

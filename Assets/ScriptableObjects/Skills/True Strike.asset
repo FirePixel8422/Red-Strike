@@ -22,10 +22,9 @@ MonoBehaviour:
       data:
         info:
           Name: True Strike
-          NameColor: {r: 0.9924528, g: 0.7553597, b: 0.73965824, a: 1}
           Description: Single slow slash that deals low damage and low true damage
         costs:
-          Type: 0
+          Type: 1
           Amount: 2
         defenseWindows:
           Block: 0.5

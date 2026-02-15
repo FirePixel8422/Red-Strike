@@ -26,7 +26,7 @@ namespace Fire_Pixel.Utility
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Initialize()
         {
-            UpdateCallbackManager gameManager = new GameObject("UpdateCallbackManager").AddComponent<UpdateCallbackManager>();
+            UpdateCallbackManager gameManager = new GameObject(">>UpdateScheduler<<").AddComponent<UpdateCallbackManager>();
             gameManager.Init();
 
             GameObject.DontDestroyOnLoad(gameManager.gameObject);

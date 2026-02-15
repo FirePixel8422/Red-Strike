@@ -13,7 +13,7 @@ public class SkillRestoreEffect : SkillBaseEffect
 
     public override void Resolve(CombatContext ctx, DefenseAbsorptionParameters absorptionParams)
     {
-        ctx.Attacker.Energy += ToAddEnergy;
-        ctx.Attacker.Health += ToAddHealth;
+        ctx.Attacker.Heal(ToAddHealth);
+        ctx.Attacker.RestoreEnergy(ToAddEnergy);
     }
 }
