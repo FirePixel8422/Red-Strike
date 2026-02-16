@@ -11,10 +11,12 @@ public class DataInitializer : MonoBehaviour
     [SerializeField] private GlobalWeaponListSO globalWeaponListSO;
     [SerializeField] private GlobalSkillListSO globalSkillListSO;
 
+    [SerializeField] private MatchSettingsSO matchSettingsSO;
+
 
     private void Awake()
     {
-        GameRules.SetGameRules(defPlayerStats, statusEffectsRulesSO.StatusRules, defenseRulesSO.DefenseStrengthRules);
+        GameRules.SetGameRules(defPlayerStats, statusEffectsRulesSO.StatusRules, defenseRulesSO.DefenseStrengthRules, matchSettingsSO.Value);
 
         SkillManager.Init(globalSkillListSO);
         WeaponManager.Init(globalWeaponListSO);

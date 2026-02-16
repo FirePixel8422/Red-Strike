@@ -10,13 +10,15 @@ public static class GameRules
     public static DefaultPlayerStatsSO DefaultPlayerStats { get; private set; }
     public static StatusEffectRules StatusEffects { get; private set; }
     public static DefenseRules DefenseStrengths { get; private set; }
+    public static MatchSettings MatchSettings { get; private set; }
 #pragma warning restore UDR0001
 
-    public static void SetGameRules(DefaultPlayerStatsSO defaultPlayerStats, StatusEffectRules newStatusRules, DefenseRules newDefenseRules)
+    public static void SetGameRules(DefaultPlayerStatsSO defaultPlayerStats, StatusEffectRules newStatusRules, DefenseRules newDefenseRules, MatchSettings matchSettings)
     {
         DefaultPlayerStats = defaultPlayerStats;
         StatusEffects = newStatusRules;
         DefenseStrengths = newDefenseRules;
+        MatchSettings = matchSettings;
     }
 
     public static BaseStatusEffectRules GetStatusApplyOptions(StatusEffectType statusType)

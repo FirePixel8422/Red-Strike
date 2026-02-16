@@ -37,26 +37,19 @@ namespace Fire_Pixel.Networking
         {
             clientOnTurnId = EzRandom.Range(0, GlobalGameData.MAX_PLAYERS);
 
-            OnTurnSwapped_ClientRPC(clientOnTurnId, RPCTargetFilters.SendToOppositeClient(0));
-            OnTurnSwapped_Local(clientOnTurnId);
+            OnTurnSwapped_ClientRPC(clientOnTurnId);
         }
 
         [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
-        public void EndTurn_ServerRPC(ServerRpcParams rpcParams = default)
+        public void EndTurn_ServerRPC()
         {
-            ulong senderNetworkId = rpcParams.Receive.SenderClientId;
-            int senderGameId = ClientManager.GetClientGameId(senderNetworkId);
-
             clientOnTurnId.IncrementSmart(GlobalGameData.MAX_PLAYERS);
 
-            OnTurnSwapped_ClientRPC(clientOnTurnId, RPCTargetFilters.SendToOppositeClient(senderGameId));
-            OnTurnSwapped_Local(clientOnTurnId);
+            OnTurnSwapped_ClientRPC(clientOnTurnId);
         }
         [ClientRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
-        private void OnTurnSwapped_ClientRPC(int newClientTurnId, ClientRpcParams rpcParams = default)
+        private void OnTurnSwapped_ClientRPC(int newClientTurnId)
         {
-            if (IsHost && RPCTargetFilters.ShouldHostSkip(rpcParams)) return;
-
             OnTurnSwapped_Local(newClientTurnId);
         }
 

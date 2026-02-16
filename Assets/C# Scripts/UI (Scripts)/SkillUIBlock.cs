@@ -75,11 +75,14 @@ public class SkillUIBlock : MonoBehaviour
             currentResourceCostId = -1;
 
             canAfford = true;
+            UpdateSkillActiveState(canAfford);
             return;
         }
 
         int playerResourceId = (int)skill.Costs.Type;
         canAfford = PlayerStats.Local.Resources[playerResourceId] >= skill.Costs.Amount;
+
+        UpdateSkillActiveState(canAfford);
 
         resourceCostUIs[playerResourceId].Enable(skill.Costs.Amount, canAfford);
 

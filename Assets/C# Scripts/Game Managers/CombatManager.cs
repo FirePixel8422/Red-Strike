@@ -26,7 +26,6 @@ public class CombatManager : SmartNetworkBehaviour
         }
         combatContext = new CombatContext(playerStats);
 
-
         blockInput.action.performed += OnBlock;
         parryInput.action.performed += OnParry;
 
@@ -40,15 +39,31 @@ public class CombatManager : SmartNetworkBehaviour
     protected override void OnNetworkSystemsSetupPostStart()
     {
         PlayerStats.Local = combatContext.Players[LocalClientGameId];
+        PlayerStats.Local.DEBUG_ISLOCAL = true;
+
+        PlayerStats.Oponnent = combatContext.Players[LocalClientGameId == 0 ? 1 : 0];
+        PlayerStats.Oponnent.DEBUG_ISOPONNENT = true;
+
         for (int i = 0; i < GlobalGameData.MAX_PLAYERS; i++)
         {
             combatContext.Players[i].UpdateHealthBar();
             combatContext.Players[i].UpdateEnergyBar();
         }
 
-        TurnManager.TurnStarted += PlayerStats.Local.ApplyAndTickDownStatusEffects;
+        TurnManager.TurnStarted += OnTurnStarted;
+        TurnManager.TurnEnded += OnTurnEnded;
+    }
 
+    private void OnTurnStarted()
+    {
         WeaponManager.SwapToRandomWeapon();
+
+        PlayerStats.Local.ApplyAndTickDownStatusEffects();
+        PlayerStats.Local.RestoreEnergy(GameRules.MatchSettings.PassiveEnergyGain);
+    }
+    private void OnTurnEnded()
+    {
+        PlayerStats.Oponnent.ApplyAndTickDownStatusEffects();
     }
 
     private void OnBlock(InputAction.CallbackContext ctx)
@@ -112,10 +127,6 @@ public class CombatManager : SmartNetworkBehaviour
     private void ResolveAttack_Local(int skillId, DefenseResult defenseResult)
     {
         SkillManager.GlobalSkillList[skillId].Resolve(combatContext, defenseResult);
-
-        DebugLogger.LogError("Attacker Game Id: " + combatContext.AttackerGameId);
-        DebugLogger.LogError("Defender Health: " + combatContext.Defender.Health);
-        DebugLogger.LogError("Defender Effect Count: " + combatContext.Defender.EffectsList.Count);
     }
 
     #endregion
@@ -125,7 +136,8 @@ public class CombatManager : SmartNetworkBehaviour
     {
         base.OnDestroy();
 
-        TurnManager.TurnStarted -= PlayerStats.Local.ApplyAndTickDownStatusEffects;
+        TurnManager.TurnStarted -= OnTurnStarted;
+        TurnManager.TurnEnded -= OnTurnEnded;
 
         blockInput.action.performed -= OnBlock;
         blockInput.action.Disable();
