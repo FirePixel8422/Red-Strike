@@ -299,8 +299,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 2.5}
+  m_SizeDelta: {x: 0, y: -1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4091578720090995036
 CanvasRenderer:
@@ -332,8 +332,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: af748e4b78265f244b691748205c9ad3, type: 2}
-  m_sharedMaterial: {fileID: 1799957207203050485, guid: af748e4b78265f244b691748205c9ad3,
+  m_fontAsset: {fileID: 11400000, guid: 51e8bf946c4be8b4f9cddf7a69740971, type: 2}
+  m_sharedMaterial: {fileID: -4707591720803830073, guid: 51e8bf946c4be8b4f9cddf7a69740971,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -358,7 +358,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
+  m_fontSize: 29.85
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -544,8 +544,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Deal 30 damage and apply 2 stacks burning.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: af748e4b78265f244b691748205c9ad3, type: 2}
-  m_sharedMaterial: {fileID: 1799957207203050485, guid: af748e4b78265f244b691748205c9ad3,
+  m_fontAsset: {fileID: 11400000, guid: 51e8bf946c4be8b4f9cddf7a69740971, type: 2}
+  m_sharedMaterial: {fileID: -4707591720803830073, guid: 51e8bf946c4be8b4f9cddf7a69740971,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -681,8 +681,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Fiery Slash
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: af748e4b78265f244b691748205c9ad3, type: 2}
-  m_sharedMaterial: {fileID: 1799957207203050485, guid: af748e4b78265f244b691748205c9ad3,
+  m_fontAsset: {fileID: 11400000, guid: 51e8bf946c4be8b4f9cddf7a69740971, type: 2}
+  m_sharedMaterial: {fileID: -4707591720803830073, guid: 51e8bf946c4be8b4f9cddf7a69740971,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1219,8 +1219,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -4, y: 4}
+  m_AnchoredPosition: {x: 0, y: 3.5}
+  m_SizeDelta: {x: -4, y: -3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9200473389260303965
 CanvasRenderer:
@@ -1254,8 +1254,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: af748e4b78265f244b691748205c9ad3, type: 2}
-  m_sharedMaterial: {fileID: 1799957207203050485, guid: af748e4b78265f244b691748205c9ad3,
+  m_fontAsset: {fileID: 11400000, guid: 51e8bf946c4be8b4f9cddf7a69740971, type: 2}
+  m_sharedMaterial: {fileID: -4707591720803830073, guid: 51e8bf946c4be8b4f9cddf7a69740971,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}

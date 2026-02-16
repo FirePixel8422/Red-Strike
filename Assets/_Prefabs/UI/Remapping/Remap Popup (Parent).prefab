@@ -220,7 +220,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Press any key to rebind to
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: af748e4b78265f244b691748205c9ad3, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 51e8bf946c4be8b4f9cddf7a69740971, type: 2}
   m_sharedMaterial: {fileID: 1799957207203050485, guid: af748e4b78265f244b691748205c9ad3,
     type: 2}
   m_fontSharedMaterials: []
@@ -287,7 +287,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &332219694003417600
@@ -371,7 +371,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Rebinding "Block" (E)
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: af748e4b78265f244b691748205c9ad3, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 51e8bf946c4be8b4f9cddf7a69740971, type: 2}
   m_sharedMaterial: {fileID: 1799957207203050485, guid: af748e4b78265f244b691748205c9ad3,
     type: 2}
   m_fontSharedMaterials: []
@@ -438,7 +438,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &8865180586266420764

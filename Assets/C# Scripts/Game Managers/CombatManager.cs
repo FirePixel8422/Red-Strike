@@ -97,7 +97,7 @@ public class CombatManager : SmartNetworkBehaviour
     [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
     private void ResolveAttack_ServerRPC(int skillId, DefenseResult defenseResult, ServerRpcParams rpcParams = default)
     {
-        int attackerClientGameId = ClientManager.GetClientGameId(rpcParams.Receive.SenderClientId);
+        int attackerClientGameId = rpcParams.GetSenderClientGameId();
 
         ResolveAttack_ClientRPC(skillId, defenseResult, RPCTargetFilters.SendToOppositeClient(attackerClientGameId));
     }
@@ -113,6 +113,7 @@ public class CombatManager : SmartNetworkBehaviour
     {
         SkillManager.GlobalSkillList[skillId].Resolve(combatContext, defenseResult);
 
+        DebugLogger.LogError("Attacker Game Id: " + combatContext.AttackerGameId);
         DebugLogger.LogError("Defender Health: " + combatContext.Defender.Health);
         DebugLogger.LogError("Defender Effect Count: " + combatContext.Defender.EffectsList.Count);
     }

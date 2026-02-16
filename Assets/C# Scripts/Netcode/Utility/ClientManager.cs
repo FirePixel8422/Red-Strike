@@ -327,7 +327,7 @@ namespace Fire_Pixel.Networking
                 DebugLogger.Log($"{LobbyMaker.REJOINDATA_PATH} deleted: " + deletionSucces, LogDebugInfo);
 #else
                 // Destroy the rejoin reference on the kicked client
-                FileManager.TryDeleteFile(LobbyMaker.REJOINDATA_PATH)
+                FileManager.TryDeleteFile(LobbyMaker.REJOINDATA_PATH);
 #endif
 
                 if (MessageHandler.Instance != null)

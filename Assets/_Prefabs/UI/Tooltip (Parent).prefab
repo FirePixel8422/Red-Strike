@@ -140,8 +140,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: Default tooltip text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 51e8bf946c4be8b4f9cddf7a69740971, type: 2}
+  m_sharedMaterial: {fileID: -4707591720803830073, guid: 51e8bf946c4be8b4f9cddf7a69740971,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
