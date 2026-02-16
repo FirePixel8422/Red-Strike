@@ -7,9 +7,7 @@ using UnityEngine.UI;
 public class SmartExitButton : MonoBehaviour
 {
     [SerializeField] private InputActionReference exitMenuInput;
-
     private Button button;
-
 
 
     private void Awake()
