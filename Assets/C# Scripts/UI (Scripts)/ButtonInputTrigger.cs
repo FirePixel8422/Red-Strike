@@ -3,10 +3,9 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 
-
-public class SmartExitButton : MonoBehaviour
+public class ButtonInputTrigger : MonoBehaviour
 {
-    [SerializeField] private InputActionReference exitMenuInput;
+    [SerializeField] private InputActionReference triggerInput;
     private Button button;
 
 
@@ -16,19 +15,19 @@ public class SmartExitButton : MonoBehaviour
     }
     private void OnEnable()
     {
-        exitMenuInput.action.Enable();
-        exitMenuInput.action.performed += OnExitMenu;
+        triggerInput.action.Enable();
+        triggerInput.action.performed += OnExitMenu;
     }
     private void OnDisable()
     {
-        exitMenuInput.action.performed -= OnExitMenu;
-        exitMenuInput.action.Disable();
+        triggerInput.action.performed -= OnExitMenu;
+        triggerInput.action.Disable();
     }
 
     private void OnExitMenu(InputAction.CallbackContext ctx)
     {
         if (ctx.performed == false) return;
 
-        button.onClick.Invoke();
+        button.onClick?.Invoke();
     }
 }

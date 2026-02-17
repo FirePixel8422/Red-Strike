@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1008631812341932908}
   - component: {fileID: 1842729016890965625}
+  - component: {fileID: 1113548041508329651}
   m_Layer: 5
   m_Name: Settings (Parent)
   m_TagString: Untagged
@@ -58,6 +59,23 @@ MonoBehaviour:
   rebindPopupObj: {fileID: 3582492759531291956}
   toRebindControlText: {fileID: 5858572898623967240}
   logRebindOperations: 1
+--- !u!114 &1113548041508329651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 394064928308300668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da508d248ba0d1d4a89a5dcfd24d9b8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MenuInputTrigger
+  triggerInput: {fileID: -8745971582389931898, guid: 6842473d79b50d848a6767cf3412d4c5,
+    type: 3}
+  onTrigger:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2841863271871323717
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,8 +234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad8a97650fa571548aa48afdd87618f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuController
-  exitMenuInput: {fileID: -8745971582389931898, guid: 6842473d79b50d848a6767cf3412d4c5,
-    type: 3}
+  triggerInput: {fileID: 0}
 --- !u!1 &5129765255251981906
 GameObject:
   m_ObjectHideFlags: 0
