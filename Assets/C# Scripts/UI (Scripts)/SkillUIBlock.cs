@@ -65,36 +65,25 @@ public class SkillUIBlock : MonoBehaviour
         title.text = skill.Info.Name;
         description.text = skill.Info.Description;
 
-        if (skill.Costs.Amount <= 0)
-        {
-            // Disable potential previous selected resourceUIBlock
-            if (currentResourceCostId != -1)
-            {
-                resourceCostUIs[currentResourceCostId].Disable();
-            }
-            currentResourceCostId = -1;
-
-            canAfford = true;
-            UpdateSkillActiveState(canAfford);
-            return;
-        }
-
-        int playerResourceId = (int)skill.Costs.Type;
-        canAfford = PlayerStats.Local.Resources[playerResourceId] >= skill.Costs.Amount;
-
-        if (!canAfford)
-        {
-            UpdateSkillActiveState(false);
-        }
-
-        resourceCostUIs[playerResourceId].Enable(skill.Costs.Amount, canAfford);
-
         // Disable potential previous selected resourceUIBlock
         if (currentResourceCostId != -1)
         {
             resourceCostUIs[currentResourceCostId].Disable();
         }
-        currentResourceCostId = playerResourceId;
+
+        if (skill.Costs.Amount > 0)
+        {
+            int playerResourceId = (int)skill.Costs.Type;
+            canAfford = PlayerStats.Local.Resources[playerResourceId] >= skill.Costs.Amount;
+
+            resourceCostUIs[playerResourceId].Enable(skill.Costs.Amount, canAfford);
+            currentResourceCostId = playerResourceId;
+        }
+        else
+        {
+            canAfford = true;
+            currentResourceCostId = -1;
+        }
     }
 
     /// <summary>
