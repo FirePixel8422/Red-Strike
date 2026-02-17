@@ -50,20 +50,21 @@ public class CombatManager : SmartNetworkBehaviour
             combatContext.Players[i].UpdateEnergyBar();
         }
 
+        WeaponManager.SwapToRandomWeapon();
+
         TurnManager.TurnStarted += OnTurnStarted;
         TurnManager.TurnEnded += OnTurnEnded;
     }
 
     private void OnTurnStarted()
     {
-        WeaponManager.SwapToRandomWeapon();
-
         PlayerStats.Local.ApplyAndTickDownStatusEffects();
         PlayerStats.Local.RestoreEnergy(GameRules.MatchSettings.PassiveEnergyGain);
     }
     private void OnTurnEnded()
     {
         PlayerStats.Oponnent.ApplyAndTickDownStatusEffects();
+        WeaponManager.SwapToRandomWeapon();
     }
 
     private void OnBlock(InputAction.CallbackContext ctx)

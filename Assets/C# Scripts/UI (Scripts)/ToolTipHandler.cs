@@ -126,7 +126,7 @@ public class TooltipHandler : UpdateMonoBehaviour
             if (wordIndex == -1) continue;
 
             TMP_WordInfo wordInfo = tmpText.textInfo.wordInfo[wordIndex];
-            string hoveredWord = wordInfo.GetWord();
+            string hoveredWord = wordInfo.GetWord().ToLowerInvariant();
 
             if (!wordToTooltipId.TryGetValue(hoveredWord, out int tooltipId))
                 continue;
@@ -154,7 +154,7 @@ public class TooltipHandler : UpdateMonoBehaviour
 
             tooltipRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, tooltipData.width);
             tooltipRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, tooltipData.height);
-
+                
             tooltipText.ForceMeshUpdate();
 
             Vector3 offset = new Vector3(

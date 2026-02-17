@@ -45,7 +45,6 @@ namespace Fire_Pixel.Networking
                 ClientManager.SetLocalUsername(funnyName);
 
                 FileManager.TryDeleteFile(PLAYERNAME_PATH);
-
                 return;
             }
 
