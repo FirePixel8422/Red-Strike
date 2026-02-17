@@ -9,37 +9,42 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e328d94dd54b42742853a92270e0522e, type: 3}
+  m_Script: {fileID: 11500000, guid: ded018729d93a7e46a91f9922e1bb2df, type: 3}
   m_Name: Healing Strike
   m_EditorClassIdentifier: Assembly-CSharp::BaseSkillSO
   Skill:
-    rid: 8095730567407730876
+    rid: 8095730906320077014
   references:
     version: 2
     RefIds:
-    - rid: 8095730567407730876
+    - rid: 8095730906320077014
       type: {class: SkillSimple, ns: , asm: Assembly-CSharp}
       data:
         info:
           Name: Healing Strike
-          Description: Deals no damage. Restores 25 health and cleanses
+          Description: Deals very low damage. Restores 25 health and cleanses
         costs:
           Type: 1
           Amount: 3
         defenseWindows:
-          Block: 0.5
-          Parry: 0.25
-          PerfectParry: 0.1
+          Block: 0.7
+          Parry: 0.4
+          PerfectParry: 0.15
         attackStartupTime: 0
         effects:
-        - rid: 9051887009059045537
-        - rid: 9051887009059045538
-    - rid: 9051887009059045537
+        - rid: 8095730906320077027
+        - rid: 8095730906320077025
+        - rid: 8095730906320077026
+    - rid: 8095730906320077025
       type: {class: SkillRestoreEffect, ns: , asm: Assembly-CSharp}
       data:
         type: 0
-        amount: 25
-    - rid: 9051887009059045538
+        amount: 5
+    - rid: 8095730906320077026
       type: {class: SkillCleanseEffect, ns: , asm: Assembly-CSharp}
       data:
         Header_Dummy: 0
+    - rid: 8095730906320077027
+      type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damage: 5

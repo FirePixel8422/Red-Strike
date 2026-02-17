@@ -58,7 +58,7 @@ MonoBehaviour:
     type: 3}
   rebindPopupObj: {fileID: 3582492759531291956}
   toRebindControlText: {fileID: 5858572898623967240}
-  logRebindOperations: 1
+  logRebindOperations: 0
 --- !u!114 &1113548041508329651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,7 +75,31 @@ MonoBehaviour:
     type: 3}
   onTrigger:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1113548041508329651}
+        m_TargetAssemblyTypeName: MenuInputTrigger, Assembly-CSharp
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2841863271871323717
 GameObject:
   m_ObjectHideFlags: 0
@@ -339,6 +363,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0

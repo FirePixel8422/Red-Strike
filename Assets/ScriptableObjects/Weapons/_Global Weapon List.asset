@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86634a5391f3dae418f005f1fa0a0255, type: 3}
+  m_Script: {fileID: 11500000, guid: 763df5c6b68d42446a01a69c522b0341, type: 3}
   m_Name: _Global Weapon List
   m_EditorClassIdentifier: Assembly-CSharp::GlobalWeaponListSO
   WeaponList:

@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c8df81f88d2ec64588fbc596a3c5b63, type: 3}
+  m_Script: {fileID: 11500000, guid: f256ffff785198b448081e86e57450d9, type: 3}
   m_Name: Katana
   m_EditorClassIdentifier: Assembly-CSharp::WeaponSO
   skills:
-  - {fileID: 11400000, guid: 08dc3be1216730a45aa4a3d83d14dde0, type: 2}
+  - {fileID: 11400000, guid: 9fb629384ae4f9e46afc1dc26dc6f315, type: 2}
   - {fileID: 11400000, guid: a559f827fe0e4f244883b3ccd19c0e43, type: 2}
   - {fileID: 11400000, guid: 56fd8633da4492f4a8f505195e8f12df, type: 2}
+  - {fileID: 11400000, guid: 08dc3be1216730a45aa4a3d83d14dde0, type: 2}
   - {fileID: 11400000, guid: 08df5068d5b860644b309e818f196f1b, type: 2}
-  - {fileID: 11400000, guid: 9fb629384ae4f9e46afc1dc26dc6f315, type: 2}

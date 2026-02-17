@@ -213,14 +213,14 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 182282595}
   m_Enabled: 1
-  serializedVersion: 11
+  serializedVersion: 12
   m_Type: 1
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
-  m_CookieSize: 10
+  m_CookieSize2D: {x: 10, y: 10}
   m_Shadows:
     m_Type: 2
     m_Resolution: -1
@@ -326,71 +326,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Main Game Canvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 3766092462096086943, guid: e5595bd5f1f18214fa49f0c479941592,
-        type: 3}
-      propertyPath: onTrigger.m_PersistentCalls.m_Calls.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3766092462096086943, guid: e5595bd5f1f18214fa49f0c479941592,
-        type: 3}
-      propertyPath: onTrigger.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 3766092462096086943, guid: e5595bd5f1f18214fa49f0c479941592,
-        type: 3}
-      propertyPath: onTrigger.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 3766092462096086943, guid: e5595bd5f1f18214fa49f0c479941592,
-        type: 3}
-      propertyPath: onTrigger.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 346839771}
-    - target: {fileID: 3766092462096086943, guid: e5595bd5f1f18214fa49f0c479941592,
-        type: 3}
-      propertyPath: onTrigger.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 346839770}
-    - target: {fileID: 3766092462096086943, guid: e5595bd5f1f18214fa49f0c479941592,
-        type: 3}
-      propertyPath: onTrigger.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3766092462096086943, guid: e5595bd5f1f18214fa49f0c479941592,
-        type: 3}
-      propertyPath: onTrigger.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3766092462096086943, guid: e5595bd5f1f18214fa49f0c479941592,
-        type: 3}
-      propertyPath: onTrigger.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetActive
-      objectReference: {fileID: 0}
-    - target: {fileID: 3766092462096086943, guid: e5595bd5f1f18214fa49f0c479941592,
-        type: 3}
-      propertyPath: onTrigger.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: set_enabled
-      objectReference: {fileID: 0}
-    - target: {fileID: 3766092462096086943, guid: e5595bd5f1f18214fa49f0c479941592,
-        type: 3}
-      propertyPath: onTrigger.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UnityEngine.GameObject, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 3766092462096086943, guid: e5595bd5f1f18214fa49f0c479941592,
-        type: 3}
-      propertyPath: onTrigger.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: MenuInputTrigger, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 3766092462096086943, guid: e5595bd5f1f18214fa49f0c479941592,
-        type: 3}
-      propertyPath: onTrigger.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 3766092462096086943, guid: e5595bd5f1f18214fa49f0c479941592,
-        type: 3}
-      propertyPath: onTrigger.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8572009681065801662, guid: e5595bd5f1f18214fa49f0c479941592,
         type: 3}
@@ -502,24 +437,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5595bd5f1f18214fa49f0c479941592, type: 3}
---- !u!114 &346839770 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3766092462096086943, guid: e5595bd5f1f18214fa49f0c479941592,
-    type: 3}
-  m_PrefabInstance: {fileID: 346839769}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da508d248ba0d1d4a89a5dcfd24d9b8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MenuInputTrigger
---- !u!1 &346839771 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5629674130471375960, guid: e5595bd5f1f18214fa49f0c479941592,
-    type: 3}
-  m_PrefabInstance: {fileID: 346839769}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &614678609
 GameObject:
   m_ObjectHideFlags: 0
@@ -609,6 +526,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &614678612
 MeshFilter:
@@ -863,6 +781,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1656363754
 MeshFilter:

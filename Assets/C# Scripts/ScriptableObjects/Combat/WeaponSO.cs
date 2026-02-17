@@ -2,7 +2,7 @@
 
 
 
-[CreateAssetMenu(fileName = "New Weapon", menuName = "ScriptableObjects/WeaponSO", order = -1000)]
+[CreateAssetMenu(fileName = "New Weapon", menuName = "ScriptableObjects/Combat/WeaponSO", order = -1005)]
 public class WeaponSO : ScriptableObject
 {
     [SerializeField] private SkillBaseSO[] skills = new SkillBaseSO[3];

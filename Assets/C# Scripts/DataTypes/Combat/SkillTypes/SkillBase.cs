@@ -73,7 +73,7 @@ public struct DefenseWindowParameters
 
     public static DefenseWindowParameters Default => new DefenseWindowParameters()
     {
-        Block = 0.75f,
+        Block = 0.7f,
         Parry = 0.4f,
         PerfectParry = 0.15f,
     };

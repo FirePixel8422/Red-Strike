@@ -9,15 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e328d94dd54b42742853a92270e0522e, type: 3}
+  m_Script: {fileID: 11500000, guid: ded018729d93a7e46a91f9922e1bb2df, type: 3}
   m_Name: Wounding Slash
   m_EditorClassIdentifier: Assembly-CSharp::BaseSkillSO
   Skill:
-    rid: 8095730567407730876
+    rid: 8095730906320077012
   references:
     version: 2
     RefIds:
-    - rid: 8095730567407730876
+    - rid: 8095730906320077012
       type: {class: SkillSimple, ns: , asm: Assembly-CSharp}
       data:
         info:
@@ -28,25 +28,25 @@ MonoBehaviour:
           Type: 1
           Amount: 2
         defenseWindows:
-          Block: 0.5
-          Parry: 0.25
-          PerfectParry: 0.1
+          Block: 0.7
+          Parry: 0.4
+          PerfectParry: 0.15
         attackStartupTime: 0
         effects:
-        - rid: 8095730677368750153
-        - rid: 8095730677368750154
-        - rid: 8095730704316104987
-    - rid: 8095730677368750153
+        - rid: 8095730906320077019
+        - rid: 8095730906320077020
+        - rid: 8095730906320077021
+    - rid: 8095730906320077019
       type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
       data:
         damage: 10
-    - rid: 8095730677368750154
+    - rid: 8095730906320077020
       type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
       data:
         ToApplyStatusEffect:
           Type: 1
           Duration: 0
-    - rid: 8095730704316104987
+    - rid: 8095730906320077021
       type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
       data:
         ToApplyStatusEffect:

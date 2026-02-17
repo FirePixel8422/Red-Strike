@@ -2,7 +2,7 @@
 
 
 
-[CreateAssetMenu(fileName = "New Skill", menuName = "ScriptableObjects/SkillSO", order = -1000)]
+[CreateAssetMenu(fileName = "New Skill", menuName = "ScriptableObjects/Combat/SkillSO", order = -1005)]
 public class SkillBaseSO : ScriptableObject
 {
     [SerializeReference]
@@ -24,7 +24,7 @@ public class SkillBaseSO : ScriptableObject
                 effectInstance.Duration = 0;
                 statusEffect.ToApplyStatusEffect = effectInstance;
 
-                DebugLogger.LogWarning("Bleeding status effect always has a duration of 0, since it doesnt go away unless you heal");
+                DebugLogger.Log("Bleeding status effect always has a duration of 0, since it doesnt go away unless you heal");
             }   
         }
     }

@@ -10,6 +10,8 @@ public class PlayerStats
 {
     public static PlayerStats Local { get; set; }
     public static PlayerStats Oponnent { get; set; }
+    public bool IsLocal => this == Local;
+    public bool IsOponnent => this == Oponnent;
 
 
     public float[] Resources;
@@ -24,6 +26,11 @@ public class PlayerStats
         private set => Resources[(int)PlayerResourceType.Energy] = value;
     }
 
+
+    [SerializeField] private List<StatusEffectInstance> effectsList = new List<StatusEffectInstance>();
+    public List<StatusEffectInstance> EffectsList => effectsList;
+
+
     public PlayerStats(float health, int energy)
     {
         Resources = new float[2];
@@ -37,6 +44,12 @@ public class PlayerStats
     public void Heal(float amount)
     {
         DebugLogger.LogError("amount MUST be > 0", amount <= 0f);
+
+        if (IsBroken)
+        {
+            amount *= GetHealingRecievedMultiplier();
+        }
+
         for (int i = effectsList.Count - 1; i >= 0; i--)
         {
             if (effectsList[i].Type == StatusEffectType.Bleeding)
@@ -83,7 +96,7 @@ public class PlayerStats
         float energyPercent01 = math.round(Energy / GameRules.DefaultPlayerStats.MaxEnergy * 10) * 0.1f;
 
         // other client doesn’t update your energy bar
-        if (this == Local)
+        if (IsLocal)
         { 
             HUDHandler.Instance.LocalEnergyBar.UpdateBar(energyPercent01);
         }
@@ -92,12 +105,7 @@ public class PlayerStats
     #endregion
 
 
-    [SerializeField] private List<StatusEffectInstance> effectsList = new List<StatusEffectInstance>();
-    public List<StatusEffectInstance> EffectsList => effectsList;
-
-
-
-    #region Status Effects
+    #region Status Effect Handling
 
     /// <summary>
     /// Add status effect of type <paramref name="statusEffect"/> to player.
@@ -242,6 +250,12 @@ public class PlayerStats
     public float GetDamageReceivedMultiplier()
     {
         return 1 + CalculateEffectStrength(StatusEffectType.Vulnerable, GameRules.StatusEffects.Vulnerability.StrengthRules);
+    }
+
+    /// <returns>Healing recieved multiplier based on all active broken statusEffect stacks</returns>
+    public float GetHealingRecievedMultiplier()
+    {
+        return 1 - CalculateEffectStrength(StatusEffectType.Broken, GameRules.StatusEffects.Broken.StrengthRules);
     }
 
 
