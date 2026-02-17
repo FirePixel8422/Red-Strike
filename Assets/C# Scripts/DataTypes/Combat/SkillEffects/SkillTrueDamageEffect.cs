@@ -10,11 +10,11 @@ public class SkillTrueDamageEffect : SkillBaseEffect
     [Header("True damage done to the defender")]
     public float trueDamage = 10;
 
-    public override void Resolve(CombatContext ctx, DefenseAbsorptionParameters absorptionParams)
+    public override void Resolve(DefenseAbsorptionParameters absorptionParams)
     {
-        ctx.Defender.TakeDamage(
+        CombatTurnContext.Defender.TakeDamage(
             trueDamage *
-            ctx.Attacker.GetDamageDealtMultiplier() *
-            ctx.Defender.GetDamageReceivedMultiplier());
+            CombatTurnContext.Attacker.GetDamageDealtMultiplier() *
+            CombatTurnContext.Defender.GetDamageReceivedMultiplier());
     }
 }

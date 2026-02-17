@@ -13,8 +13,8 @@ public class SkillCleanseEffect : SkillBaseEffect
     [SerializeField] private int Header_Dummy;
 #endif
 
-    public override void Resolve(CombatContext ctx, DefenseAbsorptionParameters absorptionParams)
+    public override void Resolve(DefenseAbsorptionParameters absorptionParams)
     {
-        ctx.Attacker.CleanseStatusEffects();
+        CombatTurnContext.Attacker.CleanseStatusEffects();
     }
 }

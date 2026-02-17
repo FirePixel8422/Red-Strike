@@ -25,14 +25,14 @@ public class SkillBase
 
 
 
-    public virtual void Resolve(CombatContext ctx, DefenseResult defenseResult)
+    public virtual void Resolve(DefenseResult defenseResult)
     {
         DefenseAbsorptionParameters defenseAbsorptionParams = GameRules.GetDefenseAbsorptionParams(defenseResult);
 
         int effectCount = effects.Length;
         for (int i = 0; i < effectCount; i++)
         {
-            effects[i].Resolve(ctx, defenseAbsorptionParams);
+            effects[i].Resolve(defenseAbsorptionParams);
         }
     }
 }

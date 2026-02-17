@@ -10,12 +10,12 @@ public class SkillDamageEffect : SkillBaseEffect
     [Header("Damage dealt to the defender")]
     public float damage = 10;
 
-    public override void Resolve(CombatContext ctx, DefenseAbsorptionParameters absorptionParams)
+    public override void Resolve(DefenseAbsorptionParameters absorptionParams)
     {
-        ctx.Defender.TakeDamage( 
+        CombatTurnContext.Defender.TakeDamage( 
             damage *
-            ctx.Attacker.GetDamageDealtMultiplier() *
-            ctx.Defender.GetDamageReceivedMultiplier() *
+            CombatTurnContext.Attacker.GetDamageDealtMultiplier() *
+            CombatTurnContext.Defender.GetDamageReceivedMultiplier() *
             (1 - absorptionParams.DamageAbsorptionPercent));
     }
 }

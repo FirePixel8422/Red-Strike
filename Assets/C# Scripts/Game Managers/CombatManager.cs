@@ -8,23 +8,24 @@ public class CombatManager : SmartNetworkBehaviour
 {
     public static CombatManager Instance { get; private set; }
 
-    [SerializeField] private CombatContext combatContext;
-    private bool canDefend;
+    [SerializeField] private PlayerStats[] playerStats;
 
     [SerializeField] private InputActionReference blockInput;
     [SerializeField] private InputActionReference parryInput;
+    private bool canDefend;
+
 
 
     private void Awake()
     {
         Instance = this;
 
-        PlayerStats[] playerStats = new PlayerStats[GlobalGameData.MAX_PLAYERS];
+        playerStats = new PlayerStats[GlobalGameData.MAX_PLAYERS];
         for (int i = 0; i < GlobalGameData.MAX_PLAYERS; i++)
         {
             playerStats[i] = GameRules.DefaultPlayerStats.GetStatsCopy();
         }
-        combatContext = new CombatContext(playerStats);
+        CombatTurnContext.Init(playerStats);
 
         blockInput.action.performed += OnBlock;
         parryInput.action.performed += OnParry;
@@ -38,16 +39,13 @@ public class CombatManager : SmartNetworkBehaviour
 
     protected override void OnNetworkSystemsSetupPostStart()
     {
-        PlayerStats.Local = combatContext.Players[LocalClientGameId];
-        PlayerStats.Local.DEBUG_ISLOCAL = true;
-
-        PlayerStats.Oponnent = combatContext.Players[LocalClientGameId == 0 ? 1 : 0];
-        PlayerStats.Oponnent.DEBUG_ISOPONNENT = true;
+        PlayerStats.Local = CombatTurnContext.Players[LocalClientGameId];
+        PlayerStats.Oponnent = CombatTurnContext.Players[LocalClientGameId == 0 ? 1 : 0];
 
         for (int i = 0; i < GlobalGameData.MAX_PLAYERS; i++)
         {
-            combatContext.Players[i].UpdateHealthBar();
-            combatContext.Players[i].UpdateEnergyBar();
+            CombatTurnContext.Players[i].UpdateHealthBar();
+            CombatTurnContext.Players[i].UpdateEnergyBar();
         }
 
         WeaponManager.SwapToRandomWeapon();
@@ -127,7 +125,9 @@ public class CombatManager : SmartNetworkBehaviour
     }
     private void ResolveAttack_Local(int skillId, DefenseResult defenseResult)
     {
-        SkillManager.GlobalSkillList[skillId].Resolve(combatContext, defenseResult);
+        SkillManager.GlobalSkillList[skillId].Resolve(defenseResult);
+
+        DebugLogger.LogError("Defender Health" + CombatTurnContext.Defender.Health);
     }
 
     #endregion

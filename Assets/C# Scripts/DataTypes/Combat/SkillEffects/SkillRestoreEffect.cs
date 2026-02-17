@@ -11,16 +11,16 @@ public class SkillRestoreEffect : SkillBaseEffect
     [SerializeField] private PlayerResourceType type;
     [SerializeField] private float amount;
 
-    public override void Resolve(CombatContext ctx, DefenseAbsorptionParameters absorptionParams)
+    public override void Resolve(DefenseAbsorptionParameters absorptionParams)
     {
         switch (type)
         {
             case PlayerResourceType.Health:
-                ctx.Attacker.Heal(amount);
+                CombatTurnContext.Attacker.Heal(amount);
                 break;
 
             case PlayerResourceType.Energy:
-                ctx.Attacker.RestoreEnergy(amount);
+                CombatTurnContext.Attacker.RestoreEnergy(amount);
                 break;
 
             default:

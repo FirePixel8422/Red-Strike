@@ -11,9 +11,6 @@ public class PlayerStats
     public static PlayerStats Local { get; set; }
     public static PlayerStats Oponnent { get; set; }
 
-    public bool DEBUG_ISLOCAL;
-    public bool DEBUG_ISOPONNENT;
-
 
     public float[] Resources;
     public float Health

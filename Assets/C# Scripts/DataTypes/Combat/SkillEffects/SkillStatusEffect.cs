@@ -10,8 +10,8 @@ public class SkillStatusEffect : SkillBaseEffect
     [Header("Status effect applied to the defender")]
     public StatusEffectInstance ToApplyStatusEffect = new StatusEffectInstance(StatusEffectType.Burning, 1);
 
-    public override void Resolve(CombatContext ctx, DefenseAbsorptionParameters absorptionParams)
+    public override void Resolve(DefenseAbsorptionParameters absorptionParams)
     {
-        ctx.Defender.AddStatusEffect(ToApplyStatusEffect);
+        CombatTurnContext.Defender.AddStatusEffect(ToApplyStatusEffect);
     }
 }
