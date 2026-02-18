@@ -30,11 +30,19 @@ public class CombatManager : SmartNetworkBehaviour
         blockInput.action.performed += OnBlock;
         parryInput.action.performed += OnParry;
 
-        RebindManager.RebindsLoaded += () =>
+        if (RebindManager.Instance != null)
+        {
+            RebindManager.RebindsLoaded += () =>
+            {
+                blockInput.action.Enable();
+                parryInput.action.Enable();
+            };
+        }
+        else
         {
             blockInput.action.Enable();
             parryInput.action.Enable();
-        };
+        }
     }
 
     protected override void OnNetworkSystemsSetupPostStart()
@@ -56,14 +64,17 @@ public class CombatManager : SmartNetworkBehaviour
 
     private void OnTurnStarted()
     {
-        PlayerStats.Local.ApplyAndTickDownStatusEffects();
         PlayerStats.Local.RestoreEnergy(GameRules.MatchSettings.PassiveEnergyGain);
+        PlayerStats.Oponnent.ApplyAndTickDownStatusEffects();
     }
     private void OnTurnEnded()
     {
-        PlayerStats.Oponnent.ApplyAndTickDownStatusEffects();
+        PlayerStats.Local.ApplyAndTickDownStatusEffects();
         WeaponManager.SwapToRandomWeapon();
     }
+
+    [SerializeField] private GameObject blockCube, parryCube;
+    [SerializeField] private Transform spawnpoint;
 
     private void OnBlock(InputAction.CallbackContext ctx)
     {
@@ -71,6 +82,9 @@ public class CombatManager : SmartNetworkBehaviour
         {
             canDefend = false;
             AttackManager.DoDefendAction(DefenseType.Block);
+
+            GameObject obj = Instantiate(blockCube, spawnpoint);
+            Destroy(obj, 1);
         }
     }
     private void OnParry(InputAction.CallbackContext ctx)
@@ -79,6 +93,9 @@ public class CombatManager : SmartNetworkBehaviour
         {
             canDefend = false;
             AttackManager.DoDefendAction(DefenseType.Parry);
+
+            GameObject obj = Instantiate(parryCube, spawnpoint);
+            Destroy(obj, 1);
         }
     }
 
@@ -96,6 +113,48 @@ public class CombatManager : SmartNetworkBehaviour
         if (IsHost && RPCTargetFilters.ShouldHostSkip(rpcParams)) return;
 
         AttackManager.StartAttackSequence(skillId);
+        ResolveSkillUseCosts_Attacker(skillId);
+
+        canDefend = true;
+
+        float attackImpactDelay = SkillManager.GlobalSkillList[skillId].AttackStartupTime;
+        StartAttackAnimation_ServerRPC(attackImpactDelay);
+        PlayerVisualsManager.DoAttackAnimation(attackImpactDelay);
+    }
+    public void ResolveSkillUseCosts_Attacker(int skillId)
+    {
+        SkillCosts skillCosts = SkillManager.GlobalSkillList[skillId].Costs;
+        if (skillCosts.Amount > 0)
+        {
+            switch (skillCosts.Type)
+            {
+                case PlayerResourceType.Health:
+                    CombatTurnContext.Attacker.TakeDamage(skillCosts.Amount);
+                    break;
+
+                case PlayerResourceType.Energy:
+                    CombatTurnContext.Attacker.SpendEnergy(skillCosts.Amount);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
+    public void StartAttackAnimation_ServerRPC(float attackImpactDelay, ServerRpcParams rpcParams = default)
+    {
+        int attackerClientGameId = rpcParams.GetSenderClientGameId();
+
+        StartAttackAnimation_ClientRPC(attackImpactDelay, RPCTargetFilters.SendToOppositeClient(attackerClientGameId));
+    }
+    [ClientRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
+    private void StartAttackAnimation_ClientRPC(float attackImpactDelay, ClientRpcParams rpcParams = default)
+    {
+        if (IsHost && RPCTargetFilters.ShouldHostSkip(rpcParams)) return;
+
+        PlayerVisualsManager.DoAttackAnimation(attackImpactDelay);
     }
 
 
@@ -103,6 +162,8 @@ public class CombatManager : SmartNetworkBehaviour
 
     public void ResolveAttack_OnDefender(int skillId, DefenseResult defenseResult)
     {
+        canDefend = false;
+
         ResolveAttack_ServerRPC(skillId, defenseResult);
         ResolveAttack_Local(skillId, defenseResult);
 
@@ -127,7 +188,14 @@ public class CombatManager : SmartNetworkBehaviour
     {
         SkillManager.GlobalSkillList[skillId].Resolve(defenseResult);
 
-        DebugLogger.LogError("Defender Health" + CombatTurnContext.Defender.Health);
+        if (defenseResult == DefenseResult.PerfectParried)
+        {
+            // Resolve penalty skill on attacker for getting perfect parried.
+            CombatTurnContext.Attacker.TakeDamage(GameRules.MatchSettings.PerfectParryPenalty.DamageTaken);
+            CombatTurnContext.Attacker.AddStatusEffect(GameRules.MatchSettings.PerfectParryPenalty.VulnerableEffect);
+        }
+
+        //DebugLogger.LogError("Defender Health" + CombatTurnContext.Defender.Health);
     }
 
     #endregion

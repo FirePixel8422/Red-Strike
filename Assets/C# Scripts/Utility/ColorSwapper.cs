@@ -18,7 +18,7 @@ public class ColorSwapper : MonoBehaviour
     {
         DebugLogger.Log("Swapping colors...");
 
-        Image[] images = FindObjectsOfType<Image>(true);
+        Image[] images = this.FindObjectsOfType<Image>(true);
 
         // Collect only affected images
         System.Collections.Generic.List<Image> targets = new System.Collections.Generic.List<Image>();
@@ -55,7 +55,7 @@ public class ColorSwapper : MonoBehaviour
     {
         DebugLogger.Log("Undo swapping colors...");
 
-        Image[] images = FindObjectsOfType<Image>(true);
+        Image[] images = this.FindObjectsOfType<Image>(true);
 
         System.Collections.Generic.List<Image> targets = new System.Collections.Generic.List<Image>();
 

@@ -34,24 +34,7 @@ public class SkillUIBlock : MonoBehaviour
     private void UseSkill()
     {
         SkillUIManager.Instance.UpdateSkillUIActiveState(false);
-
-        SkillCosts skillCosts = SkillManager.GlobalSkillList[currentSkillId].Costs;
-        if (skillCosts.Amount > 0)
-        {
-            switch (skillCosts.Type)
-            {
-                case PlayerResourceType.Health:
-                    PlayerStats.Local.TakeDamage(skillCosts.Amount);
-                    break;
-
-                case PlayerResourceType.Energy:
-                    PlayerStats.Local.SpendEnergy(skillCosts.Amount);
-                    break;
-
-                default:
-                    break;
-            }
-        }
+        CombatManager.Instance.ResolveSkillUseCosts_Attacker(currentSkillId);
         CombatManager.Instance.Attack_ServerRPC(currentSkillId);
     }
 
@@ -70,7 +53,17 @@ public class SkillUIBlock : MonoBehaviour
         {
             resourceCostUIs[currentResourceCostId].Disable();
         }
+        RecalculateCanAffordSkill();
+    }
 
+    /// <summary>
+    /// Check skill costs and update UI based on if its affordable or not
+    /// </summary>
+    private void RecalculateCanAffordSkill()
+    {
+        if (currentSkillId == -1) return;
+
+        SkillBase skill =  SkillManager.GlobalSkillList[currentSkillId];
         if (skill.Costs.Amount > 0)
         {
             int playerResourceId = (int)skill.Costs.Type;
@@ -91,6 +84,8 @@ public class SkillUIBlock : MonoBehaviour
     /// </summary>
     public void UpdateSkillActiveState(bool isActive)
     {
+        RecalculateCanAffordSkill();
+
         bool canUseSkill = canAfford && isActive;
         button.interactable = canUseSkill;
 

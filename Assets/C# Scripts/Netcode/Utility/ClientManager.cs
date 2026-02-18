@@ -21,7 +21,6 @@ namespace Fire_Pixel.Networking
         [SerializeField] private NetworkStruct<PlayerIdDataArray> playerIdDataArray = new NetworkStruct<PlayerIdDataArray>();
 
 #if Enable_Debug_Logging
-        [Header("Log Debug information")]
         [SerializeField] public bool LogDebugInfo = true;
 #endif
 

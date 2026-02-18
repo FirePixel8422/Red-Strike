@@ -1,11 +1,10 @@
 ﻿using Fire_Pixel.Utility;
-using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
 
 [RequireComponent(typeof(CanvasGroup))]
-public class HUDHandler : NetworkBehaviour
+public class HUDHandler : MonoBehaviour
 {
     public static HUDHandler Instance { get; private set; }
 
@@ -68,28 +67,9 @@ public class HUDHandler : NetworkBehaviour
     #endregion
 
 
-    public override void OnDestroy()
+    private void OnDestroy()
     {
-        base.OnDestroy();
-
         UpdateScheduler.UnRegisterUpdate(FadeInSequence);
         UpdateScheduler.UnRegisterUpdate(FadeOutSequence);
-    }
-
-
-    private float value01;
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            value01 += 0.1f;
-            localEnergyBar.UpdateBar(value01);
-        }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            value01 -= 0.1f;
-            localEnergyBar.UpdateBar(value01);
-        }
     }
 }

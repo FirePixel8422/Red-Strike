@@ -18,7 +18,7 @@ public class FontSwapper : MonoBehaviour
     {
         DebugLogger.Log("Swapping fonts...");
 
-        TMP_Text[] texts = FindObjectsOfType<TMP_Text>(true);
+        TMP_Text[] texts = this.FindObjectsOfType<TMP_Text>(true);
 
         List<TMP_Text> targets = new List<TMP_Text>();
 
@@ -61,7 +61,7 @@ public class FontSwapper : MonoBehaviour
     {
         DebugLogger.Log("Undo swapping fonts...");
 
-        TMP_Text[] texts = FindObjectsOfType<TMP_Text>(true);
+        TMP_Text[] texts = this.FindObjectsOfType<TMP_Text>(true);
 
         List<TMP_Text> targets = new List<TMP_Text>();
 
