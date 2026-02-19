@@ -1,5 +1,7 @@
+using Fire_Pixel.Utility;
 using System;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -20,8 +22,12 @@ namespace Fire_Pixel.Networking
         [Space(8)]
         [SerializeField] private NetworkStruct<PlayerIdDataArray> playerIdDataArray = new NetworkStruct<PlayerIdDataArray>();
 
+#pragma warning disable UDR0001
+        public static OneTimeAction PostInitialized = new OneTimeAction();
+#pragma warning restore UDR0001
+
 #if Enable_Debug_Logging
-        [SerializeField] public bool LogDebugInfo = true;
+        public bool LogDebugInfo = true;
 #endif
 
 
@@ -49,7 +55,7 @@ namespace Fire_Pixel.Networking
 
         private void SendPlayerIdDataArrayChange_OnServer(PlayerIdDataArray newValue)
         {
-            ReceivePlayerIdDataArray_ClientRPC(newValue, RPCTargetFilters.SendToAllButServer());
+            ReceivePlayerIdDataArray_ClientRPC(newValue, RPCTargetFilters.SendToAllButHost());
         }
 
         [ClientRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
@@ -62,9 +68,11 @@ namespace Fire_Pixel.Networking
 
 
         [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
-        private void RequestPlayerIdDataArray_ServerRPC(ulong clientNetworkId)
+        private void RequestPlayerIdDataArray_ServerRPC(ServerRpcParams rpcParams = default)
         {
-            ReceiveSilentPlayerIdDataArray_ClientRPC(playerIdDataArray.Value, RPCTargetFilters.SendToTargetClient(clientNetworkId));
+            ulong senderClientNetworkId = rpcParams.Receive.SenderClientId;
+
+            ReceiveSilentPlayerIdDataArray_ClientRPC(playerIdDataArray.Value, RPCTargetFilters.SendToTargetClient(senderClientNetworkId));
         }
 
         [ClientRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
@@ -74,36 +82,6 @@ namespace Fire_Pixel.Networking
 
             playerIdDataArray.SilentValue = newValue;
         }
-
-        #endregion
-
-
-        #region OnInitialized Callback System
-
-#pragma warning disable UDR0001
-#pragma warning disable UDR0004
-        /// <summary>
-        /// Invoked after <see cref="ClientManager.OnNetworkSpawn"/> is called.
-        /// </summary>
-        private static event Action OnInitialized;
-        private static bool initialized;
-
-        /// <summary>
-        /// Invoke action after <see cref="ClientManager.OnNetworkSpawn"/> is called or instantly if that already happened
-        /// </summary>
-        public static void GetOnInitializedCallback(Action toExecute)
-        {
-            if (initialized == false)
-            {
-                OnInitialized += toExecute;
-            }
-            else
-            {
-                toExecute.Invoke();
-            }
-        }
-#pragma warning restore UDR0001
-#pragma warning restore UDR0004
 
         #endregion
 
@@ -223,25 +201,30 @@ namespace Fire_Pixel.Networking
                 // Setup server only events
                 NetworkManager.OnClientConnectedCallback += OnClientConnected_OnServer;
                 NetworkManager.OnClientDisconnectCallback += OnClientDisconnected_OnServer;
+
+                PostInitialized?.Invoke();
             }
             else
             {
                 // Catches up late joining clients with newest value
-                RequestPlayerIdDataArray_ServerRPC(NetworkManager.LocalClientId);
+                RequestPlayerIdDataArray_ServerRPC();
 
                 // On value changed event of playerIdDataArray
                 playerIdDataArray.OnValueChanged += (PlayerIdDataArray newValue) =>
                 {
                     LocalClientGameId = newValue.GetPlayerGameId(NetworkManager.LocalClientId);
                 };
+                playerIdDataArray.OnValueChanged += FinishSystemInitialization;
             }
 
             // Setup server and client event
             NetworkManager.OnClientDisconnectCallback += OnClientDisconnected_OnClient;
+        }
 
-            OnInitialized?.Invoke();
-            OnInitialized = null;
-            initialized = true;
+        private void FinishSystemInitialization(PlayerIdDataArray newValue)
+        {
+            playerIdDataArray.OnValueChanged -= FinishSystemInitialization;
+            PostInitialized?.Invoke();
         }
 
 
@@ -374,7 +357,7 @@ namespace Fire_Pixel.Networking
             playerIdDataArray.ResetEventCallbacks();
             OnClientConnectedCallback = null;
             OnClientDisconnectedCallback = null;
-            OnInitialized = null;
+            PostInitialized = null;
         }
     }
 }

@@ -43,7 +43,7 @@ namespace Fire_Pixel.Networking
 
         public override void OnNetworkSpawn()
         {
-            ClientManager.GetOnInitializedCallback(() => 
+            ClientManager.PostInitialized += () => 
             {
                 IsNetworkSystemInitilized = true;
                 OnNetworkSystemsSetup();
@@ -53,7 +53,7 @@ namespace Fire_Pixel.Networking
                     OnNetworkSystemsSetupPostStart();
                 }
                 isPostSpawnReady = true;
-            });
+            };
 
             NetworkManager.NetworkTickSystem.Tick += OnNetworkTick;
         }
@@ -67,7 +67,7 @@ namespace Fire_Pixel.Networking
         }
 
         /// <summary>
-        /// Called After all custom build NetworkSystems have been setup through <see cref="ClientManager.OnInitialized"/>
+        /// Called After all custom NetworkSystems have been setup through <see cref="ClientManager.PostInitialized"/>
         /// </summary>
         protected virtual void OnNetworkSystemsSetup() { }
 

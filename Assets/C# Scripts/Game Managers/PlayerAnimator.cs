@@ -42,7 +42,7 @@ public class PlayerAnimator : MonoBehaviour
         anim.speed = 1 / animTime;
         anim.SetTrigger("Attack");
 
-        yield return new WaitForSeconds(animTime);
+        yield return new WaitForSeconds(animTime + attackResetDelay);
 
         t = 0;
         do

@@ -6,7 +6,9 @@ public abstract class MultiInstanceBehaviour<T> : MonoBehaviour where T : MultiI
     [SerializeField] private int id;
     public int Id => id;
 
+#pragma warning disable UDR0001
     private static T[] instances;
+#pragma warning restore UDR0001
     public static T[] Instances => instances;
 
     protected virtual void Awake()

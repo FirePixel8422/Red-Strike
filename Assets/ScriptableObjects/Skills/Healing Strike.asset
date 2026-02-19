@@ -27,10 +27,10 @@ MonoBehaviour:
           Type: 1
           Amount: 3
         defenseWindows:
-          Block: 0.7
-          Parry: 0.4
-          PerfectParry: 0.15
-        attackStartupTime: 5
+          Block: 0.4
+          Parry: 0.25
+          PerfectParry: 0.1
+        attackStartupTime: 2.5
         effects:
         - rid: 8095730906320077027
         - rid: 8095730906320077025

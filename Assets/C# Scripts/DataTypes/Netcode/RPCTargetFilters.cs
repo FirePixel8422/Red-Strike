@@ -80,7 +80,7 @@ namespace Fire_Pixel.Networking
             return SendToAllButClient(clientGameId);
         }
 
-        public static ClientRpcParams SendToAllButServer()
+        public static ClientRpcParams SendToAllButHost()
         {
             int playerCount = ClientManager.PlayerCount;
             ulong[] clientNetworkIds = new ulong[playerCount - 1];
