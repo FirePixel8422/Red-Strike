@@ -4,7 +4,7 @@
 [System.Serializable]
 public struct DefenseRules
 {
-    public DefenseAbsorptionParameters Block;
+    public DefenseAbsorptionParameters Dodge;
     public DefenseAbsorptionParameters Parry;
     public DefenseAbsorptionParameters PerfectParry;
 }

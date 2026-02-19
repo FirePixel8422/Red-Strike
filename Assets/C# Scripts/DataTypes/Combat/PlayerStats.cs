@@ -20,9 +20,9 @@ public class PlayerStats
         get => Resources[(int)PlayerResourceType.Health];
         private set => Resources[(int)PlayerResourceType.Health] = value;
     }
-    public float Energy
+    public int Energy
     {
-        get => Resources[(int)PlayerResourceType.Energy];
+        get => Mathf.RoundToInt(Resources[(int)PlayerResourceType.Energy]);
         private set => Resources[(int)PlayerResourceType.Energy] = value;
     }
 
@@ -69,20 +69,19 @@ public class PlayerStats
         UpdateHealthBar();
     }
 
-    public void RestoreEnergy(float amount)
+    public void RestoreEnergy(int amount)
     {
         DebugLogger.LogError("amount MUST be > 0", amount <= 0f);
 
-        Energy = math.clamp(Energy + amount, 0, GameRules.DefaultPlayerStats.MaxEnergy);
+        Energy = Mathf.RoundToInt(math.clamp(Energy + amount, 0, GameRules.DefaultPlayerStats.MaxEnergy));
         UpdateEnergyBar();
     }
-    public void SpendEnergy(float amount)
+    public void SpendEnergy(int amount)
     {
         DebugLogger.LogError("amount MUST be > 0", amount <= 0f);
 
         Energy -= amount;
         UpdateEnergyBar();
-        DebugLogger.Log("Local: " + IsLocal + ", Lost " + amount + " Energy");
     }
 
     public void UpdateHealthBar()
@@ -94,7 +93,7 @@ public class PlayerStats
     }
     public void UpdateEnergyBar()
     {
-        float energyPercent01 = math.round(Energy / GameRules.DefaultPlayerStats.MaxEnergy * 10) * 0.1f;
+        float energyPercent01 = math.round((float)Energy / GameRules.DefaultPlayerStats.MaxEnergy * 10) * 0.1f;
 
         // other client doesn’t update your energy bar
         if (IsLocal)

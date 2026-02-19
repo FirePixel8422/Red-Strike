@@ -39,18 +39,18 @@ public static class AttackManager
 
         defenseResult = defenseType switch
         {
-            DefenseType.Block => ResolveBlock(timeBeforeAttackImpact),
+            DefenseType.Dodge => ResolveDodge(timeBeforeAttackImpact),
             DefenseType.Parry => ResolveParry(timeBeforeAttackImpact),
             _ => DefenseResult.None
         };
 
         return defenseResult;
     }
-    private static DefenseResult ResolveBlock(float timeBeforeAttackImpact)
+    private static DefenseResult ResolveDodge(float timeBeforeAttackImpact)
     {
-        if (defenseWindow.Block > timeBeforeAttackImpact)
+        if (defenseWindow.Dodge > timeBeforeAttackImpact)
         {
-            return DefenseResult.Blocked;
+            return DefenseResult.Dodged;
         }
         return DefenseResult.None;
     }

@@ -28,7 +28,7 @@ MonoBehaviour:
           Type: 1
           Amount: 0
         defenseWindows:
-          Block: 0.4
+          Dodge: 0.4
           Parry: 0.25
           PerfectParry: 0.1
         attackStartupTime: 1.75

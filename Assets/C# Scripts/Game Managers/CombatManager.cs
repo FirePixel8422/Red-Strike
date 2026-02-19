@@ -16,7 +16,6 @@ public class CombatManager : SmartNetworkBehaviour
     private bool canDefend;
 
 
-
     private void Awake()
     {
         Instance = this;
@@ -31,7 +30,7 @@ public class CombatManager : SmartNetworkBehaviour
         RebindManager.PostRebindsLoaded += () =>
         {
             blockInput.action.Enable();
-            blockInput.action.performed += OnBlock;
+            blockInput.action.performed += OnDodge;
 
             parryInput.action.Enable();
             parryInput.action.performed += OnParry;
@@ -54,30 +53,19 @@ public class CombatManager : SmartNetworkBehaviour
         TurnManager.TurnStarted += OnTurnStarted;
         TurnManager.TurnEnded += OnTurnEnded;
     }
-
-    private void OnTurnStarted()
-    {
-        PlayerStats.Local.RestoreEnergy(GameRules.MatchSettings.PassiveEnergyGain);
-        PlayerStats.Oponnent.ApplyAndTickDownStatusEffects();
-    }
-    private void OnTurnEnded()
-    {
-        PlayerStats.Oponnent.RestoreEnergy(GameRules.MatchSettings.PassiveEnergyGain);
-        PlayerStats.Local.ApplyAndTickDownStatusEffects();
-
-        WeaponManager.SwapToRandomWeapon();
-    }
-
-    [SerializeField] private GameObject blockCube, parryCube;
-    [SerializeField] private Transform spawnpoint;
-
-    private void OnBlock(InputAction.CallbackContext ctx)
+    private void OnDodge(InputAction.CallbackContext ctx)
     {
         if (ctx.performed && canDefend)
         {
             canDefend = false;
-            AttackManager.DoDefendAction(DefenseType.Block);
-            StartCoroutine(DebugDefenseDurationLoop(AttackManager.defenseWindow.Block));
+            DefenseResult result = AttackManager.DoDefendAction(DefenseType.Dodge);
+
+#if Enable_Debug_Systems
+            StartCoroutine(DebugDefenseResult_Local(result));
+            DisplayDefenseResult_ServerRPC(result);
+
+            StartCoroutine(DebugDefenseDurationLoop(AttackManager.defenseWindow.Dodge));
+#endif
         }
     }
     private void OnParry(InputAction.CallbackContext ctx)
@@ -85,22 +73,28 @@ public class CombatManager : SmartNetworkBehaviour
         if (ctx.performed && canDefend)
         {
             canDefend = false;
-            AttackManager.DoDefendAction(DefenseType.Parry);
+            DefenseResult result = AttackManager.DoDefendAction(DefenseType.Parry);
+
+#if Enable_Debug_Systems
+            StartCoroutine(DebugDefenseResult_Local(result));
+            DisplayDefenseResult_ServerRPC(result);
+
             StartCoroutine(DebugDefenseDurationLoop(AttackManager.defenseWindow.Parry));
+#endif
         }
     }
 
-    private IEnumerator DebugDefenseDurationLoop(float defenseDuration)
+    private void OnTurnStarted()
     {
-        while (defenseDuration > 0)
-        {
-            defenseDuration -= Time.deltaTime;
-            MultiInstanceText.Instances[0].Text.text = "Defense:" + (Mathf.Round(defenseDuration * 100) / 100).ToString();
+        PlayerStats.Oponnent.RestoreEnergy(GameRules.MatchSettings.PassiveEnergyGain);
+        PlayerStats.Oponnent.ApplyAndTickDownStatusEffects();
+    }
+    private void OnTurnEnded()
+    {
+        PlayerStats.Local.RestoreEnergy(GameRules.MatchSettings.PassiveEnergyGain);
+        PlayerStats.Local.ApplyAndTickDownStatusEffects();
 
-            yield return null;
-        }
-
-        MultiInstanceText.Instances[0].Text.text = "";
+        WeaponManager.SwapToRandomWeapon();
     }
 
 
@@ -126,39 +120,28 @@ public class CombatManager : SmartNetworkBehaviour
         float attackImpactDelay = SkillManager.GlobalSkillList[skillId].AttackStartupTime;
         StartAttackAnimation_ServerRPC(attackImpactDelay);
         PlayerVisualsManager.DoAttackAnimation(attackImpactDelay);
-        
+
+#if Enable_Debug_Systems
         StartCoroutine(DebugAttackImpactDelayLoop(SkillManager.GlobalSkillList[skillId].AttackStartupTime));
-    }
-    private IEnumerator DebugAttackImpactDelayLoop(float impactDelay)
-    {
-        while (impactDelay > 0)
-        {
-            impactDelay -= Time.deltaTime;
-            MultiInstanceText.Instances[1].Text.text = "Impact:" + (Mathf.Round(impactDelay * 100) / 100).ToString();
-
-            yield return null;
-        }
-
-        MultiInstanceText.Instances[1].Text.text = "";
+#endif
     }
     public void ResolveSkillUseCosts_Attacker(int skillId)
     {
         SkillCosts skillCosts = SkillManager.GlobalSkillList[skillId].Costs;
-        if (skillCosts.Amount > 0)
+        if (skillCosts.Amount <= 0) return;
+
+        switch (skillCosts.Type)
         {
-            switch (skillCosts.Type)
-            {
-                case PlayerResourceType.Health:
-                    CombatTurnContext.Attacker.TakeDamage(skillCosts.Amount);
-                    break;
+            case PlayerResourceType.Health:
+                CombatTurnContext.Attacker.TakeDamage(skillCosts.Amount);
+                break;
 
-                case PlayerResourceType.Energy:
-                    CombatTurnContext.Attacker.SpendEnergy(skillCosts.Amount);
-                    break;
+            case PlayerResourceType.Energy:
+                CombatTurnContext.Attacker.SpendEnergy(skillCosts.Amount);
+                break;
 
-                default:
-                    break;
-            }
+            default:
+                break;
         }
     }
 
@@ -180,7 +163,7 @@ public class CombatManager : SmartNetworkBehaviour
     #endregion
 
 
-    #region Resolve Attack on defender and attacker
+    #region Resolve attack on defender and attacker
 
     public void ResolveAttack_OnDefender(int skillId, DefenseResult defenseResult)
     {
@@ -213,11 +196,13 @@ public class CombatManager : SmartNetworkBehaviour
         if (defenseResult == DefenseResult.PerfectParried)
         {
             // Resolve penalty skill on attacker for getting perfect parried.
-            CombatTurnContext.Attacker.TakeDamage(GameRules.MatchSettings.PerfectParryPenalty.DamageTaken);
+            float perfectParriedDamage = GameRules.MatchSettings.PerfectParryPenalty.DamageTaken;
+            if (perfectParriedDamage > 0)
+            {
+                CombatTurnContext.Attacker.TakeDamage(perfectParriedDamage);
+            }
             CombatTurnContext.Attacker.AddStatusEffect(GameRules.MatchSettings.PerfectParryPenalty.VulnerableEffect);
         }
-
-        //DebugLogger.LogError("Defender Health" + CombatTurnContext.Defender.Health);
     }
 
     #endregion
@@ -230,10 +215,60 @@ public class CombatManager : SmartNetworkBehaviour
         TurnManager.TurnStarted -= OnTurnStarted;
         TurnManager.TurnEnded -= OnTurnEnded;
 
-        blockInput.action.performed -= OnBlock;
+        blockInput.action.performed -= OnDodge;
         blockInput.action.Disable();
 
         parryInput.action.performed -= OnParry;
         parryInput.action.Disable();
     }
+
+
+#if Enable_Debug_Systems
+    private IEnumerator DebugDefenseDurationLoop(float defenseDuration)
+    {
+        while (defenseDuration > 0)
+        {
+            defenseDuration -= Time.deltaTime;
+            MultiInstanceText.Instances[0].Text.text = "Defense:" + (Mathf.Round(defenseDuration * 100) / 100).ToString();
+
+            yield return null;
+        }
+
+        MultiInstanceText.Instances[0].Text.text = "";
+    }
+    private IEnumerator DebugAttackImpactDelayLoop(float impactDelay)
+    {
+        while (impactDelay > 0)
+        {
+            impactDelay -= Time.deltaTime;
+            MultiInstanceText.Instances[1].Text.text = "Impact:" + (Mathf.Round(impactDelay * 100) / 100).ToString();
+
+            yield return null;
+        }
+
+        MultiInstanceText.Instances[1].Text.text = "";
+    }
+    private IEnumerator DebugDefenseResult_Local(DefenseResult result)
+    {
+        MultiInstanceText.Instances[2].Text.text = result.ToString();
+
+        yield return new WaitForSeconds(1.5f);
+        
+        MultiInstanceText.Instances[2].Text.text = "";
+    }
+
+    [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
+    private void DisplayDefenseResult_ServerRPC(DefenseResult defenseResult, ServerRpcParams rpcParams = default)
+    {
+        ulong senderClientNetworkId = rpcParams.Receive.SenderClientId;
+        DisplayDefenseResult_ClientRPC(defenseResult, RPCTargetFilters.SendToOppositeClient(senderClientNetworkId));
+    }
+    [ClientRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
+    private void DisplayDefenseResult_ClientRPC(DefenseResult defenseResult, ClientRpcParams rpcParams)
+    {
+        if (IsHost && RPCTargetFilters.ShouldHostSkip(rpcParams)) return;
+        
+        StartCoroutine(DebugDefenseResult_Local(defenseResult));
+    }
+#endif
 }

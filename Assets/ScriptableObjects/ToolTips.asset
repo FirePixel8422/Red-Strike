@@ -23,6 +23,18 @@ MonoBehaviour:
     toolTip: Burning stacks deal 10 damage every turn for a set duration of turns.
     width: 500
     height: 100
+  - word: weakened
+    wordColor: {r: 0.7509433, g: 0.28666395, b: 0.23095043, a: 1}
+    toolTip: Weakened causes the target to deal less damage for a set duration of
+      turns
+    width: 500
+    height: 100
+  - word: broken
+    wordColor: {r: 0.89433956, g: 0.24805266, b: 0.40897197, a: 1}
+    toolTip: Broken causes the target to have a healing reduction for a set duration
+      of turns.
+    width: 500
+    height: 100
   - word: cleanses
     wordColor: {r: 0.81886786, g: 0.641189, b: 0.641189, a: 1}
     toolTip: Removes all negative status effects.

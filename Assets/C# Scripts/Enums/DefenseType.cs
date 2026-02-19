@@ -4,6 +4,6 @@
 public enum DefenseType : byte
 {
     None,
-    Block,
+    Dodge,
     Parry,
 }

@@ -12,6 +12,7 @@ public class SkillStatusEffect : SkillBaseEffect
 
     public override void Resolve(DefenseAbsorptionParameters absorptionParams)
     {
+        if (absorptionParams.AbsorbStatusEffects) return;
         CombatTurnContext.Defender.AddStatusEffect(ToApplyStatusEffect);
     }
 }

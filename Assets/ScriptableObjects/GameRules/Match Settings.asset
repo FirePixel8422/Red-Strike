@@ -15,7 +15,7 @@ MonoBehaviour:
   Value:
     PassiveEnergyGain: 2
     PerfectParryPenalty:
-      DamageTaken: 0
+      DamageTaken: 5
       VulnerableEffect:
         Type: 5
-        Duration: 1
+        Duration: 2

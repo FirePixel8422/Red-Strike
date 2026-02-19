@@ -26,7 +26,7 @@ namespace Fire_Pixel.Networking
         public static OneTimeAction PostInitialized = new OneTimeAction();
 #pragma warning restore UDR0001
 
-#if Enable_Debug_Logging
+#if Enable_Debug_Systems
         public bool LogDebugInfo = true;
 #endif
 
@@ -46,7 +46,7 @@ namespace Fire_Pixel.Networking
         /// </summary>
         public static void SetPlayerIdDataArray_OnServer(PlayerIdDataArray newValue)
         {
-#if Enable_Debug_Logging
+#if Enable_Debug_Systems
             DebugLogger.LogError("SetPlayerIdDataArray_OnServer called on non server Client, this should only be called from the server!", Instance.IsServer == false);
 #endif
             Instance.playerIdDataArray.Value = newValue;
@@ -250,7 +250,7 @@ namespace Fire_Pixel.Networking
                 PlayerCount = NetworkManager.ConnectedClients.Count,
             });
 
-#if Enable_Debug_Logging
+#if Enable_Debug_Systems
             DebugLogger.Log("Player " + GetClientGameId(clientNetworkId) + ", (NetworkId: " + clientNetworkId + "), connected to server!", LogDebugInfo);
 #endif
         }
@@ -260,7 +260,7 @@ namespace Fire_Pixel.Networking
         /// </summary>
         private void OnClientDisconnected_OnServer(ulong clientNetworkId)
         {
-#if Enable_Debug_Logging
+#if Enable_Debug_Systems
             DebugLogger.Log("Player " + GetClientGameId(clientNetworkId) + ", (NetworkId: " + clientNetworkId + "), disconnected from server", LogDebugInfo);
 #endif
 
@@ -303,7 +303,7 @@ namespace Fire_Pixel.Networking
             // If The host disconnected
             if (clientNetworkId == 0)
             {
-#if Enable_Debug_Logging
+#if Enable_Debug_Systems
                 // Destroy the rejoin reference on the kicked client
                 bool deletionSucces = FileManager.TryDeleteFile(LobbyMaker.REJOINDATA_PATH);
                 DebugLogger.Log($"{LobbyMaker.REJOINDATA_PATH} deleted: " + deletionSucces, LogDebugInfo);

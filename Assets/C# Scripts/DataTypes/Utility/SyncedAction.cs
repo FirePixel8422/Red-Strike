@@ -24,7 +24,7 @@ namespace Fire_Pixel.Networking
         }
         public void Destroy_OnServer()
         {
-#if Enable_Debug_Logging
+#if Enable_Debug_Systems
             if (!NetworkManager.Singleton.IsServer)
             {
                 DebugLogger.LogError("Destroy SyncedAction may ONLY be called on the server");
@@ -41,7 +41,7 @@ namespace Fire_Pixel.Networking
 
         public void ScheduleLocal(double timeStamp)
         {
-#if Enable_Debug_Logging
+#if Enable_Debug_Systems
             if (isScheduled)
             {
                 DebugLogger.LogError("SyncedAction is already scheduled! You must not call Schedule() twice before it executes.");

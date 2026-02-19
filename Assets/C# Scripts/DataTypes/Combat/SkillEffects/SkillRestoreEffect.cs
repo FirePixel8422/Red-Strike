@@ -20,7 +20,7 @@ public class SkillRestoreEffect : SkillBaseEffect
                 break;
 
             case PlayerResourceType.Energy:
-                CombatTurnContext.Attacker.RestoreEnergy(amount);
+                CombatTurnContext.Attacker.RestoreEnergy(Mathf.RoundToInt(amount));
                 break;
 
             default:

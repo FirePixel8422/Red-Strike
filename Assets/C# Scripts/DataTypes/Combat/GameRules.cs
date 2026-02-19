@@ -38,7 +38,7 @@ public static class GameRules
     {
         return defenseResult switch
         {
-            DefenseResult.Blocked => DefenseStrengths.Block,
+            DefenseResult.Dodged => DefenseStrengths.Dodge,
             DefenseResult.Parried => DefenseStrengths.Parry,
             DefenseResult.PerfectParried => DefenseStrengths.PerfectParry,
             DefenseResult.None or _ => new DefenseAbsorptionParameters(0, false),

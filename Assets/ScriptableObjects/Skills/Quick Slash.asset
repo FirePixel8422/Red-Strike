@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ded018729d93a7e46a91f9922e1bb2df, type: 3}
-  m_Name: Wounding Slash
+  m_Name: Quick Slash
   m_EditorClassIdentifier: Assembly-CSharp::BaseSkillSO
   Skill:
     rid: 8095730906320077012
@@ -22,33 +22,26 @@ MonoBehaviour:
       data:
         info:
           Name: Wounding Slash
-          Description: Single slow slash that deals low damage, applies 1 bleeding
-            stack and applies broken for 1 turn.
+          Description: Single VERY fast slash that deals medium damage and applies
+            weakened for 2 turns.
         costs:
           Type: 1
-          Amount: 3
+          Amount: 5
         defenseWindows:
           Dodge: 0.4
           Parry: 0.25
           PerfectParry: 0.1
-        attackStartupTime: 1.75
+        attackStartupTime: 1.25
         effects:
         - rid: 8095730906320077019
-        - rid: 8095730906320077020
-        - rid: 8095730906320077021
+        - rid: 8095730951984250973
     - rid: 8095730906320077019
       type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
       data:
-        damage: 10
-    - rid: 8095730906320077020
+        damage: 20
+    - rid: 8095730951984250973
       type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
       data:
         ToApplyStatusEffect:
-          Type: 1
-          Duration: 0
-    - rid: 8095730906320077021
-      type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
-      data:
-        ToApplyStatusEffect:
-          Type: 2
-          Duration: 1
+          Type: 3
+          Duration: 2

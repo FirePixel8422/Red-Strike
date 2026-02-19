@@ -26,7 +26,7 @@ public class RebindManager : MonoBehaviour
 
     private const string REBINDS_PATH = "Input/Rebinds";
 
-#if Enable_Debug_Logging
+#if Enable_Debug_Systems
     [SerializeField] private bool logRebindOperations = true;
 #endif
 
@@ -152,7 +152,7 @@ public class RebindManager : MonoBehaviour
     {
         inputActions.RemoveAllBindingOverrides();
 
-#if Enable_Debug_Logging
+#if Enable_Debug_Systems
         bool success = FileManager.TryDeleteFile(REBINDS_PATH);
 
         if (logRebindOperations)

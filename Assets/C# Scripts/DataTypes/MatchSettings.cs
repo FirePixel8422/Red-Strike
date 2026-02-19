@@ -4,6 +4,6 @@
 [System.Serializable]
 public struct MatchSettings
 {
-    public float PassiveEnergyGain;
+    public int PassiveEnergyGain;
     public PerfectParryPenaltyStats PerfectParryPenalty;
 }

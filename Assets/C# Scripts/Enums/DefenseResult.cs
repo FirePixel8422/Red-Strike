@@ -4,7 +4,7 @@
 public enum DefenseResult : byte
 {
     None,
-    Blocked,
+    Dodged,
     Parried,
     PerfectParried,
 }

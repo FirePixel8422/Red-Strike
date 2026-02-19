@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GlobalSkillListSO
   SkillList:
   - {fileID: 11400000, guid: 9fb629384ae4f9e46afc1dc26dc6f315, type: 2}
+  - {fileID: 11400000, guid: fc5f42e674c09f645b3ab707399e2a41, type: 2}
   - {fileID: 11400000, guid: a559f827fe0e4f244883b3ccd19c0e43, type: 2}
   - {fileID: 11400000, guid: 56fd8633da4492f4a8f505195e8f12df, type: 2}
+  - {fileID: 11400000, guid: 32a7d9d7079e3494fbb15b68def0ed80, type: 2}
   - {fileID: 11400000, guid: 08dc3be1216730a45aa4a3d83d14dde0, type: 2}
   - {fileID: 11400000, guid: 08df5068d5b860644b309e818f196f1b, type: 2}

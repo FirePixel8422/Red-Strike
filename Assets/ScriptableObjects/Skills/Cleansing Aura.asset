@@ -10,35 +10,41 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ded018729d93a7e46a91f9922e1bb2df, type: 3}
-  m_Name: True Strike
+  m_Name: Cleansing Aura
   m_EditorClassIdentifier: Assembly-CSharp::BaseSkillSO
   Skill:
-    rid: 8095730906320077013
+    rid: 8095730906320077014
   references:
     version: 2
     RefIds:
-    - rid: 8095730906320077013
+    - rid: 8095730906320077014
       type: {class: SkillSimple, ns: , asm: Assembly-CSharp}
       data:
         info:
-          Name: True Strike
-          Description: Single slow slash that deals low damage and low true damage
+          Name: Healing Strike
+          Description: Deals very low damage. Restores 10 health and cleanses
         costs:
           Type: 1
-          Amount: 3
+          Amount: 2
         defenseWindows:
           Dodge: 0.4
           Parry: 0.25
           PerfectParry: 0.1
-        attackStartupTime: 1.6
+        attackStartupTime: 2.25
         effects:
-        - rid: 8095730906320077024
-        - rid: 8095730906320077023
-    - rid: 8095730906320077023
-      type: {class: SkillTrueDamageEffect, ns: , asm: Assembly-CSharp}
+        - rid: 8095730906320077027
+        - rid: 8095730906320077025
+        - rid: 8095730906320077026
+    - rid: 8095730906320077025
+      type: {class: SkillRestoreEffect, ns: , asm: Assembly-CSharp}
       data:
-        trueDamage: 10
-    - rid: 8095730906320077024
+        type: 0
+        amount: 10
+    - rid: 8095730906320077026
+      type: {class: SkillCleanseEffect, ns: , asm: Assembly-CSharp}
+      data:
+        Header_Dummy: 0
+    - rid: 8095730906320077027
       type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
       data:
-        damage: 10
+        damage: 5

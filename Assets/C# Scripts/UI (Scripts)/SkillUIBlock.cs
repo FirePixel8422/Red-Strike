@@ -23,7 +23,7 @@ public class SkillUIBlock : MonoBehaviour
         UpdateSkillActiveState(false);
     }
     /// <summary>
-    /// Enable Button of the skillUIBlock and wire it to the attack system
+    /// Enable Button of the skillUIDodge and wire it to the attack system
     /// </summary>
     public void Init()
     {
@@ -39,7 +39,7 @@ public class SkillUIBlock : MonoBehaviour
     }
 
     /// <summary>
-    /// Update UISkillBlock title, description and costs UI based on new skill data.
+    /// Update UISkillDodge title, description and costs UI based on new skill data.
     /// </summary>
     public void UpdateUI(SkillBase skill)
     {
@@ -48,7 +48,7 @@ public class SkillUIBlock : MonoBehaviour
         title.text = skill.Info.Name;
         description.text = skill.Info.Description;
 
-        // Disable potential previous selected resourceUIBlock
+        // Disable potential previous selected resourceUIDodge
         if (currentResourceCostId != -1)
         {
             resourceCostUIs[currentResourceCostId].Disable();
@@ -84,8 +84,6 @@ public class SkillUIBlock : MonoBehaviour
     /// </summary>
     public void UpdateSkillActiveState(bool isActive)
     {
-        RecalculateCanAffordSkill();
-
         bool canUseSkill = canAfford && isActive;
         button.interactable = canUseSkill;
 

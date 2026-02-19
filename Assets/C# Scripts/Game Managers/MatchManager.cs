@@ -32,7 +32,7 @@ namespace Fire_Pixel.Networking
             playerReadyCount += 1;
             if (playerReadyCount == GlobalGameData.MAX_PLAYERS)
             {
-                StartMatch_OnServer?.Invoke();
+                StartMatch_OnServer?.Invoke(); 
             }
         }
     }

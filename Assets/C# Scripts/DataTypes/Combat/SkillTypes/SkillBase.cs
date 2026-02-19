@@ -67,13 +67,13 @@ public struct SkillCosts
 [System.Serializable]
 public struct DefenseWindowParameters
 {
-    public float Block;
+    public float Dodge;
     public float Parry;
     public float PerfectParry;
 
     public static DefenseWindowParameters Default => new DefenseWindowParameters()
     {
-        Block = 0.4f,
+        Dodge = 0.4f,
         Parry = 0.25f,
         PerfectParry = 0.1f,
     };

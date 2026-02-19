@@ -20,7 +20,7 @@ namespace Fire_Pixel.Networking
         private static Coroutine heartBeatCo;
 #pragma warning restore UDR0001
 
-#if Enable_Debug_Logging
+#if Enable_Debug_Systems
         private static bool LogDebugInfo => ClientManager.Instance.LogDebugInfo;
 #endif
 
@@ -98,7 +98,7 @@ namespace Fire_Pixel.Networking
 
                     CurrentLobby = await LobbyService.Instance.UpdateLobbyAsync(lobbyId, updateOptions);
 
-#if Enable_Debug_Logging
+#if Enable_Debug_Systems
                     DebugLogger.Log($"Lobby updated: {key} = {value}", LogDebugInfo);
 #endif
                 }
