@@ -11,7 +11,7 @@ public class RebindManager : MonoBehaviour
     public static RebindManager Instance { get; private set; }
 
 #pragma warning disable UDR0001
-    public static OneTimeAction RebindsLoaded = new OneTimeAction();
+    public static OneTimeAction PostRebindsLoaded = new OneTimeAction();
 #pragma warning restore UDR0001
 
 
@@ -29,6 +29,7 @@ public class RebindManager : MonoBehaviour
 #if Enable_Debug_Logging
     [SerializeField] private bool logRebindOperations = true;
 #endif
+
 
     private void OnEnable()
     {
@@ -50,10 +51,9 @@ public class RebindManager : MonoBehaviour
 
     private void OnCancelRebind(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed)
-        {
-            CancelRebind();
-        }
+        if (ctx.performed == false) return;
+
+        CancelRebind();
     }
 
 
@@ -139,7 +139,7 @@ public class RebindManager : MonoBehaviour
             inputActions.LoadBindingOverridesFromJson(rebindJson.Value);
             DebugLogger.Log("Rebinds loaded.", logRebindOperations);
         }
-        RebindsLoaded?.Invoke();
+        PostRebindsLoaded?.Invoke();
     }
     private async Task SaveRebindsAsync()
     {
@@ -174,6 +174,5 @@ public class RebindManager : MonoBehaviour
     private void OnDestroy()
     {
         CancelRebind();
-        RebindsLoaded = null;
     }
 }

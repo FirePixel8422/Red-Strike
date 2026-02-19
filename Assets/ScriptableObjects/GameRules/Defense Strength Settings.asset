@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DefenseSettingsSO
   DefenseStrengthRules:
     Block:
-      DamageAbsorptionPercent: 40
+      DamageAbsorptionPercent: 0.4
       AbsorbStatusEffects: 0
     Parry:
-      DamageAbsorptionPercent: 70
+      DamageAbsorptionPercent: 0.7
       AbsorbStatusEffects: 1
     PerfectParry:
-      DamageAbsorptionPercent: 90
+      DamageAbsorptionPercent: 0.9
       AbsorbStatusEffects: 1

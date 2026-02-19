@@ -30,7 +30,7 @@ MonoBehaviour:
           Block: 0.7
           Parry: 0.4
           PerfectParry: 0.15
-        attackStartupTime: 1.2
+        attackStartupTime: 5
         effects:
         - rid: 8095730906320077024
         - rid: 8095730906320077023

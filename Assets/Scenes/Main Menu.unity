@@ -2132,7 +2132,8 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1842729016890965625, guid: 5765f74dd3c86d544ab75dedc50f27e3, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -2158,6 +2159,24 @@ MonoBehaviour:
 --- !u!1 &909670314 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 394064928308300668, guid: 5765f74dd3c86d544ab75dedc50f27e3,
+    type: 3}
+  m_PrefabInstance: {fileID: 909670311}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &909670315 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5858572898623967240, guid: 5765f74dd3c86d544ab75dedc50f27e3,
+    type: 3}
+  m_PrefabInstance: {fileID: 909670311}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!1 &909670316 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3582492759531291956, guid: 5765f74dd3c86d544ab75dedc50f27e3,
     type: 3}
   m_PrefabInstance: {fileID: 909670311}
   m_PrefabAsset: {fileID: 0}
@@ -3386,6 +3405,7 @@ GameObject:
   - component: {fileID: 1227430495}
   - component: {fileID: 1227430494}
   - component: {fileID: 1227430493}
+  - component: {fileID: 1227430497}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -3476,6 +3496,25 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1227430497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1227430492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb9800be2adbbb143b4bfef28fca67ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RebindManager
+  inputActions: {fileID: -944628639613478452, guid: 6842473d79b50d848a6767cf3412d4c5,
+    type: 3}
+  cancelRebindAction: {fileID: 6068819245906989491, guid: 6842473d79b50d848a6767cf3412d4c5,
+    type: 3}
+  rebindPopupObj: {fileID: 909670316}
+  toRebindControlText: {fileID: 909670315}
+  logRebindOperations: 0
 --- !u!1 &1325696458
 GameObject:
   m_ObjectHideFlags: 0

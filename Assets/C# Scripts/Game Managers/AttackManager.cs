@@ -5,11 +5,11 @@ using UnityEngine;
 public static class AttackManager
 {
 #pragma warning disable UDR0001
-    private static DefenseWindowParameters defenseWindow;
-    private static float attackImpactGlobalTime;
-
-    private static DefenseResult defenseResult;
-    private static int skillId;
+    public static DefenseWindowParameters defenseWindow;
+    public static float attackImpactGlobalTime;
+    
+    public static DefenseResult defenseResult;
+    public static int skillId;
 #pragma warning restore UDR0001
 
 

@@ -15,7 +15,7 @@ public class HUDHandler : MonoBehaviour
     public ResourceBarUI OpponentHealthBar => opponentHealthBar;
     public ResourceBarUI LocalEnergyBar => localEnergyBar;
 
-    [Space(15)]
+    [Space(8)]
 
     [SerializeField] private float fadeOutTime;
     [SerializeField] private float fadeInTime;

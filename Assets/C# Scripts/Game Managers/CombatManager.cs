@@ -1,4 +1,5 @@
 using Fire_Pixel.Networking;
+using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -27,22 +28,14 @@ public class CombatManager : SmartNetworkBehaviour
         }
         CombatTurnContext.Init(playerStats);
 
-        blockInput.action.performed += OnBlock;
-        parryInput.action.performed += OnParry;
-
-        if (RebindManager.Instance != null)
-        {
-            RebindManager.RebindsLoaded += () =>
-            {
-                blockInput.action.Enable();
-                parryInput.action.Enable();
-            };
-        }
-        else
+        RebindManager.PostRebindsLoaded += () =>
         {
             blockInput.action.Enable();
+            blockInput.action.performed += OnBlock;
+
             parryInput.action.Enable();
-        }
+            parryInput.action.performed += OnParry;
+        };
     }
 
     protected override void OnNetworkSystemsSetupPostStart()
@@ -69,7 +62,9 @@ public class CombatManager : SmartNetworkBehaviour
     }
     private void OnTurnEnded()
     {
+        PlayerStats.Oponnent.RestoreEnergy(GameRules.MatchSettings.PassiveEnergyGain);
         PlayerStats.Local.ApplyAndTickDownStatusEffects();
+
         WeaponManager.SwapToRandomWeapon();
     }
 
@@ -82,9 +77,7 @@ public class CombatManager : SmartNetworkBehaviour
         {
             canDefend = false;
             AttackManager.DoDefendAction(DefenseType.Block);
-
-            GameObject obj = Instantiate(blockCube, spawnpoint);
-            Destroy(obj, 1);
+            StartCoroutine(DebugDefenseDurationLoop(AttackManager.defenseWindow.Block));
         }
     }
     private void OnParry(InputAction.CallbackContext ctx)
@@ -93,12 +86,25 @@ public class CombatManager : SmartNetworkBehaviour
         {
             canDefend = false;
             AttackManager.DoDefendAction(DefenseType.Parry);
-
-            GameObject obj = Instantiate(parryCube, spawnpoint);
-            Destroy(obj, 1);
+            StartCoroutine(DebugDefenseDurationLoop(AttackManager.defenseWindow.Parry));
         }
     }
 
+    private IEnumerator DebugDefenseDurationLoop(float defenseDuration)
+    {
+        while (defenseDuration > 0)
+        {
+            defenseDuration -= Time.deltaTime;
+            MultiInstanceText.Instances[0].Text.text = "Defense:" + (Mathf.Round(defenseDuration * 100) / 100).ToString();
+
+            yield return null;
+        }
+
+        MultiInstanceText.Instances[0].Text.text = "";
+    }
+
+
+    #region Start Combat Sequence
 
     [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
     public void Attack_ServerRPC(int skillId, ServerRpcParams rpcParams = default)
@@ -120,6 +126,20 @@ public class CombatManager : SmartNetworkBehaviour
         float attackImpactDelay = SkillManager.GlobalSkillList[skillId].AttackStartupTime;
         StartAttackAnimation_ServerRPC(attackImpactDelay);
         PlayerVisualsManager.DoAttackAnimation(attackImpactDelay);
+        
+        StartCoroutine(DebugAttackImpactDelayLoop(SkillManager.GlobalSkillList[skillId].AttackStartupTime));
+    }
+    private IEnumerator DebugAttackImpactDelayLoop(float impactDelay)
+    {
+        while (impactDelay > 0)
+        {
+            impactDelay -= Time.deltaTime;
+            MultiInstanceText.Instances[1].Text.text = "Impact:" + (Mathf.Round(impactDelay * 100) / 100).ToString();
+
+            yield return null;
+        }
+
+        MultiInstanceText.Instances[1].Text.text = "";
     }
     public void ResolveSkillUseCosts_Attacker(int skillId)
     {
@@ -156,6 +176,8 @@ public class CombatManager : SmartNetworkBehaviour
 
         PlayerVisualsManager.DoAttackAnimation(attackImpactDelay);
     }
+
+    #endregion
 
 
     #region Resolve Attack on defender and attacker

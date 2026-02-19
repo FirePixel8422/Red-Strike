@@ -33,15 +33,16 @@ public class PlayerAnimator : MonoBehaviour
         {
             yield return null;
 
-            t += Time.deltaTime / delayBeforeImpact;
+            t += Time.deltaTime / attackPrepareTime;
             transform.position = Vector3.Lerp(transform.position, attackPointTransform.position, t);
         }
-        while (transform.position != attackPointTransform.position);
+        while (t < 1);
 
-        anim.speed = 1 / Mathf.Clamp(delayBeforeImpact - attackPrepareTime, 0, float.MaxValue);
+        float animTime = Mathf.Clamp(delayBeforeImpact - attackPrepareTime, 0, float.MaxValue);
+        anim.speed = 1 / animTime;
         anim.SetTrigger("Attack");
 
-        yield return new WaitForSeconds(attackResetDelay);
+        yield return new WaitForSeconds(animTime);
 
         t = 0;
         do
@@ -51,6 +52,6 @@ public class PlayerAnimator : MonoBehaviour
             t += Time.deltaTime / attackPrepareTime;
             transform.position = Vector3.Lerp(transform.position, startPointTransform, t);
         }
-        while (transform.position != startPointTransform);
+        while (t < 1);
     }
 }

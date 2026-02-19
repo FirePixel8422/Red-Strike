@@ -82,6 +82,7 @@ public class PlayerStats
 
         Energy -= amount;
         UpdateEnergyBar();
+        DebugLogger.Log("Local: " + IsLocal + ", Lost " + amount + " Energy");
     }
 
     public void UpdateHealthBar()

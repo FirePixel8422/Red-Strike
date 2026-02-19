@@ -17,10 +17,10 @@ public class PlayerVisualsManager : SmartNetworkBehaviour
     private void Awake()
     {
         Players = players;
-    }
-    public override void OnNetworkSpawn()
-    {
         mainCam = Camera.main;
+    }
+    protected override void OnNetworkSystemsSetup()
+    {
         mainCam.transform.SetParent(players[LocalClientGameId].CamTransform, false, false);
     }
 
