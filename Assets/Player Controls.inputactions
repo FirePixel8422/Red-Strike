@@ -25,18 +25,27 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "CancelRebind",
+                    "name": "Quick Skill 1",
                     "type": "Button",
-                    "id": "9a819c45-6c27-440a-a51b-25cdc85adb2d",
+                    "id": "9cd4c384-0dd8-4da9-95b1-6cf2fc2ac262",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ToggleMenu",
+                    "name": "Quick Skill 2",
                     "type": "Button",
-                    "id": "ad86e048-b4c5-4073-aa8f-0dca93150fa5",
+                    "id": "9ee92b5a-059c-4433-96ce-dbefd43c4d7a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Quick Skill 3",
+                    "type": "Button",
+                    "id": "95436988-3bbf-407a-8333-b3047d6fc370",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -90,7 +99,66 @@
                 },
                 {
                     "name": "",
-                    "id": "c26f445f-0aa5-4953-966e-e64709cdffec",
+                    "id": "d09497c5-908b-4692-9d3f-d8f19331d8ae",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Quick Skill 1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bba5f04c-8eb3-4613-ac32-339874657823",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Quick Skill 2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1151d736-abb5-4e99-a98f-1be19f2b8ac2",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Quick Skill 3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Misc",
+            "id": "2dbb850e-0821-4128-b45d-7846171724d6",
+            "actions": [
+                {
+                    "name": "CancelRebind",
+                    "type": "Button",
+                    "id": "274dd6cd-6b0d-4d9f-b70e-3614c3259c05",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ToggleMenu",
+                    "type": "Button",
+                    "id": "01751583-07a0-41c6-a5b7-4bc8ad99e603",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "a52befe9-419b-4cf1-ad38-65f868417885",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
@@ -101,7 +169,7 @@
                 },
                 {
                     "name": "",
-                    "id": "3cca59c6-2e26-4c48-9f82-d7c20ff98574",
+                    "id": "e566a565-51cf-4cc3-b282-13a88a0b5cd3",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",

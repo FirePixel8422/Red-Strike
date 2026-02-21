@@ -1,10 +1,17 @@
 using Fire_Pixel.Networking;
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 
 public class SkillUIManager : MonoBehaviour
 {
     public static SkillUIManager Instance { get; private set; }
+
+
+    [SerializeField] private InputActionReference[] skillQuickUseInputs;
+
+    private Action<InputAction.CallbackContext>[] skillUseActions;
 
 #pragma warning disable UDR0001
     private static SkillUIBlock[] skillUIBlocks;
@@ -23,7 +30,34 @@ public class SkillUIManager : MonoBehaviour
 
         TurnManager.TurnChanged += OnGameStart;
         TurnManager.TurnStarted += OnTurnStarted;
+
+        int skillCount = skillQuickUseInputs.Length;
+        skillUseActions = new Action<InputAction.CallbackContext>[skillCount];
+
+        RebindManager.PostRebindsLoaded += () =>
+        {
+            for (int i = 0; i < skillCount; i++)
+            {
+                // local copy for closure
+                int skillSlotId = i;
+
+                skillUseActions[i] = CreateSkillUseAction(skillSlotId);
+
+                skillQuickUseInputs[i].action.performed += skillUseActions[skillSlotId];
+                skillQuickUseInputs[i].action.Enable();
+            }
+        };
     }
+    private Action<InputAction.CallbackContext> CreateSkillUseAction(int skillSlotId)
+    {
+        return ctx =>
+        {
+            if (ctx.performed == false) return;
+
+            skillUIBlocks[skillSlotId].TryUseSkill();
+        };
+    }
+
     private void OnGameStart(int clientOnTurnGameId)
     {
         TurnManager.TurnChanged -= OnGameStart;
@@ -33,11 +67,14 @@ public class SkillUIManager : MonoBehaviour
         {
             skillUIBlocks[i].Init();
         }
-
         UpdateSkillUIActiveState(TurnManager.IsMyTurn);
     }
 
     private void OnTurnStarted() => UpdateSkillUIActiveState(true);
+
+
+    #region Manage Skill UI
+
     public void UpdateSkillUIActiveState(bool state)
     {
         int skillSlotCount = skillUIBlocks.Length;
@@ -46,7 +83,6 @@ public class SkillUIManager : MonoBehaviour
             skillUIBlocks[i].UpdateSkillActiveState(state);
         }
     }
-
     public static void UpdateSkillUI(SkillSet skillSet)
     {
         int skillSlotCount = skillUIBlocks.Length;
@@ -72,9 +108,19 @@ public class SkillUIManager : MonoBehaviour
         }
     }
 
+    #endregion
+
+
     private void OnDestroy()
     {
         TurnManager.TurnChanged -= OnGameStart;
         TurnManager.TurnStarted -= OnTurnStarted;
+
+        int skillCount = skillQuickUseInputs.Length;
+        for (int i = 0; i < skillCount; i++)
+        {
+            skillQuickUseInputs[i].action.performed -= skillUseActions[i];
+            skillQuickUseInputs[i].action.Disable();
+        }
     }
 }

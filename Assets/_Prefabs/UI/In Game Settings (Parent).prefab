@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da508d248ba0d1d4a89a5dcfd24d9b8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuInputTrigger
-  triggerInput: {fileID: -8745971582389931898, guid: 6842473d79b50d848a6767cf3412d4c5,
+  triggerInput: {fileID: 8639254785988848120, guid: 6842473d79b50d848a6767cf3412d4c5,
     type: 3}
   onTrigger:
     m_PersistentCalls:

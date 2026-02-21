@@ -9,14 +9,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1008631812341932908}
-  - component: {fileID: 1842729016890965625}
   m_Layer: 5
   m_Name: Settings (Parent)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1008631812341932908
 RectTransform:
   m_ObjectHideFlags: 0
@@ -39,25 +38,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1842729016890965625
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 394064928308300668}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb9800be2adbbb143b4bfef28fca67ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::RebindManager
-  inputActions: {fileID: -944628639613478452, guid: 6842473d79b50d848a6767cf3412d4c5,
-    type: 3}
-  cancelRebindAction: {fileID: 6068819245906989491, guid: 6842473d79b50d848a6767cf3412d4c5,
-    type: 3}
-  rebindPopupObj: {fileID: 3582492759531291956}
-  toRebindControlText: {fileID: 5858572898623967240}
-  logRebindOperations: 0
 --- !u!1 &2841863271871323717
 GameObject:
   m_ObjectHideFlags: 0
@@ -78,7 +58,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5418198413509589962
 RectTransform:
   m_ObjectHideFlags: 0
@@ -177,11 +157,11 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 6611741803418029114}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7017946031791466955}
+      - m_Target: {fileID: 394064928308300668}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -193,7 +173,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2841863271871323717}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -203,7 +183,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!95 &3577183778882441173
 Animator:
@@ -239,7 +219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad8a97650fa571548aa48afdd87618f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuController
-  triggerInput: {fileID: -8745971582389931898, guid: 6842473d79b50d848a6767cf3412d4c5,
+  triggerInput: {fileID: 8639254785988848120, guid: 6842473d79b50d848a6767cf3412d4c5,
     type: 3}
 --- !u!1 &5129765255251981906
 GameObject:
@@ -387,6 +367,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1008631812341932908}
     m_Modifications:
+    - target: {fileID: 1198693591593890363, guid: 4fe5bf9ddb41f4c4887c18fe13bbdea7,
+        type: 3}
+      propertyPath: m_text
+      value: Use Skill 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1949704958393318620, guid: 4fe5bf9ddb41f4c4887c18fe13bbdea7,
+        type: 3}
+      propertyPath: m_text
+      value: Use Skill 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6905053653037815190, guid: 4fe5bf9ddb41f4c4887c18fe13bbdea7,
         type: 3}
       propertyPath: m_Name
@@ -492,6 +482,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8833138247955704275, guid: 4fe5bf9ddb41f4c4887c18fe13bbdea7,
+        type: 3}
+      propertyPath: m_text
+      value: Use Skill 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -500,12 +495,6 @@ PrefabInstance:
 --- !u!224 &6669176494975975939 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7078182669165690462, guid: 4fe5bf9ddb41f4c4887c18fe13bbdea7,
-    type: 3}
-  m_PrefabInstance: {fileID: 4519200654591261789}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &7017946031791466955 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6905053653037815190, guid: 4fe5bf9ddb41f4c4887c18fe13bbdea7,
     type: 3}
   m_PrefabInstance: {fileID: 4519200654591261789}
   m_PrefabAsset: {fileID: 0}
@@ -627,27 +616,9 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49716267a07a0b34ab9bbd6d2a0939e4, type: 3}
---- !u!1 &3582492759531291956 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8865180586266420764, guid: 49716267a07a0b34ab9bbd6d2a0939e4,
-    type: 3}
-  m_PrefabInstance: {fileID: 5382048846381376296}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &4808741590693928654 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 580106830263991782, guid: 49716267a07a0b34ab9bbd6d2a0939e4,
     type: 3}
   m_PrefabInstance: {fileID: 5382048846381376296}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5858572898623967240 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2016827495682847520, guid: 49716267a07a0b34ab9bbd6d2a0939e4,
-    type: 3}
-  m_PrefabInstance: {fileID: 5382048846381376296}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI

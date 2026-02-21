@@ -65,7 +65,7 @@ public class CombatManager : SmartNetworkBehaviour
             StartCoroutine(DebugDefenseResult_Local(result));
             DisplayDefenseResult_ServerRPC(result);
 
-            StartCoroutine(DebugDefenseDurationLoop(AttackManager.defenseWindow.Dodge));
+            //StartCoroutine(DebugDefenseDurationLoop(AttackManager.defenseWindow.Dodge));
 #endif
         }
     }
@@ -82,7 +82,7 @@ public class CombatManager : SmartNetworkBehaviour
             StartCoroutine(DebugDefenseResult_Local(result));
             DisplayDefenseResult_ServerRPC(result);
 
-            StartCoroutine(DebugDefenseDurationLoop(AttackManager.defenseWindow.Parry));
+            //StartCoroutine(DebugDefenseDurationLoop(AttackManager.defenseWindow.Parry));
 #endif
         }
     }
@@ -125,7 +125,7 @@ public class CombatManager : SmartNetworkBehaviour
         PlayerVisualsManager.DoAttackAnimation(attackImpactDelay);
 
 #if Enable_Debug_Systems
-        StartCoroutine(DebugAttackImpactDelayLoop(SkillManager.GlobalSkillList[skillId].AttackStartupTime));
+        //StartCoroutine(DebugAttackImpactDelayLoop(SkillManager.GlobalSkillList[skillId].AttackStartupTime));
 #endif
     }
     public void ResolveSkillUseCosts_Attacker(int skillId)
@@ -241,7 +241,6 @@ public class CombatManager : SmartNetworkBehaviour
 #if Enable_Debug_Systems
     private IEnumerator DebugDefenseDurationLoop(float defenseDuration)
     {
-        yield break;
         while (defenseDuration > 0)
         {
             defenseDuration -= Time.deltaTime;
@@ -254,7 +253,6 @@ public class CombatManager : SmartNetworkBehaviour
     }
     private IEnumerator DebugAttackImpactDelayLoop(float impactDelay)
     {
-        yield break;
         while (impactDelay > 0)
         {
             impactDelay -= Time.deltaTime;

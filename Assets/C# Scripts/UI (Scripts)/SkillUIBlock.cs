@@ -28,11 +28,13 @@ public class SkillUIBlock : MonoBehaviour
     public void Init()
     {
         button.enabled = true;
-        button.onClick.AddListener(UseSkill);
+        button.onClick.AddListener(TryUseSkill);
     }
 
-    private void UseSkill()
+    public void TryUseSkill()
     {
+        if (canAfford == false) return;
+
         SkillUIManager.Instance.UpdateSkillUIActiveState(false);
         CombatManager.Instance.ResolveSkillUseCosts_Attacker(currentSkillId);
         CombatManager.Instance.Attack_ServerRPC(currentSkillId);
