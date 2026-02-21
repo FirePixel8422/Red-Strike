@@ -21,17 +21,17 @@ MonoBehaviour:
       type: {class: SkillSimple, ns: , asm: Assembly-CSharp}
       data:
         info:
-          Name: Wounding Slash
+          Name: Quick Slash
           Description: Single VERY fast slash that deals medium damage and applies
             weakened for 2 turns.
         costs:
           Type: 1
           Amount: 5
         defenseWindows:
-          Dodge: 0.4
-          Parry: 0.25
-          PerfectParry: 0.1
-        attackStartupTime: 1.25
+          Dodge: 0.3
+          Parry: 0.2
+          PerfectParry: 0.075
+        attackStartupTime: 1.5
         effects:
         - rid: 8095730906320077019
         - rid: 8095730951984250973

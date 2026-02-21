@@ -21,15 +21,15 @@ MonoBehaviour:
       type: {class: SkillSimple, ns: , asm: Assembly-CSharp}
       data:
         info:
-          Name: Healing Strike
+          Name: Cleansing Aura
           Description: Deals very low damage. Restores 10 health and cleanses
         costs:
           Type: 1
           Amount: 2
         defenseWindows:
-          Dodge: 0.4
-          Parry: 0.25
-          PerfectParry: 0.1
+          Dodge: 0
+          Parry: 0
+          PerfectParry: 0
         attackStartupTime: 2.25
         effects:
         - rid: 8095730906320077027

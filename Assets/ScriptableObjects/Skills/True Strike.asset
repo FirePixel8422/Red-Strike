@@ -30,7 +30,7 @@ MonoBehaviour:
           Dodge: 0.4
           Parry: 0.25
           PerfectParry: 0.1
-        attackStartupTime: 1.6
+        attackStartupTime: 1.75
         effects:
         - rid: 8095730906320077024
         - rid: 8095730906320077023

@@ -59,7 +59,7 @@ public class SkillUIBlock : MonoBehaviour
     /// <summary>
     /// Check skill costs and update UI based on if its affordable or not
     /// </summary>
-    private void RecalculateCanAffordSkill()
+    public void RecalculateCanAffordSkill()
     {
         if (currentSkillId == -1) return;
 

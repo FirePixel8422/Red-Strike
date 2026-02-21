@@ -22,24 +22,19 @@ MonoBehaviour:
       data:
         info:
           Name: Healing Strike
-          Description: Deals very low damage. Restores 25 health
+          Description: Deals no damage. Restores 20 health
         costs:
           Type: 1
           Amount: 3
         defenseWindows:
-          Dodge: 0.4
-          Parry: 0.25
-          PerfectParry: 0.1
-        attackStartupTime: 2.25
+          Dodge: 0
+          Parry: 0
+          PerfectParry: 0
+        attackStartupTime: 1.5
         effects:
-        - rid: 8095730906320077027
         - rid: 8095730906320077025
     - rid: 8095730906320077025
       type: {class: SkillRestoreEffect, ns: , asm: Assembly-CSharp}
       data:
         type: 0
-        amount: 25
-    - rid: 8095730906320077027
-      type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
-      data:
-        damage: 5
+        amount: 20

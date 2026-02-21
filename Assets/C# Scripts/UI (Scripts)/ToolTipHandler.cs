@@ -2,13 +2,16 @@ using System.Collections.Generic;
 using System.Text;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 
 public class TooltipHandler : UpdateMonoBehaviour
 {
-    [SerializeField] private GameObject tooltipPrefab;
+    [SerializeField] private InputActionReference mouseMoveAction;
 
+    [SerializeField] private GameObject tooltipPrefab;
     [SerializeField] private ToolTipsSO toolTipDataSO;
+
     private ToolTipWord[] toolTipWords;
 
     private Dictionary<string, int> wordToTooltipId;
@@ -21,7 +24,7 @@ public class TooltipHandler : UpdateMonoBehaviour
     private TextMeshProUGUI tooltipText;
 
     private int lastTooltipId = -1;
-    private TextMeshProUGUI lasttextect;
+    private TextMeshProUGUI lastText;
 
 
     private void Awake()
@@ -32,7 +35,7 @@ public class TooltipHandler : UpdateMonoBehaviour
         {
             DebugLogger.Log("No Tooltips found in ToolTipSO");
             Destroy(this);
-        }
+        } 
 
         // Build lookup dictionaries
         int toolTipWordCount = toolTipWords.Length;
@@ -56,7 +59,6 @@ public class TooltipHandler : UpdateMonoBehaviour
         tooltipText = activeTooltip.GetComponentInChildren<TextMeshProUGUI>();
         tooltipRect.pivot = new Vector2(0.5f, 0.5f);
     }
-
 
     /// <summary>
     /// Fast recolor of all registered TMPs using precomputed hex colors
@@ -109,11 +111,9 @@ public class TooltipHandler : UpdateMonoBehaviour
         }
     }
 
-
-
     protected override void OnUpdate()
     {
-        Vector3 mousePos = Input.mousePosition;
+        Vector3 mousePos = Mouse.current.position.ReadValue();
         Vector2 screenSize = new Vector2(Screen.width, Screen.height);
 
         int tmpCount = registeredTextGuis.Length;
@@ -131,14 +131,14 @@ public class TooltipHandler : UpdateMonoBehaviour
             if (!wordToTooltipId.TryGetValue(hoveredWord, out int tooltipId))
                 continue;
 
-            if (tooltipId == lastTooltipId && tmpText == lasttextect)
+            if (tooltipId == lastTooltipId && tmpText == lastText)
             {
                 activeTooltip.SetActiveSmart(true);
                 return;
             }
 
             lastTooltipId = tooltipId;
-            lasttextect = tmpText;
+            lastText = tmpText;
 
             ToolTipWord tooltipData = toolTipWords[tooltipId];
 
@@ -175,9 +175,8 @@ public class TooltipHandler : UpdateMonoBehaviour
 
         activeTooltip.SetActiveSmart(false);
         lastTooltipId = -1;
-        lasttextect = null;
+        lastText = null;
     }
-
     private void GetWordWorldBounds(TextMeshProUGUI tmpText, TMP_WordInfo wordInfo, out Vector3 bl, out Vector3 tr)
     {
         TMP_TextInfo textInfo = tmpText.textInfo;
