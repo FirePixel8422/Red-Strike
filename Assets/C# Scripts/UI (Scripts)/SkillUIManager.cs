@@ -63,6 +63,14 @@ public class SkillUIManager : MonoBehaviour
         // Update tooltip systems
         toolTipHandler.UpdateColoredWords();
     }
+    public static void RecalculateCanAffordSkills()
+    {
+        int skillSlotCount = skillUIBlocks.Length;
+        for (int i = 0; i < skillSlotCount; i++)
+        {
+            skillUIBlocks[i].RecalculateCanAffordSkill();
+        }
+    }
 
     private void OnDestroy()
     {

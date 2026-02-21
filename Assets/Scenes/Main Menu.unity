@@ -865,7 +865,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Thomas - \tLead Programmer\nTamas - \tCharacter Artist\nCengiz -\tWeapon
-    Artist\nTwan - \tWeapon Artist\nHessel - \tEnvironment Artist\nFloris - \tEnvironment
+    Artist\nTwan -\t\tWeapon Artist\nHessel - \tEnvironment Artist\nFloris - \tEnvironment
     Artist"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 51e8bf946c4be8b4f9cddf7a69740971, type: 2}
@@ -3514,7 +3514,6 @@ MonoBehaviour:
     type: 3}
   rebindPopupObj: {fileID: 909670316}
   toRebindControlText: {fileID: 909670315}
-  logRebindOperations: 0
 --- !u!1 &1325696458
 GameObject:
   m_ObjectHideFlags: 0

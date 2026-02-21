@@ -5,5 +5,6 @@
 public struct MatchSettings
 {
     public int PassiveEnergyGain;
-    public PerfectParryPenaltyStats PerfectParryPenalty;
+    public int ParryEnergyCost;
+    public PerfectParryRules PerfectParryRules;
 }

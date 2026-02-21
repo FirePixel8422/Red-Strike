@@ -155,8 +155,9 @@ namespace Fire_Pixel.Networking
         [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
         private void SendUsernameAndGUID_ServerRPC(int fromPlayerGameId, string username, string guid)
         {
-            playerIdDataArray.Value.SetUserNameAndGUID(fromPlayerGameId, username, guid);
-            playerIdDataArray.SetDirty();
+            PlayerIdDataArray updatedDataArray = playerIdDataArray.Value;
+            updatedDataArray.SetUserNameAndGUID(fromPlayerGameId, username, guid);
+            playerIdDataArray.Value = updatedDataArray;
         }
 
         #endregion
@@ -236,9 +237,7 @@ namespace Fire_Pixel.Networking
         private void OnClientConnected_OnServer(ulong clientNetworkId)
         {
             PlayerIdDataArray updatedDataArray = playerIdDataArray.Value;
-
             updatedDataArray.AddPlayer(clientNetworkId);
-
             playerIdDataArray.Value = updatedDataArray;
 
             RequestUsernameAndGUID_ClientRPC(GetClientGameId(clientNetworkId), RPCTargetFilters.SendToTargetClient(clientNetworkId));
@@ -268,9 +267,7 @@ namespace Fire_Pixel.Networking
             if (clientNetworkId == 0) return;
 
             PlayerIdDataArray updatedDataArray = GetPlayerIdDataArray();
-
             updatedDataArray.RemovePlayer(clientNetworkId);
-
             playerIdDataArray.Value = updatedDataArray;
 
             OnClientDisconnectedCallback?.Invoke(new ClientSessionContext()
@@ -357,7 +354,7 @@ namespace Fire_Pixel.Networking
             playerIdDataArray.ResetEventCallbacks();
             OnClientConnectedCallback = null;
             OnClientDisconnectedCallback = null;
-            PostInitialized = null;
+            PostInitialized = new OneTimeAction();
         }
     }
 }

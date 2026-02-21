@@ -74,14 +74,22 @@ public class PlayerStats
         DebugLogger.LogError("amount MUST be > 0", amount <= 0f);
 
         Energy = Mathf.RoundToInt(math.clamp(Energy + amount, 0, GameRules.DefaultPlayerStats.MaxEnergy));
-        UpdateEnergyBar();
+        if (IsLocal)
+        {
+            UpdateEnergyBar();
+            SkillUIManager.RecalculateCanAffordSkills();
+        }
     }
     public void SpendEnergy(int amount)
     {
         DebugLogger.LogError("amount MUST be > 0", amount <= 0f);
 
         Energy -= amount;
-        UpdateEnergyBar();
+        if (IsLocal)
+        {
+            UpdateEnergyBar();
+            SkillUIManager.RecalculateCanAffordSkills();
+        }
     }
 
     public void UpdateHealthBar()

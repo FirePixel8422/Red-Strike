@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MatchSettingsSO
   Value:
     PassiveEnergyGain: 2
-    PerfectParryPenalty:
-      DamageTaken: 5
-      VulnerableEffect:
+    ParryEnergyCost: 1
+    PerfectParryRules:
+      AttackerDamageTaken: 5
+      AttackerGainedEffect:
         Type: 5
         Duration: 2
+      DefenderEnergyGain: 1

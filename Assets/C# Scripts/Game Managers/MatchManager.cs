@@ -35,5 +35,11 @@ namespace Fire_Pixel.Networking
                 StartMatch_OnServer?.Invoke(); 
             }
         }
+
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+            StartMatch_OnServer = new OneTimeAction();
+        }
     }
 }

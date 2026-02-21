@@ -433,12 +433,17 @@ PrefabInstance:
     - target: {fileID: 2264470707529953247, guid: 099de6fa9ef83764690f19994043a126,
         type: 3}
       propertyPath: m_Name
-      value: Block Remap (Parent)
+      value: Dodge Remap (Parent)
       objectReference: {fileID: 0}
     - target: {fileID: 6474078130293067879, guid: 099de6fa9ef83764690f19994043a126,
         type: 3}
       propertyPath: m_fontSize
       value: 54.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 6973610945942250222, guid: 099de6fa9ef83764690f19994043a126,
+        type: 3}
+      propertyPath: m_text
+      value: Dodge
       objectReference: {fileID: 0}
     - target: {fileID: 6973610945942250222, guid: 099de6fa9ef83764690f19994043a126,
         type: 3}

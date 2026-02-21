@@ -7,7 +7,7 @@
             "id": "22022a5d-8c01-429b-bb5c-df2c455aea34",
             "actions": [
                 {
-                    "name": "Block",
+                    "name": "Dodge",
                     "type": "Button",
                     "id": "fb2f0fb7-c025-45e3-8c24-e4edfb100d96",
                     "expectedControlType": "",
@@ -51,7 +51,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Block",
+                    "action": "Dodge",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -62,7 +62,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Block",
+                    "action": "Dodge",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

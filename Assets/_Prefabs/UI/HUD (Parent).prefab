@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5235206980979147326}
   - component: {fileID: 6599473400353462142}
   - component: {fileID: 5113615266852750522}
-  - component: {fileID: 2946010022429521611}
   - component: {fileID: 7343967752024642803}
   - component: {fileID: 528934029439733622}
   - component: {fileID: 5198872847281164616}
@@ -98,31 +97,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &2946010022429521611
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1804858889699034974}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 1761339672
-  InScenePlacedSourceGlobalObjectIdHash: 0
-  DeferredDespawnTick: 0
-  Ownership: 1
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 0
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
-  SyncOwnerTransformWhenParented: 1
-  AllowOwnerToParent: 0
 --- !u!114 &7343967752024642803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,18 +109,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cbefffbc19e72947a08ebdcc15329a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HUDHandler
-  ShowTopMostFoldoutHeaderGroup: 1
   localHealthBar:
     bar: {fileID: 8451366495087565801}
-    anim: {fileID: 0}
+    anim: {fileID: 4299938707891667986}
+    animateSettings:
+      mode: 1
+      targetValue: 0.2001
     lerpSpeed: 10
   opponentHealthBar:
     bar: {fileID: 2116865089808779029}
-    anim: {fileID: 0}
+    anim: {fileID: 6238752897033653734}
+    animateSettings:
+      mode: 1
+      targetValue: 0.2001
     lerpSpeed: 10
   localEnergyBar:
     bar: {fileID: 1092854845708970514}
     anim: {fileID: 4072519090108276400}
+    animateSettings:
+      mode: 0
+      targetValue: 1
     lerpSpeed: 10
   fadeOutTime: 1
   fadeInTime: 1
@@ -175,6 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42af96b71fd53284f97bcbcd14b40e1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TooltipManager
+  mouseMoveAction: {fileID: 0}
   tooltipPrefab: {fileID: 106586966900532320, guid: be4db8888fed0da4fa3cd0716992efe2,
     type: 3}
   toolTipDataSO: {fileID: 11400000, guid: 59ddb716a8d40a247adbf1109213dddf, type: 2}
@@ -765,7 +748,15 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7415330019887616765, guid: 5bc861ffe9ba3b5438277a1d42f37544,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4299938707891667986}
+    - targetCorrespondingSourceObject: {fileID: 1063236285719531009, guid: 5bc861ffe9ba3b5438277a1d42f37544,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6238752897033653734}
   m_SourcePrefab: {fileID: 100100000, guid: 5bc861ffe9ba3b5438277a1d42f37544, type: 3}
 --- !u!224 &1816945318301299974 stripped
 RectTransform:
@@ -779,19 +770,61 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 2865942843261269139}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 2955628062168283794}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!1 &2955628062168283794 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1063236285719531009, guid: 5bc861ffe9ba3b5438277a1d42f37544,
+    type: 3}
+  m_PrefabInstance: {fileID: 2865942843261269139}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6238752897033653734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2955628062168283794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf33d034847d49d48a2ac26d45965e90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ImageColorAnimator
+  a: {r: 1, g: 1, b: 1, a: 0.7490196}
+  b: {r: 0.89433956, g: 0.389797, b: 0.389797, a: 0.7490196}
+  lerpTime: 0.75
+--- !u!1 &4696502936767309422 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7415330019887616765, guid: 5bc861ffe9ba3b5438277a1d42f37544,
+    type: 3}
+  m_PrefabInstance: {fileID: 2865942843261269139}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4299938707891667986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4696502936767309422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf33d034847d49d48a2ac26d45965e90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ImageColorAnimator
+  a: {r: 1, g: 1, b: 1, a: 0.7490196}
+  b: {r: 0.89433956, g: 0.389797, b: 0.389797, a: 0.7490196}
+  lerpTime: 0.75
 --- !u!114 &8451366495087565801 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5948295062600036218, guid: 5bc861ffe9ba3b5438277a1d42f37544,
     type: 3}
   m_PrefabInstance: {fileID: 2865942843261269139}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 4696502936767309422}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}

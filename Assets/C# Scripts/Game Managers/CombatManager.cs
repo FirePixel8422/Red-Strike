@@ -58,6 +58,7 @@ public class CombatManager : SmartNetworkBehaviour
         if (ctx.performed && canDefend)
         {
             canDefend = false;
+
             DefenseResult result = AttackManager.DoDefendAction(DefenseType.Dodge);
 
 #if Enable_Debug_Systems
@@ -70,9 +71,11 @@ public class CombatManager : SmartNetworkBehaviour
     }
     private void OnParry(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed && canDefend)
+        if (ctx.performed && canDefend && PlayerStats.Local.Energy >= GameRules.MatchSettings.ParryEnergyCost)
         {
+            PlayerStats.Local.SpendEnergy(GameRules.MatchSettings.ParryEnergyCost);
             canDefend = false;
+
             DefenseResult result = AttackManager.DoDefendAction(DefenseType.Parry);
 
 #if Enable_Debug_Systems
@@ -196,12 +199,22 @@ public class CombatManager : SmartNetworkBehaviour
         if (defenseResult == DefenseResult.PerfectParried)
         {
             // Resolve penalty skill on attacker for getting perfect parried.
-            float perfectParriedDamage = GameRules.MatchSettings.PerfectParryPenalty.DamageTaken;
+            float perfectParriedDamage = GameRules.MatchSettings.PerfectParryRules.AttackerDamageTaken;
             if (perfectParriedDamage > 0)
             {
                 CombatTurnContext.Attacker.TakeDamage(perfectParriedDamage);
             }
-            CombatTurnContext.Attacker.AddStatusEffect(GameRules.MatchSettings.PerfectParryPenalty.VulnerableEffect);
+            StatusEffectInstance perfectParriedEffect = GameRules.MatchSettings.PerfectParryRules.AttackerGainedEffect;
+            if (perfectParriedEffect.Type == StatusEffectType.Bleeding || perfectParriedEffect.Duration != 0)
+            {
+                CombatTurnContext.Attacker.AddStatusEffect(perfectParriedEffect);
+            }
+
+            int perfectParriedEnergyGain = GameRules.MatchSettings.PerfectParryRules.DefenderEnergyGain;
+            if (perfectParriedEnergyGain != 0)
+            {
+                CombatTurnContext.Defender.RestoreEnergy(perfectParriedEnergyGain);
+            }
         }
     }
 
@@ -220,12 +233,15 @@ public class CombatManager : SmartNetworkBehaviour
 
         parryInput.action.performed -= OnParry;
         parryInput.action.Disable();
+
+        //RebindManager.PostRebindsLoaded = new OneTimeAction();
     }
 
 
 #if Enable_Debug_Systems
     private IEnumerator DebugDefenseDurationLoop(float defenseDuration)
     {
+        yield break;
         while (defenseDuration > 0)
         {
             defenseDuration -= Time.deltaTime;
@@ -238,6 +254,7 @@ public class CombatManager : SmartNetworkBehaviour
     }
     private IEnumerator DebugAttackImpactDelayLoop(float impactDelay)
     {
+        yield break;
         while (impactDelay > 0)
         {
             impactDelay -= Time.deltaTime;
@@ -255,6 +272,15 @@ public class CombatManager : SmartNetworkBehaviour
         yield return new WaitForSeconds(1.5f);
         
         MultiInstanceText.Instances[2].Text.text = "";
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            PlayerStats.Local.RestoreEnergy(10);
+            SkillUIManager.RecalculateCanAffordSkills();
+        }
     }
 
     [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
