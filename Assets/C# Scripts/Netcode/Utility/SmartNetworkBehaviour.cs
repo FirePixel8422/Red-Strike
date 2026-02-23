@@ -1,4 +1,5 @@
-﻿using Unity.Netcode;
+﻿using Fire_Pixel.Utility;
+using Unity.Netcode;
 using UnityEngine;
 
 
@@ -55,7 +56,7 @@ namespace Fire_Pixel.Networking
                 isPostSpawnReady = true;
             };
 
-            NetworkManager.NetworkTickSystem.Tick += OnNetworkTick;
+            UpdateScheduler.RegisterNetworkTick(OnNetworkTick);
         }
         private void Start()
         {
@@ -84,9 +85,9 @@ namespace Fire_Pixel.Networking
 
         public override void OnDestroy()
         {
-            if (IsSpawned && NetworkManager != null && NetworkManager.NetworkTickSystem != null)
+            if (IsSpawned)
             {
-                NetworkManager.NetworkTickSystem.Tick -= OnNetworkTick;
+                UpdateScheduler.UnRegisterNetworkTick(OnNetworkTick);
             }
         }
     }

@@ -491,15 +491,10 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 4220055894
       objectReference: {fileID: 0}
-    - target: {fileID: 2873573153170940571, guid: e5595bd5f1f18214fa49f0c479941592,
-        type: 3}
-      propertyPath: SceneMigrationSynchronization
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6728344294234568053, guid: e5595bd5f1f18214fa49f0c479941592,
+    - target: {fileID: 6513234893245566870, guid: e5595bd5f1f18214fa49f0c479941592,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 2817400593
+      value: 4064594695
       objectReference: {fileID: 0}
     - target: {fileID: 8572009681065801662, guid: e5595bd5f1f18214fa49f0c479941592,
         type: 3}

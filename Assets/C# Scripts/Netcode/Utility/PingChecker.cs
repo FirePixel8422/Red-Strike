@@ -1,5 +1,4 @@
-﻿using Fire_Pixel.Utility;
-using TMPro;
+﻿using TMPro;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using UnityEngine;
@@ -7,7 +6,7 @@ using UnityEngine;
 
 namespace Fire_Pixel.Networking
 {
-    public class PingChecker : NetworkBehaviour
+    public class PingChecker : SmartNetworkBehaviour
     {
         [SerializeField] private float updateInterval = 0.5f;
         private float updateGlobalTime = 0f;
@@ -19,17 +18,23 @@ namespace Fire_Pixel.Networking
 
         public override void OnNetworkSpawn()
         {
+            base.OnNetworkSpawn();
+
             pingtext = GetComponentInChildren<TextMeshProUGUI>();
             transport = NetworkManager.NetworkConfig.NetworkTransport as UnityTransport;
             serverClientId = NetworkManager.NetworkConfig.NetworkTransport.ServerClientId;
+
+            if (IsHost)
+            {
+                pingtext.text = "[Host]";
+                updateGlobalTime = Mathf.Infinity;
+                Destroy(this);
+            }
         }
 
-        private void OnEnable() => UpdateScheduler.RegisterFixedUpdate(OnFixedUpdate);
-        private void OnDisable() => UpdateScheduler.UnRegisterFixedUpdate(OnFixedUpdate);
-
-        private void OnFixedUpdate()
+        protected override void OnNetworkTick()
         {
-            if (updateGlobalTime > Time.time|| IsSpawned == false || MessageHandler.Instance == null) return;
+            if (updateGlobalTime > Time.time) return;
 
             updateGlobalTime += updateInterval;
 
