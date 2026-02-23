@@ -13,10 +13,16 @@ MonoBehaviour:
   m_Name: _Global Skill List
   m_EditorClassIdentifier: Assembly-CSharp::GlobalSkillListSO
   SkillList:
-  - {fileID: 11400000, guid: 9fb629384ae4f9e46afc1dc26dc6f315, type: 2}
-  - {fileID: 11400000, guid: fc5f42e674c09f645b3ab707399e2a41, type: 2}
-  - {fileID: 11400000, guid: a559f827fe0e4f244883b3ccd19c0e43, type: 2}
-  - {fileID: 11400000, guid: 56fd8633da4492f4a8f505195e8f12df, type: 2}
-  - {fileID: 11400000, guid: 32a7d9d7079e3494fbb15b68def0ed80, type: 2}
-  - {fileID: 11400000, guid: 08dc3be1216730a45aa4a3d83d14dde0, type: 2}
+  - {fileID: 11400000, guid: e59e28a8105c5bc44a5865043c391507, type: 2}
+  - {fileID: 11400000, guid: 127280db0ca681f469b9148c1bf476e9, type: 2}
+  - {fileID: 11400000, guid: c2c59932bf619f44980b9262d5d3ad56, type: 2}
+  - {fileID: 11400000, guid: 9a86ad0887047024b9acdc4b3006e515, type: 2}
+  - {fileID: 11400000, guid: 5cd41e10e87bc1e4daa4d75eb6509e29, type: 2}
+  - {fileID: 11400000, guid: 012780a162a9a554da7a89962ea845a8, type: 2}
+  - {fileID: 11400000, guid: 981b11d076885304b8c41c3c561d17d6, type: 2}
+  - {fileID: 11400000, guid: 2f8a8be830cf38f4f8d9ae417cb6f0ba, type: 2}
   - {fileID: 11400000, guid: 08df5068d5b860644b309e818f196f1b, type: 2}
+  - {fileID: 11400000, guid: 1e53c90ef8786734aaf4e6798400e55d, type: 2}
+  - {fileID: 11400000, guid: abf9770f3d9ecbb48a6f67c04b6cd99a, type: 2}
+  - {fileID: 11400000, guid: 6248d6518d99e6d478eacc77bf4761c3, type: 2}
+  - {fileID: 11400000, guid: 3c6e03bf1eeba0f4bbc7c3b911d6ba9d, type: 2}

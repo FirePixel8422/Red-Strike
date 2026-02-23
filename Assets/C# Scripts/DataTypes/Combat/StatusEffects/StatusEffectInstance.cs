@@ -1,16 +1,16 @@
-﻿
+﻿using UnityEngine;
 
 
+[System.Serializable]
+public struct StatusEffectInstance
+{
+    public StatusEffectType Type;
+    [Range(0, 10)]
+    public int Duration;
 
-    [System.Serializable]
-    public struct StatusEffectInstance
+    public StatusEffectInstance(StatusEffectType type, int duration)
     {
-        public StatusEffectType Type;
-        public int Duration;
-
-        public StatusEffectInstance(StatusEffectType type, int duration)
-        {
-            Type = type;
-            Duration = duration;
-        }
+        Type = type;
+        Duration = duration;
     }
+}

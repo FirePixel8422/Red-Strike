@@ -3,20 +3,28 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
+
 [CustomEditor(typeof(SkillBaseSO))]
 public sealed class BaseSkillSOEditor : Editor
 {
     // --- Property path constants ---
     private static readonly string SkillPropName = nameof(SkillBaseSO.Skill);
-    private static readonly string SkillEffectsPropName = nameof(SkillBase.effects);
+    private static readonly string OffensiveEffectsPropName = nameof(SkillAttack.effects);
+    private static readonly string SupportEffectsPropName = nameof(SkillSupport.effects);
 
-    private Type[] cachedEffectTypes;
+    private Type[] cachedOffensiveEffectTypes;
+    private Type[] cachedSupportEffectTypes;
     private Type[] cachedSkillTypes;
 
     private void OnEnable()
     {
-        // Cache all concrete SkillEffectBase types
-        cachedEffectTypes = TypeCache.GetTypesDerivedFrom<SkillBaseEffect>()
+        // Cache all concrete SkillOffsensiveEffectBase types
+        cachedOffensiveEffectTypes = TypeCache.GetTypesDerivedFrom<SkillOffsensiveEffectBase>()
+            .Where(t => !t.IsAbstract && t.IsClass && !t.IsGenericType)
+            .ToArray();
+
+        // Cache all concrete SkillSupportEffectBase types
+        cachedSupportEffectTypes = TypeCache.GetTypesDerivedFrom<SkillSupportEffectBase>()
             .Where(t => !t.IsAbstract && t.IsClass && !t.IsGenericType)
             .ToArray();
 
@@ -37,22 +45,22 @@ public sealed class BaseSkillSOEditor : Editor
         if (so.Skill != null)
         {
             if (skillProp != null)
-            {
                 EditorGUILayout.PropertyField(skillProp, true); // draw all subclass fields
-            }
 
             GUILayout.Space(8);
 
-            // Add SkillEffect button
-            if (GUILayout.Button("Add Skill Effect"))
-                ShowAddEffectMenu();
+            // Draw effects based on Skill type
+            if (so.Skill is SkillAttack)
+                DrawOffensiveEffects();
+            else if (so.Skill is SkillSupport)
+                DrawSupportEffects();
+
+            GUILayout.Space(8);
         }
         else
         {
             EditorGUILayout.HelpBox("No Skill assigned. Click 'Set SkillType' to create one.", MessageType.Info);
         }
-
-        GUILayout.Space(8);
 
         // Set SkillBase type button
         if (GUILayout.Button("Set SkillType"))
@@ -61,21 +69,34 @@ public sealed class BaseSkillSOEditor : Editor
         serializedObject.ApplyModifiedProperties();
     }
 
+    private void DrawOffensiveEffects()
+    {
+        if (GUILayout.Button("Add Offensive Effect"))
+            ShowAddEffectMenu(isSupport: false);
+    }
+
+    private void DrawSupportEffects()
+    {
+        if (GUILayout.Button("Add Support Effect"))
+            ShowAddEffectMenu(isSupport: true);
+    }
+
     // --- Skill Effect menu ---
-    private void ShowAddEffectMenu()
+    private void ShowAddEffectMenu(bool isSupport)
     {
         GenericMenu menu = new GenericMenu();
+        Type[] types = isSupport ? cachedSupportEffectTypes : cachedOffensiveEffectTypes;
 
-        foreach (Type type in cachedEffectTypes)
+        foreach (Type type in types)
         {
             Type capturedType = type;
-            menu.AddItem(new GUIContent(capturedType.Name), false, () => AddEffect(capturedType));
+            menu.AddItem(new GUIContent(capturedType.Name), false, () => AddEffect(capturedType, isSupport));
         }
 
         menu.ShowAsContext();
     }
 
-    private void AddEffect(Type type)
+    private void AddEffect(Type type, bool isSupport)
     {
         SkillBaseSO so = (SkillBaseSO)target;
         if (so.Skill == null)
@@ -88,11 +109,12 @@ public sealed class BaseSkillSOEditor : Editor
         serializedObject.Update();
 
         SerializedProperty skillProp = serializedObject.FindProperty(SkillPropName);
-        SerializedProperty effectsProp = skillProp.FindPropertyRelative(SkillEffectsPropName);
+        string propName = isSupport ? SupportEffectsPropName : OffensiveEffectsPropName;
+        SerializedProperty effectsProp = skillProp.FindPropertyRelative(propName);
 
         if (effectsProp == null)
         {
-            Debug.LogError("SkillEffects property is null. Make sure SkillBase has [SerializeReference] SkillEffects array or list.");
+            Debug.LogError("Effects property is null. Make sure SkillBase has [SerializeReference] effects array.");
             return;
         }
 
@@ -140,8 +162,10 @@ public sealed class BaseSkillSOEditor : Editor
     {
         SkillBase skill = (SkillBase)Activator.CreateInstance(type);
 
-        if (skill.effects == null)
-            skill.effects = new SkillBaseEffect[0];
+        if (skill is SkillAttack attack && attack.effects == null)
+            attack.effects = new SkillOffsensiveEffectBase[0];
+        else if (skill is SkillSupport support && support.effects == null)
+            support.effects = new SkillSupportEffectBase[0];
 
         return skill;
     }

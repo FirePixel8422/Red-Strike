@@ -13,7 +13,6 @@ public class CombatManager : SmartNetworkBehaviour
 
     [SerializeField] private InputActionReference blockInput;
     [SerializeField] private InputActionReference parryInput;
-    private bool canDefend;
 
 
     private void Awake()
@@ -55,10 +54,8 @@ public class CombatManager : SmartNetworkBehaviour
     }
     private void OnDodge(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed && canDefend)
+        if (ctx.performed && AttackManager.CanDefend)
         {
-            canDefend = false;
-
             DefenseResult result = AttackManager.DoDefendAction(DefenseType.Dodge);
 
 #if Enable_Debug_Systems
@@ -71,10 +68,9 @@ public class CombatManager : SmartNetworkBehaviour
     }
     private void OnParry(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed && canDefend && PlayerStats.Local.Energy >= GameRules.MatchSettings.ParryEnergyCost)
+        if (ctx.performed && AttackManager.CanDefend && PlayerStats.Local.Energy >= GameRules.MatchSettings.ParryEnergyCost)
         {
             PlayerStats.Local.SpendEnergy(GameRules.MatchSettings.ParryEnergyCost);
-            canDefend = false;
 
             DefenseResult result = AttackManager.DoDefendAction(DefenseType.Parry);
 
@@ -83,6 +79,17 @@ public class CombatManager : SmartNetworkBehaviour
             DisplayDefenseResult_ServerRPC(result);
 
             //StartCoroutine(DebugDefenseDurationLoop(AttackManager.defenseWindow.Parry));
+#endif
+        }
+    }
+    private void OnQuickTimeEvent(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed && SupportQTEManager.CanDoQTE)
+        {
+            QTEResult result = SupportQTEManager.DoQuickTimeEvent(DefenseType.Parry);
+
+#if Enable_Debug_Systems
+
 #endif
         }
     }
@@ -118,9 +125,7 @@ public class CombatManager : SmartNetworkBehaviour
         AttackManager.StartAttackSequence(skillId);
         ResolveSkillUseCosts_Attacker(skillId);
 
-        canDefend = true;
-
-        float attackImpactDelay = SkillManager.GlobalSkillList[skillId].AttackStartupTime;
+        float attackImpactDelay = SkillManager.GlobalSkillList[skillId].AsAttack().AttackStartupTime;
         StartAttackAnimation_ServerRPC(attackImpactDelay);
         PlayerVisualsManager.DoAttackAnimation(attackImpactDelay);
 
@@ -170,8 +175,6 @@ public class CombatManager : SmartNetworkBehaviour
 
     public void ResolveAttack_OnDefender(int skillId, DefenseResult defenseResult)
     {
-        canDefend = false;
-
         ResolveAttack_ServerRPC(skillId, defenseResult);
         ResolveAttack_Local(skillId, defenseResult);
 
@@ -194,7 +197,7 @@ public class CombatManager : SmartNetworkBehaviour
     }
     private void ResolveAttack_Local(int skillId, DefenseResult defenseResult)
     {
-        SkillManager.GlobalSkillList[skillId].Resolve(defenseResult);
+        SkillManager.GlobalSkillList[skillId].AsAttack().Resolve(defenseResult);
 
         if (defenseResult == DefenseResult.PerfectParried)
         {

@@ -2,7 +2,7 @@
 
 
 [System.Serializable]
-public class SkillBase
+public abstract class SkillBase
 {
     public int Id { get; private set; }
     public void SetId(int id)
@@ -12,29 +12,26 @@ public class SkillBase
 
     [SerializeField] private SkillInfo info = SkillInfo.Default;
     [SerializeField] private SkillCosts costs = SkillCosts.Default;
-    [SerializeField] private DefenseWindowParameters defenseWindows = DefenseWindowParameters.Default;
-    [SerializeField] private float attackStartupTime;
-
-    [SerializeReference] public SkillBaseEffect[] effects;
-    
     public SkillInfo Info => info;
     public SkillCosts Costs => costs;
-    public DefenseWindowParameters DefenseWindows => defenseWindows;
-    public float AttackStartupTime => attackStartupTime;
 
 
+    /// <summary>
+    /// Casts to  <see cref="SkillAttack"/>
+    /// </summary>
+    public SkillAttack AsAttack() => this as SkillAttack;
+    /// <summary>
+    /// Casts to <see cref="SkillSupport"/>
+    /// </summary>
+    public SkillSupport AsSupport() => this as SkillSupport;
 
 
-    public virtual void Resolve(DefenseResult defenseResult)
+#if UNITY_EDITOR
+    public void SetSkillInfo(SkillInfo newInfo)
     {
-        DefenseAbsorptionParameters defenseAbsorptionParams = GameRules.GetDefenseAbsorptionParams(defenseResult);
-
-        int effectCount = effects.Length;
-        for (int i = 0; i < effectCount; i++)
-        {
-            effects[i].Resolve(defenseAbsorptionParams);
-        }
+        info = newInfo;
     }
+#endif
 }
 
 [System.Serializable]
@@ -61,20 +58,5 @@ public struct SkillCosts
     {
         Type = PlayerResourceType.Energy,
         Amount = 0,
-    };
-}
-
-[System.Serializable]
-public struct DefenseWindowParameters
-{
-    public float Dodge;
-    public float Parry;
-    public float PerfectParry;
-
-    public static DefenseWindowParameters Default => new DefenseWindowParameters()
-    {
-        Dodge = 0.4f,
-        Parry = 0.25f,
-        PerfectParry = 0.1f,
     };
 }

@@ -13,12 +13,15 @@ MonoBehaviour:
   m_Name: Defense Strength Settings
   m_EditorClassIdentifier: Assembly-CSharp::DefenseSettingsSO
   DefenseStrengthRules:
-    Block:
-      DamageAbsorptionPercent: 0.4
+    Dodge:
+      DamageAbsorptionPercent: 0.5
       AbsorbStatusEffects: 0
     Parry:
       DamageAbsorptionPercent: 0.7
       AbsorbStatusEffects: 1
     PerfectParry:
       DamageAbsorptionPercent: 0.9
+      AbsorbStatusEffects: 1
+    Counter:
+      DamageAbsorptionPercent: 1
       AbsorbStatusEffects: 1

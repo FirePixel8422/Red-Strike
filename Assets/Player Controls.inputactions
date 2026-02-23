@@ -25,6 +25,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Quick Time Event",
+                    "type": "Button",
+                    "id": "1ecf8d9d-85cb-4b73-86cc-0576ea40b257",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Quick Skill 1",
                     "type": "Button",
                     "id": "9cd4c384-0dd8-4da9-95b1-6cf2fc2ac262",
@@ -127,6 +136,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Quick Skill 3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3d2ed2ab-f1f8-4b3e-b41e-bc48b7f585c5",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Quick Time Event",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "06f9b25a-8594-419c-91d8-0ee260fab0f1",
+                    "path": "<DualShockGamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Quick Time Event",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

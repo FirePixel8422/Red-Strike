@@ -245,6 +245,7 @@ namespace Fire_Pixel.Utility
                     {
                         LateApplicationQuit.Invoke();
                         LateApplicationQuit = null;
+                        StopAllCoroutines();
                     }
                 };
             }

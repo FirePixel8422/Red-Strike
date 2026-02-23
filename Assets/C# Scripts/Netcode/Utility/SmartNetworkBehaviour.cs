@@ -10,10 +10,7 @@ namespace Fire_Pixel.Networking
     /// </summary>
     public abstract class SmartNetworkBehaviour : NetworkBehaviour
     {
-        /// <summary>
-        /// True 
-        /// </summary>
-        [HideInInspector] public bool IsNetworkSystemInitilized;
+        public bool IsNetworkSystemInitilized { get; private set; }
         private bool isPostSpawnReady;
 
 

@@ -7,6 +7,7 @@ public struct DefenseRules
     public DefenseAbsorptionParameters Dodge;
     public DefenseAbsorptionParameters Parry;
     public DefenseAbsorptionParameters PerfectParry;
+    public DefenseAbsorptionParameters Counter;
 }
 
 [System.Serializable]

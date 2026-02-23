@@ -24,17 +24,17 @@ MonoBehaviour:
         StrengthPerStack: 10
         StackDecayMultiplier: 0.5
     Broken:
-      StackMode: 2
+      StackMode: 3
       StrengthRules:
         StrengthPerStack: 0.5
         StackDecayMultiplier: 0.5
     Weakened:
-      StackMode: 2
+      StackMode: 3
       StrengthRules:
         StrengthPerStack: 0.25
         StackDecayMultiplier: 0.5
     Empowered:
-      StackMode: 2
+      StackMode: 3
       StrengthRules:
         StrengthPerStack: 0.25
         StackDecayMultiplier: 0.5
