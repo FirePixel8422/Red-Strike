@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ded018729d93a7e46a91f9922e1bb2df, type: 3}
+  m_Name: Pierce
+  m_EditorClassIdentifier: Assembly-CSharp::BaseSkillSO
+  Skill:
+    rid: 8095731021591609415
+  references:
+    version: 2
+    RefIds:
+    - rid: 8095731021591609415
+      type: {class: SkillAttack, ns: , asm: Assembly-CSharp}
+      data:
+        info:
+          Name: Pierce
+          Description: Single stab that pierces the skin, dealing moderate damage
+            and applying 2 stacks of bleeding.
+        costs:
+          Type: 1
+          Amount: 2
+        defenseWindowsSO: {fileID: 11400000, guid: bdaddf7e8e09f774c93e5f3034e8ba37,
+          type: 2}
+        attackStartupTime: 2
+        effects:
+        - rid: 8095731021591609416
+        - rid: 8095731021591609426
+    - rid: 8095731021591609416
+      type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damage: 15
+    - rid: 8095731021591609426
+      type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
+      data:
+        toApplyStatusEffect:
+          EffectInstance:
+            Type: 0
+            Duration: 1
+          StackCount: 1

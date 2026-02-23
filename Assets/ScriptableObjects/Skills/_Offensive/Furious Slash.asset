@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ded018729d93a7e46a91f9922e1bb2df, type: 3}
+  m_Name: Furious Slash
+  m_EditorClassIdentifier: Assembly-CSharp::BaseSkillSO
+  Skill:
+    rid: 8095731021591609415
+  references:
+    version: 2
+    RefIds:
+    - rid: 8095731021591609415
+      type: {class: SkillAttack, ns: , asm: Assembly-CSharp}
+      data:
+        info:
+          Name: Furious Slash
+          Description: SIngle slash dealing VERY high damage and applying 1 stack
+            of weakened and broken for 3 turns.
+        costs:
+          Type: 1
+          Amount: 7
+        defenseWindowsSO: {fileID: 11400000, guid: 2deffe98fc730ee44adc95ffff4c2e30,
+          type: 2}
+        attackStartupTime: 2
+        effects:
+        - rid: 8095731021591609416
+        - rid: 8095731033299484811
+        - rid: 8095731033299484812
+    - rid: 8095731021591609416
+      type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damage: 40
+    - rid: 8095731033299484811
+      type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
+      data:
+        toApplyStatusEffect:
+          EffectInstance:
+            Type: 3
+            Duration: 3
+          StackCount: 1
+    - rid: 8095731033299484812
+      type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
+      data:
+        toApplyStatusEffect:
+          EffectInstance:
+            Type: 2
+            Duration: 3
+          StackCount: 1
