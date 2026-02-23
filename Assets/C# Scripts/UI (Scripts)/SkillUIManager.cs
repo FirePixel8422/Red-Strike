@@ -28,7 +28,7 @@ public class SkillUIManager : MonoBehaviour
 
         UpdateSkillUIActiveState(false);
 
-        TurnManager.TurnChanged += OnGameStart;
+        MatchManager.PostMatchStarted += OnGameStart;
         TurnManager.TurnStarted += OnTurnStarted;
 
         int skillCount = skillQuickUseInputs.Length;
@@ -58,10 +58,8 @@ public class SkillUIManager : MonoBehaviour
         };
     }
 
-    private void OnGameStart(int clientOnTurnGameId)
+    private void OnGameStart()
     {
-        TurnManager.TurnChanged -= OnGameStart;
-
         int skillSlotCount = skillUIBlocks.Length;
         for (int i = 0; i < skillSlotCount; i++)
         {
@@ -113,7 +111,6 @@ public class SkillUIManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        TurnManager.TurnChanged -= OnGameStart;
         TurnManager.TurnStarted -= OnTurnStarted;
 
         int skillCount = skillQuickUseInputs.Length;

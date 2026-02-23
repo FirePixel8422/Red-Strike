@@ -7,8 +7,6 @@ using UnityEngine.InputSystem;
 
 public class TooltipHandler : UpdateMonoBehaviour
 {
-    [SerializeField] private InputActionReference mouseMoveAction;
-
     [SerializeField] private GameObject tooltipPrefab;
     [SerializeField] private ToolTipsSO toolTipDataSO;
 

@@ -111,14 +111,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HUDHandler
   localHealthBar:
     bar: {fileID: 8451366495087565801}
-    anim: {fileID: 4299938707891667986}
+    anim: {fileID: 9106180085911603797}
     animateSettings:
       mode: 1
       targetValue: 0.2001
     lerpSpeed: 10
   opponentHealthBar:
     bar: {fileID: 2116865089808779029}
-    anim: {fileID: 6238752897033653734}
+    anim: {fileID: 1133117309734580187}
     animateSettings:
       mode: 1
       targetValue: 0.2001
@@ -145,6 +145,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8530b821e916dcd4483fa4a634c1d0fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkillUIHandler
+  skillQuickUseInputs:
+  - {fileID: 7804631821921507160, guid: 6842473d79b50d848a6767cf3412d4c5, type: 3}
+  - {fileID: 4425171712014026945, guid: 6842473d79b50d848a6767cf3412d4c5, type: 3}
+  - {fileID: 5879618514567235785, guid: 6842473d79b50d848a6767cf3412d4c5, type: 3}
 --- !u!114 &5198872847281164616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,7 +161,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42af96b71fd53284f97bcbcd14b40e1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TooltipManager
-  mouseMoveAction: {fileID: 0}
   tooltipPrefab: {fileID: 106586966900532320, guid: be4db8888fed0da4fa3cd0716992efe2,
     type: 3}
   toolTipDataSO: {fileID: 11400000, guid: 59ddb716a8d40a247adbf1109213dddf, type: 2}
@@ -745,19 +748,28 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6271718819982935310, guid: 5bc861ffe9ba3b5438277a1d42f37544,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 914616503
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7415330019887616765, guid: 5bc861ffe9ba3b5438277a1d42f37544,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4299938707891667986}
-    - targetCorrespondingSourceObject: {fileID: 1063236285719531009, guid: 5bc861ffe9ba3b5438277a1d42f37544,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6238752897033653734}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5bc861ffe9ba3b5438277a1d42f37544, type: 3}
+--- !u!114 &1133117309734580187 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2917342879166389064, guid: 5bc861ffe9ba3b5438277a1d42f37544,
+    type: 3}
+  m_PrefabInstance: {fileID: 2865942843261269139}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf33d034847d49d48a2ac26d45965e90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ImageColorAnimator
 --- !u!224 &1816945318301299974 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4535909838189838741, guid: 5bc861ffe9ba3b5438277a1d42f37544,
@@ -770,66 +782,36 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 2865942843261269139}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2955628062168283794}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
---- !u!1 &2955628062168283794 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1063236285719531009, guid: 5bc861ffe9ba3b5438277a1d42f37544,
-    type: 3}
-  m_PrefabInstance: {fileID: 2865942843261269139}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &6238752897033653734
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2955628062168283794}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf33d034847d49d48a2ac26d45965e90, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ImageColorAnimator
-  a: {r: 1, g: 1, b: 1, a: 0.7490196}
-  b: {r: 0.89433956, g: 0.389797, b: 0.389797, a: 0.7490196}
-  lerpTime: 0.75
---- !u!1 &4696502936767309422 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7415330019887616765, guid: 5bc861ffe9ba3b5438277a1d42f37544,
-    type: 3}
-  m_PrefabInstance: {fileID: 2865942843261269139}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &4299938707891667986
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4696502936767309422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf33d034847d49d48a2ac26d45965e90, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ImageColorAnimator
-  a: {r: 1, g: 1, b: 1, a: 0.7490196}
-  b: {r: 0.89433956, g: 0.389797, b: 0.389797, a: 0.7490196}
-  lerpTime: 0.75
 --- !u!114 &8451366495087565801 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5948295062600036218, guid: 5bc861ffe9ba3b5438277a1d42f37544,
     type: 3}
   m_PrefabInstance: {fileID: 2865942843261269139}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4696502936767309422}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!114 &9106180085911603797 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6456606462542511814, guid: 5bc861ffe9ba3b5438277a1d42f37544,
+    type: 3}
+  m_PrefabInstance: {fileID: 2865942843261269139}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf33d034847d49d48a2ac26d45965e90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ImageColorAnimator
 --- !u!1001 &8076746556818397880
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,7 +1,6 @@
 using Fire_Pixel.Utility;
 using System;
 using Unity.Netcode;
-using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -324,6 +323,7 @@ namespace Fire_Pixel.Networking
         #endregion
 
 
+        #region Kick and Shutdown Methods
 
         [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
         public void KickTargetClient_ServerRPC(ulong clientNetworkId)
@@ -346,6 +346,8 @@ namespace Fire_Pixel.Networking
             NetworkManager.Shutdown();
         }
 
+        #endregion
+
 
         public override void OnDestroy()
         {
@@ -355,6 +357,11 @@ namespace Fire_Pixel.Networking
             OnClientConnectedCallback = null;
             OnClientDisconnectedCallback = null;
             PostInitialized = new OneTimeAction();
+
+            if (IsServer)
+            {
+                NetworkManager.Singleton?.Shutdown();
+            }
         }
     }
 }

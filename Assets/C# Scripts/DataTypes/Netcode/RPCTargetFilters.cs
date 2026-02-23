@@ -10,6 +10,9 @@ namespace Fire_Pixel.Networking
     /// </summary>
     public static class RPCTargetFilters
     {
+        /// <summary>
+        /// Returns true if the host was not designated as target for this RPC (Since the host always recieves any RPC, even when not targetted).
+        /// </summary>
         public static bool ShouldHostSkip(ClientRpcParams rpcParams)
         {
             IReadOnlyList<ulong> targets = rpcParams.Send.TargetClientIds;

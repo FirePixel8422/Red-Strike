@@ -214,12 +214,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7332ffd667763c4ab6a74ead269ca01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &540610805 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8697804432316326393, guid: 1767c25e0f45e0b4c813fd6d382b2c53,
-    type: 3}
-  m_PrefabInstance: {fileID: 2279595487913276819}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1526204018
 GameObject:
   m_ObjectHideFlags: 0
@@ -310,95 +304,6 @@ MonoBehaviour:
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
   m_ScrollDeltaPerTick: 6
---- !u!1 &1688037656
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1688037657}
-  - component: {fileID: 1688037659}
-  - component: {fileID: 1688037658}
-  - component: {fileID: 1688037660}
-  m_Layer: 0
-  m_Name: Blur Menu Overlay
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1688037657
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1688037656}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 540610805}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 456, y: 0}
-  m_SizeDelta: {x: 1008, y: 108}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1688037658
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1688037656}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 2100000, guid: 92c08f8960edf184a908c806ecc72b6f, type: 2}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &1688037659
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1688037656}
-  m_CullTransparentMesh: 1
---- !u!114 &1688037660
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1688037656}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e68ef4e4783d144195ef3903c70fdb6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ScreenBlurUpdater
-  blurMaterial: {fileID: 2100000, guid: 92c08f8960edf184a908c806ecc72b6f, type: 2}
 --- !u!1 &1805684028 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5884026742006712541, guid: 1767c25e0f45e0b4c813fd6d382b2c53,
@@ -668,31 +573,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 108280983092192123, guid: 1767c25e0f45e0b4c813fd6d382b2c53,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 41.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 733123390470598044, guid: 1767c25e0f45e0b4c813fd6d382b2c53,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 41.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1553444508226578126, guid: 1767c25e0f45e0b4c813fd6d382b2c53,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1807479474743173074, guid: 1767c25e0f45e0b4c813fd6d382b2c53,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 42633448}
-    - target: {fileID: 2400027541581883526, guid: 1767c25e0f45e0b4c813fd6d382b2c53,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5106195333029019642, guid: 1767c25e0f45e0b4c813fd6d382b2c53,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
@@ -798,37 +683,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6925290211142989428, guid: 1767c25e0f45e0b4c813fd6d382b2c53,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 41.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7077216624025981037, guid: 1767c25e0f45e0b4c813fd6d382b2c53,
-        type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -4707591720803830073, guid: 51e8bf946c4be8b4f9cddf7a69740971,
-        type: 2}
-    - target: {fileID: 7077216624025981037, guid: 1767c25e0f45e0b4c813fd6d382b2c53,
-        type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7578214180382989645, guid: 1767c25e0f45e0b4c813fd6d382b2c53,
         type: 3}
       propertyPath: m_Name
       value: Main Menu Canvas (Parent)
-      objectReference: {fileID: 0}
-    - target: {fileID: 8463590403622548466, guid: 1767c25e0f45e0b4c813fd6d382b2c53,
-        type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -4707591720803830073, guid: 51e8bf946c4be8b4f9cddf7a69740971,
-        type: 2}
-    - target: {fileID: 8463590403622548466, guid: 1767c25e0f45e0b4c813fd6d382b2c53,
-        type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8981997548401571613, guid: 1767c25e0f45e0b4c813fd6d382b2c53,
         type: 3}
@@ -837,11 +695,7 @@ PrefabInstance:
       objectReference: {fileID: 42633448}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 8697804432316326393, guid: 1767c25e0f45e0b4c813fd6d382b2c53,
-        type: 3}
-      insertIndex: 0
-      addedObject: {fileID: 1688037657}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1767c25e0f45e0b4c813fd6d382b2c53, type: 3}
 --- !u!1 &4949833827327076846 stripped

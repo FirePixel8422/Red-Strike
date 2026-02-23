@@ -9,6 +9,7 @@ namespace Fire_Pixel.Networking
     {
 #pragma warning disable UDR0001
         public static OneTimeAction StartMatch_OnServer = new OneTimeAction();
+        public static OneTimeAction PostMatchStarted = new OneTimeAction();
 #pragma warning restore UDR0001
 
         [SerializeField] private int playerReadyCount;
@@ -22,6 +23,7 @@ namespace Fire_Pixel.Networking
         }
         protected override void OnNetworkSystemsSetupPostStart()
         {
+            TurnManager.TurnChanged += OnTurnChanged;
             MarkPlayerReady_ServerRPC();
         }
 
@@ -32,14 +34,22 @@ namespace Fire_Pixel.Networking
             playerReadyCount += 1;
             if (playerReadyCount == GlobalGameData.MAX_PLAYERS)
             {
-                StartMatch_OnServer?.Invoke(); 
+                StartMatch_OnServer?.Invoke();
             }
+        }
+        private void OnTurnChanged(int clientGameId)
+        {
+            TurnManager.TurnChanged -= OnTurnChanged;
+            PostMatchStarted.Invoke();
         }
 
         public override void OnDestroy()
         {
             base.OnDestroy();
+
+            TurnManager.TurnChanged -= OnTurnChanged;
             StartMatch_OnServer = new OneTimeAction();
+            PostMatchStarted = new OneTimeAction();
         }
     }
 }
