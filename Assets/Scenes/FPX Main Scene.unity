@@ -467,7 +467,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerVisualsManager
   ShowTopMostFoldoutHeaderGroup: 1
-  IsNetworkSystemInitilized: 0
   players:
   - Anim: {fileID: 1656363756}
     CamTransform: {fileID: 362555155}
@@ -1140,7 +1139,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurnManager
   ShowTopMostFoldoutHeaderGroup: 1
-  IsNetworkSystemInitilized: 0
 --- !u!114 &1779185556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1154,7 +1152,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FirePixel.Networking.MatchManager
   ShowTopMostFoldoutHeaderGroup: 1
-  IsNetworkSystemInitilized: 0
   playerReadyCount: 0
 --- !u!114 &1779185557
 MonoBehaviour:
@@ -1169,7 +1166,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CombatManager
   ShowTopMostFoldoutHeaderGroup: 1
-  IsNetworkSystemInitilized: 0
   playerStats: []
   blockInput: {fileID: 3542362157572111605, guid: 6842473d79b50d848a6767cf3412d4c5,
     type: 3}

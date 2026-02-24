@@ -37,17 +37,25 @@ public class SkillSupport : SkillBase
 [System.Serializable]
 public struct QTEWindowParameters
 {
+    [Header("Appear Timings:")]
     public float StartDelay;
     [Range(0, 4)]
     public int Count;
     public float Interval;
-    public float Duration;
+    public float Delay;
+
+    [Header("Succes/Perfect Window Rules:")]
+    public float SuccesWindow;
+    public float PerfectWindow;
+    public float PerfectPercentageRequirement;
 
     public static QTEWindowParameters Default => new QTEWindowParameters()
     {
         StartDelay = 1f,
         Count = 2,
         Interval = 1f,
-        Duration = 0.5f,
+        Delay = 0.5f,
+        SuccesWindow = 0.5f,
+        PerfectWindow = 0.1f,
     };
 }

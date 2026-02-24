@@ -11,25 +11,22 @@ public static class AttackManager
     private static DefenseResult defenseResult;
     private static int skillId;
 
-    public static bool CanDefend { get; private set; }
+    public static bool CanDefend => attackImpactGlobalTime > Time.unscaledTime;
 #pragma warning restore UDR0001
 
 
     public static void StartAttackSequence(int incomingSkillId)
     {
-        CanDefend = true;
-
         SkillAttack skill = SkillManager.GlobalSkillList[incomingSkillId].AsAttack();
 
         defenseWindow = skill.DefenseWindows;
-        attackImpactGlobalTime = Time.time + skill.AttackStartupTime;
+        attackImpactGlobalTime = Time.unscaledTime + skill.AttackStartupTime;
 
         defenseResult = DefenseResult.None;
         skillId = incomingSkillId;
 
         ExtensionMethods.Invoke(NetworkManager.Singleton, skill.AttackStartupTime, () =>
         {
-            CanDefend = false;
             if (CombatManager.Instance != null)
             {
                 CombatManager.Instance.ResolveAttack_OnDefender(skillId, defenseResult);
@@ -40,9 +37,9 @@ public static class AttackManager
     /// <returns>Whether the defense action succesfully defends the attack</returns>
     public static DefenseResult DoDefendAction(DefenseType defenseType)
     {
-        CanDefend = false;
+        if (CanDefend == false) return DefenseResult.None;
 
-        float timeBeforeAttackImpact = attackImpactGlobalTime - Time.time;
+        float timeBeforeAttackImpact = attackImpactGlobalTime - Time.unscaledTime;
 
         defenseResult = defenseType switch
         {

@@ -52,6 +52,10 @@ public class CombatManager : SmartNetworkBehaviour
         TurnManager.TurnStarted += OnTurnStarted;
         TurnManager.TurnEnded += OnTurnEnded;
     }
+
+
+    #region Dodge, Parry and QTE Input
+
     private void OnDodge(InputAction.CallbackContext ctx)
     {
         if (ctx.performed && AttackManager.CanDefend)
@@ -84,15 +88,18 @@ public class CombatManager : SmartNetworkBehaviour
     }
     private void OnQuickTimeEvent(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed && SupportQTEManager.CanDoQTE)
+        if (ctx.performed && QuickTimeEventManager.CanDoQTE)
         {
-            QTEResult result = SupportQTEManager.DoQuickTimeEvent(DefenseType.Parry);
+            QTEResult result = QuickTimeEventManager.DoQuickTimeEvent();
 
 #if Enable_Debug_Systems
 
 #endif
         }
     }
+
+    #endregion
+
 
     private void OnTurnStarted()
     {
@@ -106,6 +113,19 @@ public class CombatManager : SmartNetworkBehaviour
 
         WeaponManager.SwapToRandomWeapon();
     }
+
+
+    #region Resolve QTE on attacker and defender
+
+    public void ResolveQTE_OnAttacker(int skillId, QTEResult qteResult)
+    {
+        //ResolveAttack_ServerRPC(skillId, qteResult);
+        //ResolveAttack_Local(skillId, qteResult);
+
+        TurnManager.Instance.EndTurn_ServerRPC();
+    }
+
+    #endregion
 
 
     #region Start Combat Sequence
