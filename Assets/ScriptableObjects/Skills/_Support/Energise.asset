@@ -26,7 +26,7 @@ MonoBehaviour:
         costs:
           Type: 1
           Amount: 0
-        qteWindowsSO: {fileID: 11400000, guid: 6991bc1cb7ee98441b1b53bf67dfe5b6, type: 2}
+        qteWindowsSO: {fileID: 11400000, guid: c6656c76b5f206346a96849fc8b1969f, type: 2}
         effects:
         - rid: 8095731033299484791
     - rid: 8095731033299484791

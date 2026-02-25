@@ -21,7 +21,7 @@ MonoBehaviour:
       type: {class: SkillAttack, ns: , asm: Assembly-CSharp}
       data:
         info:
-          Name: Beeg Flame Striike
+          Name: Beeg Flame Strike
           Description: Single strike dealing moderate damage and applying 2 stacks
             of burning for 2 turns.
         costs:

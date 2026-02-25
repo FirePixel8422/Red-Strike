@@ -365,7 +365,7 @@ public class CombatManager : SmartNetworkBehaviour
         
         MultiInstanceText.Instances[2].Text.text = "";
     }
-    private IEnumerator DebugQTESequenceResult_Local(QTESequenceResult result)
+    public IEnumerator DebugQTESequenceResult_Local(QTESequenceResult result)
     {
         MultiInstanceText.Instances[3].Text.text = result.ToString();
 

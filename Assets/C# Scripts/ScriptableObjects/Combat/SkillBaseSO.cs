@@ -12,11 +12,11 @@ public class SkillBaseSO : ScriptableObject
 #if UNITY_EDITOR
     private void OnValidate()
     {
-        if (Application.isPlaying || Skill == null) return;
-
         SkillInfo skillInfo = Skill.Info;
         skillInfo.Name = name;
         Skill.SetSkillInfo(skillInfo);
+
+        if (Application.isPlaying || Skill == null) return;
 
         Skill.DebugValidateSkillData(name);
 

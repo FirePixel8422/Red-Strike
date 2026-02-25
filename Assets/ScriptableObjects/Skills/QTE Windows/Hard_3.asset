@@ -10,10 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0630691f9d1a4ab4ea5f0d326850208b, type: 3}
-  m_Name: Normal
+  m_Name: Hard_3
   m_EditorClassIdentifier: Assembly-CSharp::QTEWindowParametersSO
   Value:
-    StartDelay: 0.75
-    Count: 2
-    Interval: 1
-    Duration: 0.5
+    QuickTimeEvents:
+    - StartDelayRange:
+        min: 0.2
+        max: 0.3
+      Duration: 0.35
+      SuccesWindow01: 0.25
+    - StartDelayRange:
+        min: 0.45
+        max: 0.55
+      Duration: 0.35
+      SuccesWindow01: 0.25
+    - StartDelayRange:
+        min: 0.95
+        max: 1.05
+      Duration: 0.25
+      SuccesWindow01: 0.25

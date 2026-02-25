@@ -61,15 +61,4 @@ public class QTEUIManager : MonoBehaviour
             ExtensionMethods.Invoke(NetworkManager.Singleton, removeDelay, qteUIBlocks[i].Disable);
         }
     }
-
-
-#if UNITY_EDITOR
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            QTESequenceSystem.DEBUG_StartQTESequence(DEBUG_QTESequenceSO.Value);
-        }
-    }
-#endif
 }

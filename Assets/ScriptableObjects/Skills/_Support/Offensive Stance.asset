@@ -26,7 +26,7 @@ MonoBehaviour:
         costs:
           Type: 1
           Amount: 2
-        qteWindowsSO: {fileID: 11400000, guid: 6991bc1cb7ee98441b1b53bf67dfe5b6, type: 2}
+        qteWindowsSO: {fileID: 11400000, guid: e75e7ea959bab3c438ac6e4e98258a19, type: 2}
         effects:
         - rid: 8095731033299484801
     - rid: 8095731033299484801
@@ -35,16 +35,16 @@ MonoBehaviour:
         toApplyStatusEffect:
           NoneQTE:
             EffectInstance:
-              Type: 0
-              Duration: 0
-            StackCount: 0
+              Type: 4
+              Duration: 1
+            StackCount: 1
           SuccesfulQTE:
             EffectInstance:
-              Type: 0
-              Duration: 0
-            StackCount: 0
+              Type: 4
+              Duration: 2
+            StackCount: 1
           PerfectQTE:
             EffectInstance:
-              Type: 0
-              Duration: 0
-            StackCount: 0
+              Type: 4
+              Duration: 3
+            StackCount: 1

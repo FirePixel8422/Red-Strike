@@ -1,5 +1,6 @@
 using Fire_Pixel.Networking;
 using System;
+using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -117,7 +118,10 @@ public class SkillUIManager : MonoBehaviour
             InputAction action = reference.action;
             if (action == null) continue;
 
-            action.performed -= skillUseActions[i];
+            Action<InputAction.CallbackContext> useAction = skillUseActions[i];
+            if (useAction == null) continue;
+
+            action.performed -= useAction;
             action.Disable();
         }
     }

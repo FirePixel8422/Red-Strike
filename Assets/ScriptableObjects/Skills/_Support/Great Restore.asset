@@ -22,11 +22,11 @@ MonoBehaviour:
       data:
         info:
           Name: Great Restore
-          Description: Deals no damage, restores up to 30 health.
+          Description: Deals no damage, restores up to 35 health.
         costs:
           Type: 1
           Amount: 3
-        qteWindowsSO: {fileID: 11400000, guid: 6991bc1cb7ee98441b1b53bf67dfe5b6, type: 2}
+        qteWindowsSO: {fileID: 11400000, guid: 55b864cfe9c755c4cbc5267576533ad2, type: 2}
         effects:
         - rid: 8095731033299484791
     - rid: 8095731033299484791
@@ -35,10 +35,10 @@ MonoBehaviour:
         restoreEffects:
           NoneQTE:
             Type: 0
-            Amount: 10
+            Amount: 15
           SuccesfulQTE:
             Type: 0
-            Amount: 20
+            Amount: 25
           PerfectQTE:
             Type: 0
-            Amount: 30
+            Amount: 35

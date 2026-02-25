@@ -358,9 +358,9 @@ namespace Fire_Pixel.Networking
             OnClientDisconnectedCallback = null;
             PostInitialized = new OneTimeAction();
 
-            if (IsServer)
+            if (NetworkManager.Singleton != null && NetworkManager.Singleton.IsListening)
             {
-                NetworkManager.Singleton?.Shutdown();
+                NetworkManager.Singleton.Shutdown();
             }
         }
     }

@@ -71,7 +71,7 @@ public static class QTESequenceSystem
         {
             qteResult = QTESequenceResult.Perfect;
         }
-        else if (succesfulQTECount > math.ceil(qteCount * 0.5f))
+        else if (succesfulQTECount >= Mathf.CeilToInt(qteCount * 0.5f))
         {
             qteResult = QTESequenceResult.Success;
         }
@@ -131,47 +131,4 @@ public static class QTESequenceSystem
             return ActiveWindow > math.distance(globalTime, ActivationTime);
         }
     }
-
-
-#if UNITY_EDITOR
-    public static void DEBUG_StartQTESequence(QTESequenceParameters qteSequenceParams)
-    {
-        int qteCount = qteSequenceParams.Length;
-        float[] randomStartDelays = new float[qteCount];
-        if (qteCount == 0)
-        {
-            CombatManager.Instance.ResolveSupportSkill_OnAttacker(skillId, QTESequenceResult.Failed);
-            return;
-        }
-
-        qteInstances = new QTEInstance[qteCount];
-        currentIndex = 0;
-
-        float globalTime = Time.unscaledTime;
-        float qteActivationGlobalUTime;
-        for (int i = 0; i < qteCount; i++)
-        {
-            int capturedIndex = i;
-            QTEParameters cQTEParams = qteSequenceParams[i];
-
-            randomStartDelays[i] = EzRandom.Range(cQTEParams.StartDelayRange);
-            qteActivationGlobalUTime = globalTime + randomStartDelays[i] + cQTEParams.Duration;
-
-            qteInstances[i] = new QTEInstance(qteActivationGlobalUTime, cQTEParams.Duration, cQTEParams.SuccesWindowTime);
-
-            float expireTime = qteActivationGlobalUTime + cQTEParams.SuccesWindowTime;
-            ExtensionMethods.Invoke(NetworkManager.Singleton, expireTime - globalTime, () => ExpireQTEInstance(capturedIndex));
-        }
-        float sequenceEndTime = qteInstances[qteCount - 1].ActivationTime + qteSequenceParams[qteCount - 1].Duration;
-        float totalQTESequenceDuration = sequenceEndTime - globalTime;
-
-        succesfulQTECount = 0;
-
-        QTEUIManager.StartQTESequence(qteSequenceParams, randomStartDelays);
-        ExtensionMethods.Invoke(NetworkManager.Singleton, totalQTESequenceDuration, () =>
-        {
-            QTEUIManager.DisableAll(qteSequenceParams, randomStartDelays);
-        });
-    }
-#endif
 }
