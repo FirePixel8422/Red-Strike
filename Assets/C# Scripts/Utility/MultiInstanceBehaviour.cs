@@ -24,9 +24,4 @@ public abstract class MultiInstanceBehaviour<T> : MonoBehaviour where T : MultiI
 
         Instances[id] = (T)this;
     }
-
-    protected virtual void OnDestroy()
-    {
-        Instances[id] = null;
-    }
 }

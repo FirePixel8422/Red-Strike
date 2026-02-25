@@ -10,7 +10,7 @@ public class SkillRestoreEffect : SkillSupportEffectBase
     [Header("Restore done to the attacker")]
     [SerializeField] private QTEResultBinding<RestoreEffectInstance> restoreEffects;
 
-    public override void Resolve(QTEResult supportQTEResult)
+    public override void Resolve(QTESequenceResult supportQTEResult)
     {
         RestoreEffectInstance targetEffect = restoreEffects.GetValue(supportQTEResult);
         switch (targetEffect.Type)

@@ -440,6 +440,11 @@ public static class ExtensionMethods
     {
         return array == null || array.Length == 0;
     }
+    /// <returns>Wheather array is invalid or its length is 0</returns>
+    public static bool IsNotNullOrEmpty<T>(this T[] array)
+    {
+        return array != null && array.Length != 0;
+    }
 
     #endregion
 

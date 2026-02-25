@@ -1,18 +1,23 @@
-﻿using UnityEngine;
+﻿using Unity.Mathematics;
+using UnityEngine;
 
 
 [System.Serializable]
 public class SkillSupport : SkillBase
 {
     [Header(">>Support Handling Data<<")]
-    [SerializeField] private QTEWindowParametersSO qteWindowsSO;
-    public QTEWindowParameters QTEWindowParameters { get; private set; }
+    [SerializeField] private QTESequenceParametersSO qteWindowsSO;
+    public QTESequenceParameters QTESequenceParameters { get; private set; }
 
 
     [SerializeReference] public SkillSupportEffectBase[] effects;
 
 
-    public void Resolve(QTEResult supportQTEResult)
+    public override void Init()
+    {
+        QTESequenceParameters = qteWindowsSO.Value;
+    }
+    public void Resolve(QTESequenceResult supportQTEResult)
     {
         int effectCount = effects.Length;
         for (int i = 0; i < effectCount; i++)
@@ -22,40 +27,53 @@ public class SkillSupport : SkillBase
     }
 
 #if UNITY_EDITOR
-    public void ReloadDefenseWindowParameters(string objName)
+    public override void DebugValidateSkillData(string objName)
     {
         if (qteWindowsSO == null)
         {
             DebugLogger.LogWarning("No QTEWindowParametersSO assigned to " + objName + ". Play mode will throw errors");
-            return;
         }
-        QTEWindowParameters = qteWindowsSO.Value;
     }
 #endif
 }
 
 [System.Serializable]
-public struct QTEWindowParameters
+public struct QTESequenceParameters
 {
-    [Header("Appear Timings:")]
-    public float StartDelay;
-    [Range(0, 4)]
-    public int Count;
-    public float Interval;
-    public float Delay;
+    public QTEParameters[] QuickTimeEvents;
 
-    [Header("Succes/Perfect Window Rules:")]
-    public float SuccesWindow;
-    public float PerfectWindow;
-    public float PerfectPercentageRequirement;
-
-    public static QTEWindowParameters Default => new QTEWindowParameters()
+    public static QTESequenceParameters Default => new QTESequenceParameters()
     {
-        StartDelay = 1f,
-        Count = 2,
-        Interval = 1f,
-        Delay = 0.5f,
-        SuccesWindow = 0.5f,
-        PerfectWindow = 0.1f,
+        QuickTimeEvents = new QTEParameters[]
+        {
+            QTEParameters.Default,
+            QTEParameters.Default,
+        }
+    };
+
+    public QTEParameters this[int i] => QuickTimeEvents[i];
+    public int Length => QuickTimeEvents.Length;
+}
+
+[System.Serializable]
+public struct QTEParameters
+{
+    public MinMaxFloat StartDelayRange;
+    [Range(0, 1.5f)]
+    public float Duration;
+    [Range(0, 1)]
+    public float SuccesWindow01;
+
+    /// <summary>
+    /// Time in seconds to hit the QTE succesfully
+    /// </summary>
+    public readonly float SuccesWindowTime => Duration * SuccesWindow01;
+
+
+    public static QTEParameters Default => new QTEParameters()
+    {
+        StartDelayRange = new MinMaxFloat(0.5f, 0.5f),
+        Duration = 0.5f,
+        SuccesWindow01 = 0.25f,
     };
 }

@@ -1171,6 +1171,7 @@ MonoBehaviour:
     type: 3}
   parryInput: {fileID: 3796307412335060162, guid: 6842473d79b50d848a6767cf3412d4c5,
     type: 3}
+  qteInput: {fileID: 12184449177061535, guid: 6842473d79b50d848a6767cf3412d4c5, type: 3}
 --- !u!1 &1841247287
 GameObject:
   m_ObjectHideFlags: 0

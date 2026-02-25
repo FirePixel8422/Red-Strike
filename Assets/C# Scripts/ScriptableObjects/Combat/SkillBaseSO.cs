@@ -18,6 +18,8 @@ public class SkillBaseSO : ScriptableObject
         skillInfo.Name = name;
         Skill.SetSkillInfo(skillInfo);
 
+        Skill.DebugValidateSkillData(name);
+
         ValidateSkillAttackData();
         ValidateSkillSupportData();
     }
@@ -26,17 +28,14 @@ public class SkillBaseSO : ScriptableObject
     {
         if (Skill is not SkillAttack skillAttack || skillAttack.effects.IsNullOrEmpty()) return;
 
-        skillAttack.ReloadDefenseWindowParameters(name);
-
         int effectCount = skillAttack.effects.Length;
         for (int i = 0; i < effectCount; i++)
         {
-            SkillStatusEffect statusEffect = skillAttack.effects[i] as SkillStatusEffect;
-            if (statusEffect != null &&
-                statusEffect.ToApplyStatusEffect.EffectInstance.Type == StatusEffectType.Bleeding &&
-                statusEffect.ToApplyStatusEffect.EffectInstance.Duration != 0)
+            if (skillAttack.effects[i] is SkillStatusEffect statusEffect)
             {
                 StatusEffectInstance effectInstance = statusEffect.ToApplyStatusEffect.EffectInstance;
+                if (effectInstance.Type != StatusEffectType.Bleeding || effectInstance.Duration == 0) continue;
+
                 effectInstance.Duration = 0;
 
                 StatusEffectStack effectStack = statusEffect.ToApplyStatusEffect;
@@ -52,13 +51,10 @@ public class SkillBaseSO : ScriptableObject
     {
         if (Skill is not SkillSupport skillSupport || skillSupport.effects.IsNullOrEmpty()) return;
 
-        skillSupport.ReloadDefenseWindowParameters(name);
-
         int effectCount = skillSupport.effects.Length;
         for (int i = 0; i < effectCount; i++)
         {
-            SkillEmpowerEffect empoweredEffect = skillSupport.effects[i] as SkillEmpowerEffect;
-            if (empoweredEffect != null)
+            if (skillSupport.effects[i] is SkillEmpowerEffect empoweredEffect)
             {
                 StatusEffectStack[] effectStacks = empoweredEffect.ToApplyStatusEffect.AsArray;
                 int effectStackCount = effectStacks.Length;

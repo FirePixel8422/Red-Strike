@@ -6,9 +6,6 @@ using UnityEngine.InputSystem;
 
 public class SkillUIManager : MonoBehaviour
 {
-    public static SkillUIManager Instance { get; private set; }
-
-
     [SerializeField] private InputActionReference[] skillQuickUseInputs;
 
     private Action<InputAction.CallbackContext>[] skillUseActions;
@@ -21,8 +18,6 @@ public class SkillUIManager : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
-
         skillUIBlocks = GetComponentsInChildren<SkillUIBlock>(true);
         toolTipHandler = GetComponent<TooltipHandler>();
 
@@ -73,7 +68,7 @@ public class SkillUIManager : MonoBehaviour
 
     #region Manage Skill UI
 
-    public void UpdateSkillUIActiveState(bool state)
+    public static void UpdateSkillUIActiveState(bool state)
     {
         int skillSlotCount = skillUIBlocks.Length;
         for (int i = 0; i < skillSlotCount; i++)
@@ -116,8 +111,14 @@ public class SkillUIManager : MonoBehaviour
         int skillCount = skillQuickUseInputs.Length;
         for (int i = 0; i < skillCount; i++)
         {
-            skillQuickUseInputs[i].action.performed -= skillUseActions[i];
-            skillQuickUseInputs[i].action.Disable();
+            InputActionReference reference = skillQuickUseInputs[i];
+            if (reference == null) continue;
+
+            InputAction action = reference.action;
+            if (action == null) continue;
+
+            action.performed -= skillUseActions[i];
+            action.Disable();
         }
     }
 }

@@ -12,8 +12,10 @@ GameObject:
   - component: {fileID: 5235206980979147326}
   - component: {fileID: 6599473400353462142}
   - component: {fileID: 5113615266852750522}
-  - component: {fileID: 7343967752024642803}
-  - component: {fileID: 528934029439733622}
+  - component: {fileID: 6722922113467312459}
+  - component: {fileID: 3053567403910159130}
+  - component: {fileID: 4988510526912800915}
+  - component: {fileID: 8870910581143657893}
   - component: {fileID: 5198872847281164616}
   m_Layer: 5
   m_Name: HUD (Parent)
@@ -38,8 +40,8 @@ RectTransform:
   - {fileID: 7295893792616396345}
   - {fileID: 3611594350500361777}
   - {fileID: 6142337168391612807}
-  - {fileID: 131163097389145325}
   - {fileID: 1816945318301299974}
+  - {fileID: 131163097389145325}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -97,7 +99,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &7343967752024642803
+--- !u!114 &6722922113467312459
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -106,7 +108,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1804858889699034974}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cbefffbc19e72947a08ebdcc15329a5, type: 3}
+  m_Script: {fileID: 11500000, guid: 9e4efd53e14108c4eb39d3d1b3451192, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HUDHandler
   localHealthBar:
@@ -114,26 +116,26 @@ MonoBehaviour:
     anim: {fileID: 9106180085911603797}
     animateSettings:
       mode: 1
-      targetValue: 0.2001
-    lerpSpeed: 10
+      targetValue: 0.2
+    lerpSpeed: 5
   opponentHealthBar:
     bar: {fileID: 2116865089808779029}
     anim: {fileID: 1133117309734580187}
     animateSettings:
       mode: 1
-      targetValue: 0.2001
-    lerpSpeed: 10
+      targetValue: 0.2
+    lerpSpeed: 5
   localEnergyBar:
     bar: {fileID: 1092854845708970514}
     anim: {fileID: 4072519090108276400}
     animateSettings:
       mode: 0
       targetValue: 1
-    lerpSpeed: 10
+    lerpSpeed: 5
   fadeOutTime: 1
   fadeInTime: 1
   screenBlock: {fileID: 6599473400353462142}
---- !u!114 &528934029439733622
+--- !u!114 &3053567403910159130
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,9 +144,61 @@ MonoBehaviour:
   m_GameObject: {fileID: 1804858889699034974}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8530b821e916dcd4483fa4a634c1d0fb, type: 3}
+  m_Script: {fileID: 11500000, guid: f69905147d3864740a8380728b11d434, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SkillUIHandler
+  m_EditorClassIdentifier: Assembly-CSharp::SkillUIManager
+  skillQuickUseInputs:
+  - {fileID: 7804631821921507160, guid: 6842473d79b50d848a6767cf3412d4c5, type: 3}
+  - {fileID: 4425171712014026945, guid: 6842473d79b50d848a6767cf3412d4c5, type: 3}
+  - {fileID: 5879618514567235785, guid: 6842473d79b50d848a6767cf3412d4c5, type: 3}
+--- !u!114 &4988510526912800915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1804858889699034974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e4efd53e14108c4eb39d3d1b3451192, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HUDHandler
+  localHealthBar:
+    bar: {fileID: 8451366495087565801}
+    anim: {fileID: 9106180085911603797}
+    animateSettings:
+      mode: 1
+      targetValue: 0.2
+    lerpSpeed: 5
+  opponentHealthBar:
+    bar: {fileID: 2116865089808779029}
+    anim: {fileID: 1133117309734580187}
+    animateSettings:
+      mode: 1
+      targetValue: 0.2
+    lerpSpeed: 5
+  localEnergyBar:
+    bar: {fileID: 1092854845708970514}
+    anim: {fileID: 4072519090108276400}
+    animateSettings:
+      mode: 0
+      targetValue: 1
+    lerpSpeed: 5
+  fadeOutTime: 1
+  fadeInTime: 1
+  screenBlock: {fileID: 6599473400353462142}
+--- !u!114 &8870910581143657893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1804858889699034974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69905147d3864740a8380728b11d434, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SkillUIManager
   skillQuickUseInputs:
   - {fileID: 7804631821921507160, guid: 6842473d79b50d848a6767cf3412d4c5, type: 3}
   - {fileID: 4425171712014026945, guid: 6842473d79b50d848a6767cf3412d4c5, type: 3}
@@ -751,7 +805,7 @@ PrefabInstance:
     - target: {fileID: 6271718819982935310, guid: 5bc861ffe9ba3b5438277a1d42f37544,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 4220055894
+      value: 1939918396
       objectReference: {fileID: 0}
     - target: {fileID: 6271718819982935310, guid: 5bc861ffe9ba3b5438277a1d42f37544,
         type: 3}

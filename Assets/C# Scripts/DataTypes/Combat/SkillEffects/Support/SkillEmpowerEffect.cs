@@ -10,7 +10,7 @@ public class SkillEmpowerEffect : SkillSupportEffectBase
     [Header("Status effect applied to the attacker")]
     [SerializeField] private QTEResultBinding<StatusEffectStack> toApplyStatusEffect;
 
-    public override void Resolve(QTEResult supportQTEResult)
+    public override void Resolve(QTESequenceResult supportQTEResult)
     {
         StatusEffectStack statusEffectStack = toApplyStatusEffect.GetValue(supportQTEResult);
 

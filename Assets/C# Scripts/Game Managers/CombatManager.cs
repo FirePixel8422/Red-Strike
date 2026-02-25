@@ -13,6 +13,7 @@ public class CombatManager : SmartNetworkBehaviour
 
     [SerializeField] private InputActionReference blockInput;
     [SerializeField] private InputActionReference parryInput;
+    [SerializeField] private InputActionReference qteInput;
 
 
     private void Awake()
@@ -33,6 +34,9 @@ public class CombatManager : SmartNetworkBehaviour
 
             parryInput.action.Enable();
             parryInput.action.performed += OnParry;
+
+            qteInput.action.Enable();
+            qteInput.action.performed += OnQuickTimeEvent;
         };
     }
 
@@ -58,9 +62,9 @@ public class CombatManager : SmartNetworkBehaviour
 
     private void OnDodge(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed && AttackManager.CanDefend)
+        if (ctx.performed && DefenseWindowSystem.CanDefend)
         {
-            DefenseResult result = AttackManager.DoDefendAction(DefenseType.Dodge);
+            DefenseResult result = DefenseWindowSystem.DoDefendAction(DefenseType.Dodge);
 
 #if Enable_Debug_Systems
             StartCoroutine(DebugDefenseResult_Local(result));
@@ -72,11 +76,11 @@ public class CombatManager : SmartNetworkBehaviour
     }
     private void OnParry(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed && AttackManager.CanDefend && PlayerStats.Local.Energy >= GameRules.MatchSettings.ParryEnergyCost)
+        if (ctx.performed && DefenseWindowSystem.CanDefend && PlayerStats.Local.Energy >= GameRules.MatchSettings.ParryEnergyCost)
         {
             PlayerStats.Local.SpendEnergy(GameRules.MatchSettings.ParryEnergyCost);
 
-            DefenseResult result = AttackManager.DoDefendAction(DefenseType.Parry);
+            DefenseResult result = DefenseWindowSystem.DoDefendAction(DefenseType.Parry);
 
 #if Enable_Debug_Systems
             StartCoroutine(DebugDefenseResult_Local(result));
@@ -88,9 +92,9 @@ public class CombatManager : SmartNetworkBehaviour
     }
     private void OnQuickTimeEvent(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed && QuickTimeEventManager.CanDoQTE)
+        if (ctx.performed && QTESequenceSystem.CanDoQTE)
         {
-            QTEResult result = QuickTimeEventManager.DoQuickTimeEvent();
+            QTESequenceSystem.DoQuickTimeEvent();
 
 #if Enable_Debug_Systems
 
@@ -114,15 +118,74 @@ public class CombatManager : SmartNetworkBehaviour
         WeaponManager.SwapToRandomWeapon();
     }
 
+    public void UseSkill_OnNetwork(int skillId)
+    {
+        SkillBase skill = SkillManager.GlobalSkillList[skillId];
+
+        if (skill is SkillAttack)
+        {
+            UseAttackSkill_ServerRPC(skillId);
+        }
+        else if (skill is SkillSupport)
+        {
+            UseSupportSkill_ServerRPC(skillId);
+            QTESequenceSystem.StartQTESequence(skillId);
+        }
+    }
+
+
+    #region Start Support Sequence
+
+    [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
+    private void UseSupportSkill_ServerRPC(int skillId, ServerRpcParams rpcParams = default)
+    {
+        int attackerClientGameId = rpcParams.GetSenderClientGameId();
+
+        StartSupportPhase_ClientRPC(skillId, RPCTargetFilters.SendToOppositeClient(attackerClientGameId));
+    }
+    [ClientRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
+    private void StartSupportPhase_ClientRPC(int skillId, ClientRpcParams rpcParams = default)
+    {
+        if (IsHost && RPCTargetFilters.ShouldHostSkip(rpcParams)) return;
+
+        ResolveSkillUseCosts_Local(skillId);
+    }
+
+    #endregion
+
 
     #region Resolve QTE on attacker and defender
 
-    public void ResolveQTE_OnAttacker(int skillId, QTEResult qteResult)
+    public void ResolveSupportSkill_OnAttacker(int skillId, QTESequenceResult qteResult)
     {
-        //ResolveAttack_ServerRPC(skillId, qteResult);
-        //ResolveAttack_Local(skillId, qteResult);
+        ResolveSupportSkill_ServerRPC(skillId, qteResult);
+        ResolveSupportSkill_Local(skillId, qteResult);
 
-        TurnManager.Instance.EndTurn_ServerRPC();
+        TurnManager.Instance.NextTurn_ServerRPC();
+
+#if Enable_Debug_Systems
+        StartCoroutine(DebugQTESequenceResult_Local(qteResult));
+        DisplayQTESequenceResult_ServerRPC(qteResult);
+#endif
+    }
+    [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
+    private void ResolveSupportSkill_ServerRPC(int skillId, QTESequenceResult qteResult, ServerRpcParams rpcParams = default)
+    {
+        int attackerClientGameId = rpcParams.GetSenderClientGameId();
+
+        ResolveSupportSkill_ClientRPC(skillId, qteResult, RPCTargetFilters.SendToOppositeClient(attackerClientGameId));
+    }
+
+    [ClientRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
+    private void ResolveSupportSkill_ClientRPC(int skillId, QTESequenceResult qteResult, ClientRpcParams rpcParams = default)
+    {
+        if (IsHost && RPCTargetFilters.ShouldHostSkip(rpcParams)) return;
+
+        ResolveSupportSkill_Local(skillId, qteResult);
+    }
+    private void ResolveSupportSkill_Local(int skillId, QTESequenceResult qteResult)
+    {
+        SkillManager.GlobalSkillList[skillId].AsSupport().Resolve(qteResult);
     }
 
     #endregion
@@ -131,7 +194,7 @@ public class CombatManager : SmartNetworkBehaviour
     #region Start Combat Sequence
 
     [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
-    public void Attack_ServerRPC(int skillId, ServerRpcParams rpcParams = default)
+    private void UseAttackSkill_ServerRPC(int skillId, ServerRpcParams rpcParams = default)
     {
         int attackerClientGameId = rpcParams.GetSenderClientGameId();
 
@@ -142,8 +205,8 @@ public class CombatManager : SmartNetworkBehaviour
     {
         if (IsHost && RPCTargetFilters.ShouldHostSkip(rpcParams)) return;
 
-        AttackManager.StartAttackSequence(skillId);
-        ResolveSkillUseCosts_Attacker(skillId);
+        DefenseWindowSystem.StartAttackSequence(skillId);
+        ResolveSkillUseCosts_Local(skillId);
 
         float attackImpactDelay = SkillManager.GlobalSkillList[skillId].AsAttack().AttackStartupTime;
         StartAttackAnimation_ServerRPC(attackImpactDelay);
@@ -153,28 +216,9 @@ public class CombatManager : SmartNetworkBehaviour
         //StartCoroutine(DebugAttackImpactDelayLoop(SkillManager.GlobalSkillList[skillId].AttackStartupTime));
 #endif
     }
-    public void ResolveSkillUseCosts_Attacker(int skillId)
-    {
-        SkillCosts skillCosts = SkillManager.GlobalSkillList[skillId].Costs;
-        if (skillCosts.Amount <= 0) return;
-
-        switch (skillCosts.Type)
-        {
-            case PlayerResourceType.Health:
-                CombatTurnContext.Attacker.TakeDamage(skillCosts.Amount);
-                break;
-
-            case PlayerResourceType.Energy:
-                CombatTurnContext.Attacker.SpendEnergy(skillCosts.Amount);
-                break;
-
-            default:
-                break;
-        }
-    }
 
     [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
-    public void StartAttackAnimation_ServerRPC(float attackImpactDelay, ServerRpcParams rpcParams = default)
+    private void StartAttackAnimation_ServerRPC(float attackImpactDelay, ServerRpcParams rpcParams = default)
     {
         int attackerClientGameId = rpcParams.GetSenderClientGameId();
 
@@ -198,7 +242,7 @@ public class CombatManager : SmartNetworkBehaviour
         ResolveAttack_ServerRPC(skillId, defenseResult);
         ResolveAttack_Local(skillId, defenseResult);
 
-        TurnManager.Instance.EndTurn_ServerRPC();
+        TurnManager.Instance.NextTurn_ServerRPC();
     }
     [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
     private void ResolveAttack_ServerRPC(int skillId, DefenseResult defenseResult, ServerRpcParams rpcParams = default)
@@ -222,26 +266,52 @@ public class CombatManager : SmartNetworkBehaviour
         if (defenseResult == DefenseResult.PerfectParried)
         {
             // Resolve penalty skill on attacker for getting perfect parried.
-            float perfectParriedDamage = GameRules.MatchSettings.PerfectParryRules.AttackerDamageTaken;
-            if (perfectParriedDamage > 0)
-            {
-                CombatTurnContext.Attacker.TakeDamage(perfectParriedDamage);
-            }
-            StatusEffectInstance perfectParriedEffect = GameRules.MatchSettings.PerfectParryRules.AttackerGainedEffect;
-            if (perfectParriedEffect.Type == StatusEffectType.Bleeding || perfectParriedEffect.Duration != 0)
-            {
-                CombatTurnContext.Attacker.AddStatusEffect(perfectParriedEffect);
-            }
+            ResolvePerfectParry();
+        }
+    }
+    private void ResolvePerfectParry()
+    {
+        float perfectParriedDamage = GameRules.MatchSettings.PerfectParryRules.AttackerDamageTaken;
+        if (perfectParriedDamage > 0)
+        {
+            CombatTurnContext.Attacker.TakeDamage(perfectParriedDamage);
+        }
+        StatusEffectInstance perfectParriedEffect = GameRules.MatchSettings.PerfectParryRules.AttackerGainedEffect;
+        if (perfectParriedEffect.Type == StatusEffectType.Bleeding || perfectParriedEffect.Duration != 0)
+        {
+            CombatTurnContext.Attacker.AddStatusEffect(perfectParriedEffect);
+        }
 
-            int perfectParriedEnergyGain = GameRules.MatchSettings.PerfectParryRules.DefenderEnergyGain;
-            if (perfectParriedEnergyGain != 0)
-            {
-                CombatTurnContext.Defender.RestoreEnergy(perfectParriedEnergyGain);
-            }
+        int perfectParriedEnergyGain = GameRules.MatchSettings.PerfectParryRules.DefenderEnergyGain;
+        if (perfectParriedEnergyGain != 0)
+        {
+            CombatTurnContext.Defender.RestoreEnergy(perfectParriedEnergyGain);
         }
     }
 
     #endregion
+
+
+
+    public void ResolveSkillUseCosts_Local(int skillId)
+    {
+        SkillCosts skillCosts = SkillManager.GlobalSkillList[skillId].Costs;
+        if (skillCosts.Amount <= 0) return;
+
+        switch (skillCosts.Type)
+        {
+            case PlayerResourceType.Health:
+                CombatTurnContext.Attacker.TakeDamage(skillCosts.Amount);
+                break;
+
+            case PlayerResourceType.Energy:
+                CombatTurnContext.Attacker.SpendEnergy(skillCosts.Amount);
+                break;
+
+            default:
+                break;
+        }
+    }
 
 
     public override void OnDestroy()
@@ -257,7 +327,8 @@ public class CombatManager : SmartNetworkBehaviour
         parryInput.action.performed -= OnParry;
         parryInput.action.Disable();
 
-        //RebindManager.PostRebindsLoaded = new OneTimeAction();
+        qteInput.action.performed -= OnQuickTimeEvent;
+        qteInput.action.Disable();
     }
 
 
@@ -294,6 +365,14 @@ public class CombatManager : SmartNetworkBehaviour
         
         MultiInstanceText.Instances[2].Text.text = "";
     }
+    private IEnumerator DebugQTESequenceResult_Local(QTESequenceResult result)
+    {
+        MultiInstanceText.Instances[3].Text.text = result.ToString();
+
+        yield return new WaitForSeconds(1.5f);
+
+        MultiInstanceText.Instances[3].Text.text = "";
+    }
 
     private void Update()
     {
@@ -305,17 +384,31 @@ public class CombatManager : SmartNetworkBehaviour
     }
 
     [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
-    private void DisplayDefenseResult_ServerRPC(DefenseResult defenseResult, ServerRpcParams rpcParams = default)
+    private void DisplayDefenseResult_ServerRPC(DefenseResult result, ServerRpcParams rpcParams = default)
     {
         ulong senderClientNetworkId = rpcParams.Receive.SenderClientId;
-        DisplayDefenseResult_ClientRPC(defenseResult, RPCTargetFilters.SendToOppositeClient(senderClientNetworkId));
+        DisplayDefenseResult_ClientRPC(result, RPCTargetFilters.SendToOppositeClient(senderClientNetworkId));
     }
     [ClientRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
-    private void DisplayDefenseResult_ClientRPC(DefenseResult defenseResult, ClientRpcParams rpcParams)
+    private void DisplayDefenseResult_ClientRPC(DefenseResult result, ClientRpcParams rpcParams)
     {
         if (IsHost && RPCTargetFilters.ShouldHostSkip(rpcParams)) return;
         
-        StartCoroutine(DebugDefenseResult_Local(defenseResult));
+        StartCoroutine(DebugDefenseResult_Local(result));
+    }
+
+    [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
+    private void DisplayQTESequenceResult_ServerRPC(QTESequenceResult result, ServerRpcParams rpcParams = default)
+    {
+        ulong senderClientNetworkId = rpcParams.Receive.SenderClientId;
+        DisplayQTESequenceResult_ClientRPC(result, RPCTargetFilters.SendToOppositeClient(senderClientNetworkId));
+    }
+    [ClientRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
+    private void DisplayQTESequenceResult_ClientRPC(QTESequenceResult result, ClientRpcParams rpcParams)
+    {
+        if (IsHost && RPCTargetFilters.ShouldHostSkip(rpcParams)) return;
+
+        StartCoroutine(DebugQTESequenceResult_Local(result));
     }
 #endif
 }

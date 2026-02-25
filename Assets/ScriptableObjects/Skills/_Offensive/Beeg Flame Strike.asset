@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ded018729d93a7e46a91f9922e1bb2df, type: 3}
-  m_Name: Beeg Flame Striike
+  m_Name: Beeg Flame Strike
   m_EditorClassIdentifier: Assembly-CSharp::BaseSkillSO
   Skill:
     rid: 8095731021591609415

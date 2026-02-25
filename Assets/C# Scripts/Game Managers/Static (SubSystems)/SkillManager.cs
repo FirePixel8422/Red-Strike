@@ -14,6 +14,7 @@ public static class SkillManager
         {
             SkillBase skill = globalSkillListSO.SkillList[i].Skill;
             skill.SetId(i);
+            skill.Init();
 
             GlobalSkillList[i] = skill;
         }

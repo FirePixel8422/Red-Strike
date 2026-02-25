@@ -24,10 +24,6 @@ public struct SkillSet
     {
         Skills.Shuffle();
     }
-    public SkillBase this[int i]
-    {
-        get => Skills[i];
-        set => Skills[i] = value;
-    }
+    public SkillBase this[int i] => Skills[i];
     public int Length => Skills.Length;
 }

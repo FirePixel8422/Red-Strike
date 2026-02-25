@@ -8,7 +8,7 @@
 [System.Serializable]
 public abstract class SkillSupportEffectBase
 {
-    public virtual void Resolve(QTEResult supportQTEResult) { }
+    public virtual void Resolve(QTESequenceResult supportQTEResult) { }
 }
 
 /// <summary>
@@ -17,15 +17,15 @@ public abstract class SkillSupportEffectBase
 [System.Serializable]
 public struct QTEResultBinding<T>
 {
-    [SerializeField] private T NoneQTE, SuccesfulQTE, PerfectQTE;
+    [SerializeField] private T FailedQTE, NoneQTE, SuccesfulQTE, PerfectQTE;
 
-    public readonly T GetValue(QTEResult result)
+    public readonly T GetValue(QTESequenceResult result)
     {
         return result switch
         {
-            QTEResult.Success => SuccesfulQTE,
-            QTEResult.Perfect => PerfectQTE,
-            QTEResult.None or _ => NoneQTE,
+            QTESequenceResult.Success => SuccesfulQTE,
+            QTESequenceResult.Perfect => PerfectQTE,
+            QTESequenceResult.Failed or _ => NoneQTE,
         };
     }
 

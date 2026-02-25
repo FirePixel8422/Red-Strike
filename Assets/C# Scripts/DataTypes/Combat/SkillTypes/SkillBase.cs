@@ -17,6 +17,11 @@ public abstract class SkillBase
 
 
     /// <summary>
+    /// Loads SO data into skill.
+    /// </summary>
+    public virtual void Init() { }
+
+    /// <summary>
     /// Casts to  <see cref="SkillAttack"/>
     /// </summary>
     public SkillAttack AsAttack() => this as SkillAttack;
@@ -31,6 +36,7 @@ public abstract class SkillBase
     {
         info = newInfo;
     }
+    public virtual void DebugValidateSkillData(string objName) { }
 #endif
 }
 

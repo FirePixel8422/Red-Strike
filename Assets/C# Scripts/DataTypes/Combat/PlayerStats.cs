@@ -43,7 +43,7 @@ public class PlayerStats
 
     public void Heal(float amount)
     {
-        DebugLogger.LogError("amount MUST be > 0", amount <= 0f);
+        DebugLogger.LogError("amount CANT be less then 0", amount < 0f);
 
         if (IsBroken)
         {
@@ -63,7 +63,7 @@ public class PlayerStats
     }
     public void TakeDamage(float amount)
     {
-        DebugLogger.LogError("amount MUST be > 0", amount <= 0f);
+        DebugLogger.LogError("amount CANT be less then 0", amount < 0f);
 
         Health -= amount;
         UpdateHealthBar();
@@ -71,7 +71,7 @@ public class PlayerStats
 
     public void RestoreEnergy(int amount)
     {
-        DebugLogger.LogError("amount MUST be > 0", amount <= 0f);
+        DebugLogger.LogError("amount CANT be less then 0", amount < 0f);
 
         Energy = Mathf.RoundToInt(math.clamp(Energy + amount, 0, GameRules.DefaultPlayerStats.MaxEnergy));
         if (IsLocal)
@@ -82,7 +82,7 @@ public class PlayerStats
     }
     public void SpendEnergy(int amount)
     {
-        DebugLogger.LogError("amount MUST be > 0", amount <= 0f);
+        DebugLogger.LogError("amount CANT be less then 0", amount < 0f);
 
         Energy -= amount;
         if (IsLocal)

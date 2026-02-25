@@ -14,6 +14,10 @@ public class SkillAttack : SkillBase
     public float AttackStartupTime => attackStartupTime;
 
 
+    public override void Init()
+    {
+        DefenseWindows = defenseWindowsSO.Value;
+    }
     public void Resolve(DefenseResult defenseResult)
     {
         DefenseAbsorptionParameters defenseAbsorptionParams = GameRules.GetDefenseAbsorptionParams(defenseResult);
@@ -26,14 +30,12 @@ public class SkillAttack : SkillBase
     }
 
 #if UNITY_EDITOR
-    public void ReloadDefenseWindowParameters(string objName)
+    public override void DebugValidateSkillData(string objName)
     {
         if (defenseWindowsSO == null)
         {
             DebugLogger.LogWarning("No DefenseWindowParametersSO assigned to " + objName + ". Play mode will throw errors");
-            return;
         }
-        DefenseWindows = defenseWindowsSO.Value;
     }
 #endif
 }

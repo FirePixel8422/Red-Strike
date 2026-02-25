@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using Fire_Pixel.Networking;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -33,11 +34,12 @@ public class SkillUIBlock : MonoBehaviour
 
     public void TryUseSkill()
     {
-        if (canAfford == false) return;
+        if (button.interactable == false || canAfford == false) return;
 
-        SkillUIManager.Instance.UpdateSkillUIActiveState(false);
-        CombatManager.Instance.ResolveSkillUseCosts_Attacker(currentSkillId);
-        CombatManager.Instance.Attack_ServerRPC(currentSkillId);
+        SkillUIManager.UpdateSkillUIActiveState(false);
+
+        CombatManager.Instance.ResolveSkillUseCosts_Local(currentSkillId);
+        CombatManager.Instance.UseSkill_OnNetwork(currentSkillId);
     }
 
     /// <summary>

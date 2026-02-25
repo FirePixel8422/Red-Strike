@@ -2,7 +2,7 @@
 using UnityEngine;
 
 
-public static class AttackManager
+public static class DefenseWindowSystem
 {
 #pragma warning disable UDR0001
     private static DefenseWindowParameters defenseWindow;
@@ -34,7 +34,7 @@ public static class AttackManager
         });
     }
 
-    /// <returns>Whether the defense action succesfully defends the attack</returns>
+    /// <returns>Whether the quick time event was hit succesfully</returns>
     public static DefenseResult DoDefendAction(DefenseType defenseType)
     {
         if (CanDefend == false) return DefenseResult.None;

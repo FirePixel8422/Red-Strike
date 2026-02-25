@@ -40,7 +40,7 @@ namespace Fire_Pixel.Networking
         }
 
         [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
-        public void EndTurn_ServerRPC()
+        public void NextTurn_ServerRPC()
         {
             int prevClientOnTurnId = clientOnTurnId;
             clientOnTurnId.IncrementSmart(GlobalGameData.MAX_PLAYERS);
