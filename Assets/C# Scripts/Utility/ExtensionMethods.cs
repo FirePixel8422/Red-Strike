@@ -1,4 +1,5 @@
 ﻿using Fire_Pixel.Networking;
+using Fire_Pixel.Utility;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,24 +13,49 @@ public static class ExtensionMethods
 {
     #region Invoke
 
-    public static void Invoke(this MonoBehaviour mb, float delay, Action f)
+    /// <summary>
+    /// Invoke function <paramref name="f"/> after <paramref name="delay"/> seconds. Schedules a coroutine on the target <see cref="MonoBehaviour"/>
+    /// </summary>
+    /// <returns>The scheduled coroutine ref</returns>
+    public static Coroutine Invoke(this MonoBehaviour mb, float delay, Action f)
     {
-        mb.StartCoroutine(InvokeRoutine(delay, f));
+        return mb.StartCoroutine(InvokeRoutine(delay, f));
     }
-    public static void Invoke<T>(this MonoBehaviour mb, float delay, Action<T> f, T param)
+    /// <summary>
+    /// Invoke function <paramref name="f"/> after <paramref name="delay"/> seconds. Schedules a coroutine on <see cref="CoroutineRunner"/>
+    /// </summary>
+    /// <returns>The scheduled coroutine ref</returns>
+    public static Coroutine Invoke(float delay, Action f)
     {
-        mb.StartCoroutine(InvokeRoutine(delay, f, param));
+        return CoroutineRunner.StartCoroutine(InvokeRoutine(delay, f));
+    }
+
+    /// <summary>
+    /// Stops a previously scheduled Invoke coroutine and clears its reference.
+    /// Must be called on the same owner that started the coroutine.
+    /// </summary>
+    public static void CancelInvoke(this MonoBehaviour mb, ref Coroutine coroutine)
+    {
+        if (coroutine == null) return;
+
+        mb.StopCoroutine(coroutine);
+        coroutine = null;
+    }
+    /// <summary>
+    /// Stops a previously scheduled Invoke coroutine on <see cref="CoroutineRunner"/> and clears its reference.
+    /// </summary>
+    public static void CancelInvoke(ref Coroutine coroutine)
+    {
+        if (coroutine == null) return;
+
+        CoroutineRunner.StopCoroutine(coroutine);
+        coroutine = null;
     }
 
     private static IEnumerator InvokeRoutine(float delay, Action f)
     {
         yield return new WaitForSeconds(delay);
         f.Invoke();
-    }
-    private static IEnumerator InvokeRoutine<T>(float delay, Action<T> f, T param)
-    {
-        yield return new WaitForSeconds(delay);
-        f.Invoke(param);
     }
 
     #endregion

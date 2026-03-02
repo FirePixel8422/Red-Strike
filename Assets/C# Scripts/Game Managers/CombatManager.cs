@@ -210,7 +210,7 @@ public class CombatManager : SmartNetworkBehaviour
 
         float attackImpactDelay = SkillManager.GlobalSkillList[skillId].AsAttack().AttackStartupTime;
         StartAttackAnimation_ServerRPC(attackImpactDelay);
-        PlayerVisualsManager.DoAttackAnimation(attackImpactDelay);
+        PlayerVisualsManager.Instance.DoAttackerAnimation_Local(attackImpactDelay);
 
 #if Enable_Debug_Systems
         //StartCoroutine(DebugAttackImpactDelayLoop(SkillManager.GlobalSkillList[skillId].AttackStartupTime));
@@ -229,7 +229,7 @@ public class CombatManager : SmartNetworkBehaviour
     {
         if (IsHost && RPCTargetFilters.ShouldHostSkip(rpcParams)) return;
 
-        PlayerVisualsManager.DoAttackAnimation(attackImpactDelay);
+        PlayerVisualsManager.Instance.DoAttackerAnimation_Local(attackImpactDelay);
     }
 
     #endregion

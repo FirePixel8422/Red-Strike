@@ -1,5 +1,4 @@
-﻿using Unity.Netcode;
-using UnityEngine;
+﻿using UnityEngine;
 
 
 public static class DefenseWindowSystem
@@ -25,7 +24,7 @@ public static class DefenseWindowSystem
         defenseResult = DefenseResult.None;
         skillId = incomingSkillId;
 
-        ExtensionMethods.Invoke(NetworkManager.Singleton, skill.AttackStartupTime, () =>
+        ExtensionMethods.Invoke(skill.AttackStartupTime, () =>
         {
             if (CombatManager.Instance != null)
             {

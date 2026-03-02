@@ -6,9 +6,10 @@ using UnityEngine;
 
 namespace Fire_Pixel.Networking
 {
-    public class PingChecker : SmartNetworkBehaviour
+    public class PingDisplayer : SmartNetworkBehaviour
     {
         [SerializeField] private float updateInterval = 0.5f;
+        [SerializeField] private bool halveRTT = true;
         private float updateGlobalTime = 0f;
 
         private TextMeshProUGUI pingtext;
@@ -39,6 +40,11 @@ namespace Fire_Pixel.Networking
             updateGlobalTime += updateInterval;
 
             ulong pingMs = transport.GetCurrentRtt(serverClientId);
+
+            if (halveRTT)
+            {
+                pingMs = (ulong)Mathf.CeilToInt(pingMs * 0.5f);
+            }
 
             pingtext.text = pingMs + "ms";
         }

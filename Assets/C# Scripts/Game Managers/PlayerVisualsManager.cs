@@ -5,18 +5,17 @@ using UnityEngine;
 
 public class PlayerVisualsManager : SmartNetworkBehaviour
 {
-    [SerializeField] private Player[] players;
-    private Camera mainCam;
+    public static PlayerVisualsManager Instance { get; private set; }
 
-#pragma warning disable UDR0001
-    public static Player[] Players{ get; private set; }
-#pragma warning restore UDR0001
+    [SerializeField] private Player[] players;
+
+    private Camera mainCam;
 
 
 
     private void Awake()
     {
-        Players = players;
+        Instance = this;
         mainCam = Camera.main;
     }
     protected override void OnNetworkSystemsSetup()
@@ -24,9 +23,9 @@ public class PlayerVisualsManager : SmartNetworkBehaviour
         mainCam.transform.SetParent(players[LocalClientGameId].CamTransform, false, false);
     }
 
-    public static void DoAttackAnimation(float delayBeforeImpact)
+    public void DoAttackerAnimation_Local(float delayBeforeImpact)
     {
-        Players[CombatTurnContext.AttackerGameId].Anim.StartWeaponAttack(delayBeforeImpact);
+        players[CombatTurnContext.AttackerGameId].Anim.StartWeaponAttack(delayBeforeImpact);
     }
 
 
