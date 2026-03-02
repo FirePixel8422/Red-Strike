@@ -33,7 +33,7 @@ MonoBehaviour:
       type: {class: SkillRestoreEffect, ns: , asm: Assembly-CSharp}
       data:
         restoreEffects:
-          NoneQTE:
+          FailedQTE:
             Type: 1
             Amount: 2
           SuccesfulQTE:

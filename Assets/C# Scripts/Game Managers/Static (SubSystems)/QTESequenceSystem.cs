@@ -19,6 +19,12 @@ public static class QTESequenceSystem
 
     public static void StartQTESequence(int supportSkillId)
     {
+        if (currentIndex < qteInstances?.Length)
+        {
+            DebugLogger.LogWarning("Trying to start QTE Sequence while another is still active. This is not supported and will cause issues. Ignoring command.");
+            return;
+        }
+
         SkillSupport skill = SkillManager.GlobalSkillList[supportSkillId].AsSupport();
         QTESequenceParameters qteSequenceParams = skill.QTESequenceParameters;
 
@@ -40,13 +46,16 @@ public static class QTESequenceSystem
             int capturedIndex = i;
             QTEParameters cQTEParams = qteSequenceParams[i];
 
+            // Create QTE Instance config
             randomStartDelays[i] = EzRandom.Range(cQTEParams.StartDelayRange);
-            qteActivationGlobalUTime = globalTime + randomStartDelays[i] + cQTEParams.Duration;
+            qteActivationGlobalUTime = globalTime + randomStartDelays[i] + cQTEParams.Duration + QTEUIManager.QTEGlobalReactionTime;
 
+            // Create new QTE Instance
             qteInstances[i] = new QTEInstance(qteActivationGlobalUTime, cQTEParams.Duration, cQTEParams.SuccesWindowTime);
 
-            float expireTime = qteActivationGlobalUTime + cQTEParams.SuccesWindowTime;
-            ExtensionMethods.Invoke(NetworkManager.Singleton, expireTime - globalTime, () => ExpireQTEInstance(capturedIndex));
+            // Expire QTE Instance after delay
+            float expireTime = qteActivationGlobalUTime;
+            ExtensionMethods.Invoke(expireTime - globalTime, () => ExpireQTEInstance(capturedIndex));
         }
         float sequenceEndTime = qteInstances[qteCount - 1].ActivationTime + qteSequenceParams[qteCount - 1].Duration;
         float totalQTESequenceDuration = sequenceEndTime - globalTime;
@@ -55,7 +64,7 @@ public static class QTESequenceSystem
         succesfulQTECount = 0;
 
         QTEUIManager.StartQTESequence(qteSequenceParams, randomStartDelays);
-        ExtensionMethods.Invoke(NetworkManager.Singleton, totalQTESequenceDuration, () =>
+        ExtensionMethods.Invoke(totalQTESequenceDuration, () =>
         {
             ResolveQTESequence();
             QTEUIManager.DisableAll(qteSequenceParams, randomStartDelays);
@@ -84,7 +93,7 @@ public static class QTESequenceSystem
         if (currentIndex == index)
         {
             DebugLogger.Log("FailedQTE");
-            QTEUIManager.FailQTE(index);
+            QTEUIManager.FailQTE(index, true);
             currentIndex += 1;
         }
     }
@@ -106,7 +115,7 @@ public static class QTESequenceSystem
             return;
         }
 
-        QTEUIManager.FailQTE(currentIndex);
+        QTEUIManager.FailQTE(currentIndex, false);
         DebugLogger.Log("FailedQTE");
         currentIndex += 1;
     }
@@ -130,5 +139,54 @@ public static class QTESequenceSystem
             succesfulQTE = TimingWindow > math.distance(globalTime, ActivationTime);
             return ActiveWindow > math.distance(globalTime, ActivationTime);
         }
+    }
+
+
+
+
+
+
+    public static void DebugStartQTESequence(QTESequenceParametersSO qteSo)
+    {
+        QTESequenceParameters qteSequenceParams = qteSo.Value;
+
+        int qteCount = qteSequenceParams.Length;
+        float[] randomStartDelays = new float[qteCount];
+        if (qteCount == 0)
+        {
+            return;
+        }
+
+        qteInstances = new QTEInstance[qteCount];
+        currentIndex = 0;
+
+        float globalTime = Time.unscaledTime;
+        float qteActivationGlobalUTime;
+        for (int i = 0; i < qteCount; i++)
+        {
+            int capturedIndex = i;
+            QTEParameters cQTEParams = qteSequenceParams[i];
+
+            // Create QTE Instance config
+            randomStartDelays[i] = EzRandom.Range(cQTEParams.StartDelayRange);
+            qteActivationGlobalUTime = globalTime + randomStartDelays[i] + cQTEParams.Duration + QTEUIManager.QTEGlobalReactionTime;
+
+            // Create new QTE Instance
+            qteInstances[i] = new QTEInstance(qteActivationGlobalUTime, cQTEParams.Duration, cQTEParams.SuccesWindowTime);
+
+            // Expire QTE Instance after delay
+            float expireTime = qteActivationGlobalUTime;
+            ExtensionMethods.Invoke(expireTime - globalTime, () => ExpireQTEInstance(capturedIndex));
+        }
+        float sequenceEndTime = qteInstances[qteCount - 1].ActivationTime + qteSequenceParams[qteCount - 1].Duration;
+        float totalQTESequenceDuration = sequenceEndTime - globalTime;
+
+        succesfulQTECount = 0;
+
+        QTEUIManager.StartQTESequence(qteSequenceParams, randomStartDelays);
+        ExtensionMethods.Invoke(totalQTESequenceDuration, () =>
+        {
+            QTEUIManager.DisableAll(qteSequenceParams, randomStartDelays);
+        });
     }
 }

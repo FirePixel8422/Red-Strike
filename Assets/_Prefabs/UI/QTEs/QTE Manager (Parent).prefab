@@ -55,7 +55,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::QTEUIManager
   qteInput: {fileID: 12184449177061535, guid: 6842473d79b50d848a6767cf3412d4c5, type: 3}
   qteAnimRemovalInterval: 0.5
-  qteGlobalReactionTime: 1
+  qteGlobalReactionTime: 0.25
   testQTESequenceParams: {fileID: 11400000, guid: 944c3a40d0d03e0469912d85a7144168,
     type: 2}
 --- !u!1001 &1285910512556884628

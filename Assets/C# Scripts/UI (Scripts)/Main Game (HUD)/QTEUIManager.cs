@@ -3,12 +3,17 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 
-
+/// <summary>
+/// Quick Time Event UI Manager. Handles the UI popups through <see cref="QTEUIBlock"/>s for quick time event sequences, which are used for support skills.
+/// </summary>
 public class QTEUIManager : MonoBehaviour
 {
+    public static QTEUIManager Instance { get; private set; }
+
     [SerializeField] private InputActionReference qteInput;
     [SerializeField] private float qteAnimRemovalInterval = 0.5f;
-    [SerializeField] private QTESequenceParametersSO DEBUG_QTESequenceSO;
+    [SerializeField] private float qteGlobalReactionTime = 0.25f;
+    public static float QTEGlobalReactionTime => Instance.qteGlobalReactionTime;
 
 #pragma warning disable UDR0001
     private static QTEUIBlock[] qteUIBlocks;
@@ -19,6 +24,7 @@ public class QTEUIManager : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
         qteUIBlocks = GetComponentsInChildren<QTEUIBlock>(true);
 
         int qteCount = qteUIBlocks.Length;
@@ -37,9 +43,9 @@ public class QTEUIManager : MonoBehaviour
             float qteDuration = qteSequenceParams[i].Duration;
             float qteWindow = qteSequenceParams[i].SuccesWindow01;
 
-            ExtensionMethods.Invoke(NetworkManager.Singleton, randomStartDelays[capturedI], () =>
+            ExtensionMethods.Invoke(randomStartDelays[capturedI], () =>
             {
-                qteUIBlocks[capturedI].Activate(qteDuration, qteWindow); 
+                qteUIBlocks[capturedI].Activate(qteDuration, qteWindow, QTEGlobalReactionTime); 
             });
         }
     }
@@ -48,9 +54,9 @@ public class QTEUIManager : MonoBehaviour
     {
         qteUIBlocks[index].SucceedQTE();
     }
-    public static void FailQTE(int index)
+    public static void FailQTE(int index, bool isFailedBecauseExpired)
     {
-        qteUIBlocks[index].FailQTE();
+        qteUIBlocks[index].FailQTE(isFailedBecauseExpired);
     }
     public static void DisableAll(QTESequenceParameters qteSequenceParams, float[] randomStartDelays)
     {
@@ -58,7 +64,18 @@ public class QTEUIManager : MonoBehaviour
         for (int i = 0; i < qteCount; i++)
         {
             float removeDelay = randomStartDelays[i] * 0.5f;
-            ExtensionMethods.Invoke(NetworkManager.Singleton, removeDelay, qteUIBlocks[i].Disable);
+            ExtensionMethods.Invoke(removeDelay, qteUIBlocks[i].Disable);
+        }
+    }
+
+
+    public QTESequenceParametersSO testQTESequenceParams;
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            QTESequenceSystem.DebugStartQTESequence(testQTESequenceParams);
         }
     }
 }

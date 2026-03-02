@@ -17,15 +17,15 @@ MonoBehaviour:
     - StartDelayRange:
         min: 0.2
         max: 0.3
-      Duration: 0.4
-      SuccesWindow01: 0.25
+      Duration: 0.5
+      SuccesWindow01: 0.375
     - StartDelayRange:
         min: 0.4
         max: 0.6
-      Duration: 0.4
-      SuccesWindow01: 0.25
+      Duration: 0.5
+      SuccesWindow01: 0.375
     - StartDelayRange:
-        min: 0.7
+        min: 0.85
         max: 1.1
-      Duration: 0.35
-      SuccesWindow01: 0.25
+      Duration: 0.45
+      SuccesWindow01: 0.375

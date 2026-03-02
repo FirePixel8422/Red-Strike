@@ -17,7 +17,7 @@ public abstract class SkillSupportEffectBase
 [System.Serializable]
 public struct QTEResultBinding<T>
 {
-    [SerializeField] private T FailedQTE, NoneQTE, SuccesfulQTE, PerfectQTE;
+    [SerializeField] private T FailedQTE, SuccesfulQTE, PerfectQTE;
 
     public readonly T GetValue(QTESequenceResult result)
     {
@@ -25,7 +25,7 @@ public struct QTEResultBinding<T>
         {
             QTESequenceResult.Success => SuccesfulQTE,
             QTESequenceResult.Perfect => PerfectQTE,
-            QTESequenceResult.Failed or _ => NoneQTE,
+            QTESequenceResult.Failed or _ => FailedQTE,
         };
     }
 
@@ -33,10 +33,10 @@ public struct QTEResultBinding<T>
 #if UNITY_EDITOR
     public T[] AsArray
     {
-        get => new T[] { NoneQTE, SuccesfulQTE, PerfectQTE };
+        get => new T[] { FailedQTE, SuccesfulQTE, PerfectQTE };
         set
         {
-            NoneQTE = value[0];
+            FailedQTE = value[0];
             SuccesfulQTE = value[1];
             PerfectQTE = value[2];
         }

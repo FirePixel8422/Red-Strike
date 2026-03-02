@@ -17,5 +17,5 @@ MonoBehaviour:
     - StartDelayRange:
         min: 0.5
         max: 0.5
-      Duration: 0.7
+      Duration: 0.85
       SuccesWindow01: 0.5
