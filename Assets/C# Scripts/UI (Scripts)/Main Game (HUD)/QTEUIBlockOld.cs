@@ -9,17 +9,15 @@ using UnityEngine.UI;
 /// <summary>
 /// Quick Time Event UI Block. Handles displaying a single UI popup, which is used for support skills.
 /// </summary>
-public class QTEUIBlock : MonoBehaviour
+public class QTEUIBlockOld : MonoBehaviour
 {
     [SerializeField] private Image timerBar;
-    [SerializeField] private Image timerBarCoverA, timerBarCoverB;
     [SerializeField] private Image succesBar;
-    [SerializeField] private float timerBarSize;
-
     [SerializeField] private TextMeshProUGUI qteKeyText;
 
     private Animator anim;
     private float qteDuration;
+    private float qteWindow01;
 
     private static readonly int ACTIVATE_ANIM_HASH = Animator.StringToHash("Enabled");
     private static readonly int SUCCEED_ANIM_HASH = Animator.StringToHash("Succeed");
@@ -38,12 +36,10 @@ public class QTEUIBlock : MonoBehaviour
         anim.SetBool(ACTIVATE_ANIM_HASH, true);
 
         timerBar.fillAmount = 1;
-        timerBarCoverA.fillAmount = 1 - timerBarSize;
-
         succesBar.fillAmount = qteWindow01;
-        timerBarCoverB.fillAmount = qteWindow01;
 
         this.qteDuration = qteDuration;
+        this.qteWindow01 = qteWindow01;
 
         this.Invoke(qteUIStartAheadTime, () =>
         {
@@ -69,8 +65,7 @@ public class QTEUIBlock : MonoBehaviour
             anim.SetBool(EXPIRE_ANIM_HASH, true);
 
             timerBar.fillAmount = 0;
-            timerBarCoverA.fillAmount = 0;
-            timerBarCoverB.fillAmount = 0;
+            succesBar.fillAmount = 0;
         }
         else
         {
@@ -85,31 +80,13 @@ public class QTEUIBlock : MonoBehaviour
     private void DepleteTimer()
     {
         float barPercentageLeft = math.clamp(timerBar.fillAmount - Time.deltaTime / qteDuration, 0, float.MaxValue);
-
+        // Timer bar
         timerBar.fillAmount = barPercentageLeft;
 
-        // Follow the timer bar until it reached the succes window, then stay at the succes window until the end of the timer.
-        timerBarCoverA.fillAmount = barPercentageLeft - timerBarSize;
-        // After timer bar reaches the succes window, follow the timer bar with the copySuccesBarOverlay until the end of the timer.
-        timerBarCoverB.fillAmount = math.clamp(barPercentageLeft - timerBarSize, 0, succesBar.fillAmount);
+        // Succes bar
+        if (qteWindow01 > barPercentageLeft)
+        {
+            succesBar.fillAmount = barPercentageLeft;
+        }
     }
-
-#if UNITY_EDITOR
-    [Range(0, 1)]
-    [SerializeField] private float DEBUG_OverrideFill;
-
-    private void OnValidate()
-    {
-        if (Application.isPlaying) return;
-
-        float succesBarSize = succesBar.fillAmount;
-
-        timerBar.fillAmount = DEBUG_OverrideFill;
-
-        // Follow the timer bar until it reached the succes window, then stay at the succes window until the end of the timer.
-        timerBarCoverA.fillAmount = DEBUG_OverrideFill - timerBarSize;
-        // After timer bar reaches the succes window, follow the timer bar with the copySuccesBarOverlay until the end of the timer.
-        timerBarCoverB.fillAmount = math.clamp(DEBUG_OverrideFill - timerBarSize, 0, succesBarSize);
-    }
-#endif
 }

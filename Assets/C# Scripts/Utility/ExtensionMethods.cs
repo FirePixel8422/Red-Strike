@@ -471,6 +471,40 @@ public static class ExtensionMethods
     {
         return array != null && array.Length != 0;
     }
+    /// <returns>Wheather array is invalid or its length is 0 or it has null at one of its entries</returns>
+    public static bool HasInvalidData<T>(this T[] array)
+    {
+        bool arrayValid = array != null && array.Length > 0;
+        if (arrayValid)
+        {
+            int count = array.Length;
+            for (int i = 0; i < count; i++)
+            {
+                if (array[i] == null)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    /// <returns>Wheather array is valid or its length is more then 0 and it has no null at none of its entries</returns>
+    public static bool HasNoInvalidData<T>(this T[] array)
+    {
+        bool arrayValid = array != null && array.Length > 0;
+        if (arrayValid)
+        {
+            int count = array.Length;
+            for (int i = 0; i < count; i++)
+            {
+                if (array[i] == null)
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
     #endregion
 

@@ -1,5 +1,4 @@
-﻿using Unity.Netcode;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 
@@ -11,7 +10,7 @@ public class QTEUIManager : MonoBehaviour
     public static QTEUIManager Instance { get; private set; }
 
     [SerializeField] private InputActionReference qteInput;
-    [SerializeField] private float qteAnimRemovalInterval = 0.5f;
+    [SerializeField] private float qteAnimRemovalMultiplier = 0.25f;
     [SerializeField] private float qteGlobalReactionTime = 0.25f;
     public static float QTEGlobalReactionTime => Instance.qteGlobalReactionTime;
 
@@ -25,7 +24,7 @@ public class QTEUIManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        qteUIBlocks = GetComponentsInChildren<QTEUIBlock>(true);
+        qteUIBlocks = GetComponentsInChildren<QTEUIBlock>();
 
         int qteCount = qteUIBlocks.Length;
         for (int i = 0; i < qteCount; i++)
@@ -63,7 +62,7 @@ public class QTEUIManager : MonoBehaviour
         int qteCount = qteSequenceParams.Length;
         for (int i = 0; i < qteCount; i++)
         {
-            float removeDelay = randomStartDelays[i] * 0.5f;
+            float removeDelay = randomStartDelays[i] * Instance.qteAnimRemovalMultiplier;
             ExtensionMethods.Invoke(removeDelay, qteUIBlocks[i].Disable);
         }
     }
