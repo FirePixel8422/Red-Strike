@@ -426,6 +426,44 @@ public static class ExtensionMethods
     }
 
     /// <summary>
+    /// Selects and returns a random array filled with entries of <paramref name="targetArray"/>
+    /// </summary>
+    public static T[] SelectRandomRange<T>(this T[] targetArray, int entryCount, bool forceUniqueEntries = true)
+    {
+        T[] output = new T[entryCount];
+
+        if (forceUniqueEntries)
+        {
+            List<int> numberPot = new List<int>(entryCount);
+            for (int i = 0; i < targetArray.Length; i++)
+            {
+                numberPot.Add(i);
+            }
+
+            int r;
+            for (int i = 0; i < entryCount; i++)
+            {
+                r = UnityEngine.Random.Range(0, numberPot.Count);
+
+                output[i] = targetArray[numberPot[r]];
+
+                numberPot.RemoveAt(r);
+            }
+        }
+        else
+        {
+            int r;
+            for (int i = 0; i < entryCount; i++)
+            {
+                r = UnityEngine.Random.Range(0, entryCount);
+
+                output[i] = targetArray[r];
+            }
+        }
+        return output;
+    }
+
+    /// <summary>
     /// Modifies a struct element in a list safely by copying, running the modifier, then writing it back.
     /// </summary>
     public static void ModifyAt<T>(this List<T> list, int index, ActionRef<T> modifier) where T : struct
