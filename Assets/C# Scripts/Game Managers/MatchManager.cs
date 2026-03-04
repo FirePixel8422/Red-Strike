@@ -19,7 +19,7 @@ namespace Fire_Pixel.Networking
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
-            UpdateScheduler.EnableNetworkTickEvents();
+            CallbackScheduler.EnableNetworkTickEvents();
         }
         protected override void OnNetworkSystemsSetupPostStart()
         {

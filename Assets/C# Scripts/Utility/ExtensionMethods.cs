@@ -17,45 +17,26 @@ public static class ExtensionMethods
     /// Invoke function <paramref name="f"/> after <paramref name="delay"/> seconds. Schedules a coroutine on the target <see cref="MonoBehaviour"/>
     /// </summary>
     /// <returns>The scheduled coroutine ref</returns>
-    public static Coroutine Invoke(this MonoBehaviour mb, float delay, Action f)
+    public static InvokeCallbackReference Invoke(this MonoBehaviour mb, float delay, Action f)
     {
-        return mb.StartCoroutine(InvokeRoutine(delay, f));
+        return CallbackScheduler.Invoke(delay, f, mb.GetInstanceID());
     }
     /// <summary>
-    /// Invoke function <paramref name="f"/> after <paramref name="delay"/> seconds. Schedules a coroutine on <see cref="CoroutineRunner"/>
+    /// Stops a previously scheduled Invoke Callback on target (<see cref="MonoBehaviour"/>) and clears its reference.
+    /// Must be called on the same owner (<see cref="MonoBehaviour"/>) that started the coroutine.
     /// </summary>
-    /// <returns>The scheduled coroutine ref</returns>
-    public static Coroutine Invoke(float delay, Action f)
+    public static void CancelInvoke(this MonoBehaviour _, ref InvokeCallbackReference callbackRef)
     {
-        return CoroutineRunner.StartCoroutine(InvokeRoutine(delay, f));
-    }
+        if (callbackRef == null) return;
 
-    /// <summary>
-    /// Stops a previously scheduled Invoke coroutine and clears its reference.
-    /// Must be called on the same owner that started the coroutine.
-    /// </summary>
-    public static void CancelInvoke(this MonoBehaviour mb, ref Coroutine coroutine)
-    {
-        if (coroutine == null) return;
-
-        mb.StopCoroutine(coroutine);
-        coroutine = null;
+        CallbackScheduler.CancelInvoke(ref callbackRef);
     }
     /// <summary>
-    /// Stops a previously scheduled Invoke coroutine on <see cref="CoroutineRunner"/> and clears its reference.
+    /// Stops a previously scheduled Invoke Callback on <see cref="CallbackScheduler"/> and clears its reference.
     /// </summary>
-    public static void CancelInvoke(ref Coroutine coroutine)
+    public static void CancelAllInvokes(this MonoBehaviour mb)
     {
-        if (coroutine == null) return;
-
-        CoroutineRunner.StopCoroutine(coroutine);
-        coroutine = null;
-    }
-
-    private static IEnumerator InvokeRoutine(float delay, Action f)
-    {
-        yield return new WaitForSeconds(delay);
-        f.Invoke();
+        CallbackScheduler.CancelAllInvokesInGroup(mb.GetInstanceID());
     }
 
     #endregion

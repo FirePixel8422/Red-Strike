@@ -45,9 +45,9 @@ public class QTEUIBlock : MonoBehaviour
 
         this.qteDuration = qteDuration;
 
-        this.Invoke(qteUIStartAheadTime, () =>
+        this.Invoke(qteUIStartAheadTime + timerBarSize * qteDuration, () =>
         {
-            UpdateScheduler.RegisterUpdate(DepleteTimer);
+            CallbackScheduler.RegisterUpdate(DepleteTimer);
         });
     }
     public void Disable()
@@ -60,7 +60,7 @@ public class QTEUIBlock : MonoBehaviour
     public void SucceedQTE()
     {
         anim.SetBool(SUCCEED_ANIM_HASH, true);
-        UpdateScheduler.UnRegisterUpdate(DepleteTimer);
+        CallbackScheduler.UnRegisterUpdate(DepleteTimer);
     }
     public void FailQTE(bool isFailedBecauseExpired)
     {
@@ -76,7 +76,7 @@ public class QTEUIBlock : MonoBehaviour
         {
             anim.SetBool(FAIL_ANIM_HASH, true);
         }
-        UpdateScheduler.UnRegisterUpdate(DepleteTimer);
+        CallbackScheduler.UnRegisterUpdate(DepleteTimer);
     }
 
     /// <summary>
@@ -92,6 +92,11 @@ public class QTEUIBlock : MonoBehaviour
         timerBarCoverA.fillAmount = barPercentageLeft - timerBarSize;
         // After timer bar reaches the succes window, follow the timer bar with the copySuccesBarOverlay until the end of the timer.
         timerBarCoverB.fillAmount = math.clamp(barPercentageLeft - timerBarSize, 0, succesBar.fillAmount);
+    }
+
+    private void OnDestroy()
+    {
+        CallbackScheduler.UnRegisterUpdate(DepleteTimer);
     }
 
 #if UNITY_EDITOR

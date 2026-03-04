@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Fire_Pixel.Utility;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 
@@ -42,10 +43,10 @@ public class QTEUIManager : MonoBehaviour
             float qteDuration = qteSequenceParams[i].Duration;
             float qteWindow = qteSequenceParams[i].SuccesWindow01;
 
-            ExtensionMethods.Invoke(randomStartDelays[capturedI], () =>
+            CallbackScheduler.Invoke(randomStartDelays[capturedI], () =>
             {
                 qteUIBlocks[capturedI].Activate(qteDuration, qteWindow, QTEGlobalReactionTime); 
-            });
+            }, QTESequenceSystem.INVOKE_SYSTEMS_ID_HASH);
         }
     }
 
@@ -63,8 +64,13 @@ public class QTEUIManager : MonoBehaviour
         for (int i = 0; i < qteCount; i++)
         {
             float removeDelay = randomStartDelays[i] * Instance.qteAnimRemovalMultiplier;
-            ExtensionMethods.Invoke(removeDelay, qteUIBlocks[i].Disable);
+            CallbackScheduler.Invoke(removeDelay, qteUIBlocks[i].Disable, QTESequenceSystem.INVOKE_SYSTEMS_ID_HASH);
         }
+    }
+
+    private void OnDestroy()
+    {
+        CallbackScheduler.CancelAllInvokesInGroup(QTESequenceSystem.INVOKE_SYSTEMS_ID_HASH);
     }
 
 
@@ -72,7 +78,7 @@ public class QTEUIManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.C))
         {
             QTESequenceSystem.DebugStartQTESequence(testQTESequenceParams);
         }

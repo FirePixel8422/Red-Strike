@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Fire_Pixel.Utility;
+using UnityEngine;
 
 
 public static class DefenseWindowSystem
@@ -11,6 +12,8 @@ public static class DefenseWindowSystem
     private static int skillId;
 
     public static bool CanDefend => attackImpactGlobalTime > Time.unscaledTime;
+
+    public static readonly int INVOKE_SYSTEMS_ID_HASH = "Defense_Window_System".GetHashCode();
 #pragma warning restore UDR0001
 
 
@@ -24,13 +27,13 @@ public static class DefenseWindowSystem
         defenseResult = DefenseResult.None;
         skillId = incomingSkillId;
 
-        ExtensionMethods.Invoke(skill.AttackStartupTime, () =>
+        CallbackScheduler.Invoke(skill.AttackStartupTime, () =>
         {
             if (CombatManager.Instance != null)
             {
                 CombatManager.Instance.ResolveAttack_OnDefender(skillId, defenseResult);
             }
-        });
+        }, INVOKE_SYSTEMS_ID_HASH);
     }
 
     /// <returns>Whether the quick time event was hit succesfully</returns>

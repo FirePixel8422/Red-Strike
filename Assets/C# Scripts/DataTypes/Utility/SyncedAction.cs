@@ -51,7 +51,7 @@ namespace Fire_Pixel.Networking
             executeAtServerTime = timeStamp;
             isScheduled = true;
 
-            UpdateScheduler.RegisterNetworkTick(OnNetworkTick);
+            CallbackScheduler.RegisterNetworkTick(OnNetworkTick);
         }
         private void OnNetworkTick()
         {
@@ -60,7 +60,7 @@ namespace Fire_Pixel.Networking
                 Synchronise?.Invoke();
                 isScheduled = false;
 
-                UpdateScheduler.UnRegisterNetworkTick(OnNetworkTick);
+                CallbackScheduler.UnRegisterNetworkTick(OnNetworkTick);
             }
         }
         public static SyncedAction operator +(SyncedAction e, Action action)

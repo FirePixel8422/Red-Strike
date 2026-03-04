@@ -27,13 +27,13 @@ public class ResourceBarUI
 
         if (isLerping == false)
         {
-            UpdateScheduler.RegisterUpdate(LerpBar);
+            CallbackScheduler.RegisterUpdate(LerpBar);
             isLerping = true;
         }
     }
 
     /// <summary>
-    /// Updated through <see cref="UpdateScheduler.Update"/> when the bar value is changed
+    /// Updated through <see cref="CallbackScheduler.Update"/> when the bar value is changed
     /// </summary>
     private void LerpBar()
     {
@@ -44,7 +44,7 @@ public class ResourceBarUI
         {
             bar.fillAmount = targetValue;
 
-            UpdateScheduler.UnRegisterUpdate(LerpBar);
+            CallbackScheduler.UnRegisterUpdate(LerpBar);
             isLerping = false;
         }
         else

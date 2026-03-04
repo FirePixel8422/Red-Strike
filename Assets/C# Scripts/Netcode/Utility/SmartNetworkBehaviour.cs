@@ -53,7 +53,7 @@ namespace Fire_Pixel.Networking
                 isPostSpawnReady = true;
             };
 
-            UpdateScheduler.RegisterNetworkTick(OnNetworkTick);
+            CallbackScheduler.RegisterNetworkTick(OnNetworkTick);
         }
         private void Start()
         {
@@ -84,7 +84,7 @@ namespace Fire_Pixel.Networking
         {
             if (IsSpawned)
             {
-                UpdateScheduler.UnRegisterNetworkTick(OnNetworkTick);
+                CallbackScheduler.UnRegisterNetworkTick(OnNetworkTick);
             }
         }
     }

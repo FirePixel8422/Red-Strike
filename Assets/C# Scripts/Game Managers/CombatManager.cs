@@ -376,10 +376,11 @@ public class CombatManager : SmartNetworkBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.E))
         {
             PlayerStats.Local.RestoreEnergy(10);
             SkillUIManager.RecalculateCanAffordSkills();
+            SkillUIManager.UpdateSkillUIActiveState(true);
         }
     }
 

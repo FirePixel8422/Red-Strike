@@ -15,22 +15,7 @@ MonoBehaviour:
   Value:
     QuickTimeEvents:
     - StartDelayRange:
-        min: 0.2
-        max: 0.3
-      Duration: 0.5
-      SuccesWindow01: 0.2
-    - StartDelayRange:
-        min: 0.7
-        max: 0.8
-      Duration: 0.475
-      SuccesWindow01: 0.15
-    - StartDelayRange:
-        min: 1.2
-        max: 1.3
-      Duration: 0.45
-      SuccesWindow01: 0.1
-    - StartDelayRange:
-        min: 1.6
-        max: 1.7
-      Duration: 0.425
-      SuccesWindow01: 0.05
+        min: 0.5
+        max: 0.5
+      Duration: 5
+      SuccesWindow01: 0.5

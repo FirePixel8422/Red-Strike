@@ -36,12 +36,12 @@ public class HUDHandler : MonoBehaviour
     public void FadeIn()
     {
         Instance.screenBlock.enabled = false;
-        UpdateScheduler.RegisterUpdate(FadeInSequence);
+        CallbackScheduler.RegisterUpdate(FadeInSequence);
     }
     public void FadeOut()
     {
         Instance.screenBlock.enabled = true;
-        UpdateScheduler.RegisterUpdate(FadeOutSequence);
+        CallbackScheduler.RegisterUpdate(FadeOutSequence);
     }
     private void FadeInSequence()
     {
@@ -50,7 +50,7 @@ public class HUDHandler : MonoBehaviour
 
         if (alpha == 1)
         {
-            UpdateScheduler.UnRegisterUpdate(FadeInSequence);
+            CallbackScheduler.UnRegisterUpdate(FadeInSequence);
         }
     }
     private void FadeOutSequence()
@@ -60,7 +60,7 @@ public class HUDHandler : MonoBehaviour
 
         if (alpha == 0)
         {
-            UpdateScheduler.UnRegisterUpdate(FadeOutSequence);
+            CallbackScheduler.UnRegisterUpdate(FadeOutSequence);
         }
     }
 
@@ -69,7 +69,7 @@ public class HUDHandler : MonoBehaviour
 
     private void OnDestroy()
     {
-        UpdateScheduler.UnRegisterUpdate(FadeInSequence);
-        UpdateScheduler.UnRegisterUpdate(FadeOutSequence);
+        CallbackScheduler.UnRegisterUpdate(FadeInSequence);
+        CallbackScheduler.UnRegisterUpdate(FadeOutSequence);
     }
 }

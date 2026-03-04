@@ -1,5 +1,4 @@
-﻿using Fire_Pixel.Networking;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 

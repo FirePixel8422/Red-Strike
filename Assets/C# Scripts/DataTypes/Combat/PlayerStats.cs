@@ -65,7 +65,7 @@ public class PlayerStats
     {
         DebugLogger.LogError("amount CANT be less then 0", amount < 0f);
 
-        Health -= amount;
+        Health = math.clamp(Health - amount, 0, GameRules.DefaultPlayerStats.MaxHealth);
         UpdateHealthBar();
     }
 
