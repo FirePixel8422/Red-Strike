@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Normal
   m_EditorClassIdentifier: Assembly-CSharp::DefenseWindowParametersSO
   Value:
-    Dodge: 0.4
-    Parry: 0.25
-    PerfectParry: 0.1
+    Dodge: 0.2
+    Parry: 0.075
+    PerfectParry: 0.02

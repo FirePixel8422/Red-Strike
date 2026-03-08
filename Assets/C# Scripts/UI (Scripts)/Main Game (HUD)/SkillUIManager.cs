@@ -1,13 +1,25 @@
 using Fire_Pixel.Networking;
+using Fire_Pixel.Utility;
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 
 public class SkillUIManager : MonoBehaviour
 {
-    [SerializeField] private InputActionReference[] skillQuickUseInputs;
+    public static SkillUIManager Instance { get; private set; }
 
+
+    [SerializeField] private InputActionReference[] skillQuickUseInputs;
+    [SerializeField] private TextMeshProUGUI weaponNameText;
+
+    [SerializeField] private float fadeOutTime;
+    [SerializeField] private float fadeInTime;
+    [SerializeField] private Image screenBlock;
+
+    private CanvasGroup canvasGroup;
     private Action<InputAction.CallbackContext>[] skillUseActions;
 
 #pragma warning disable UDR0001
@@ -18,6 +30,9 @@ public class SkillUIManager : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
+
+        canvasGroup = GetComponent<CanvasGroup>();
         skillUIBlocks = GetComponentsInChildren<SkillUIBlock>(true);
         toolTipHandler = GetComponent<TooltipHandler>();
 
@@ -62,7 +77,6 @@ public class SkillUIManager : MonoBehaviour
         }
         UpdateSkillUIActiveState(TurnManager.IsMyTurn);
     }
-
     private void OnTurnStarted() => UpdateSkillUIActiveState(true);
 
 
@@ -76,8 +90,10 @@ public class SkillUIManager : MonoBehaviour
             skillUIBlocks[i].UpdateSkillActiveState(state);
         }
     }
-    public static void UpdateSkillUI(SkillSet skillSet)
+    public static void UpdateSkillUI(WeaponSkillSetData skillSet)
     {
+        Instance.weaponNameText.text = skillSet.WeaponName;
+
         int skillSlotCount = skillUIBlocks.Length;
         if (skillSet.Length > skillSlotCount)
         {
@@ -87,7 +103,7 @@ public class SkillUIManager : MonoBehaviour
 
         for (int i = 0; i < skillSlotCount; i++)
         {
-            skillUIBlocks[i].UpdateUI(skillSet[i]);
+            skillUIBlocks[i].UpdateUI(skillSet.SkillData[i]);
         }
         // Update tooltip systems
         toolTipHandler.UpdateColoredWords();
@@ -104,9 +120,48 @@ public class SkillUIManager : MonoBehaviour
     #endregion
 
 
+    #region SkillUI Fade In/Out
+
+    public static void FadeIn()
+    {
+        Instance.screenBlock.enabled = false;
+        CallbackScheduler.RegisterUpdate(Instance.FadeInSequence);
+    }
+    public static void FadeOut()
+    {
+        Instance.screenBlock.enabled = true;
+        CallbackScheduler.RegisterUpdate(Instance.FadeOutSequence);
+    }
+    private void FadeInSequence()
+    {
+        float alpha = canvasGroup.alpha;
+        canvasGroup.alpha = Mathf.MoveTowards(alpha, 1, Time.deltaTime / fadeInTime);
+
+        if (alpha == 1)
+        {
+            CallbackScheduler.UnRegisterUpdate(FadeInSequence);
+        }
+    }
+    private void FadeOutSequence()
+    {
+        float alpha = canvasGroup.alpha;
+        canvasGroup.alpha = Mathf.MoveTowards(alpha, 0, Time.deltaTime / fadeOutTime);
+
+        if (alpha == 0)
+        {
+            CallbackScheduler.UnRegisterUpdate(FadeOutSequence);
+        }
+    }
+
+    #endregion
+
+
     private void OnDestroy()
     {
         TurnManager.TurnStarted -= OnTurnStarted;
+
+        CallbackScheduler.UnRegisterUpdate(FadeInSequence);
+        CallbackScheduler.UnRegisterUpdate(FadeOutSequence);
 
         int skillCount = skillQuickUseInputs.Length;
         for (int i = 0; i < skillCount; i++)

@@ -802,7 +802,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 4064594695
+  GlobalObjectIdHash: 1064442683
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -829,6 +829,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Fire_Pixel.Networking.PingChecker
   ShowTopMostFoldoutHeaderGroup: 1
   updateInterval: 0.5
+  halveRTT: 1
 --- !u!1 &5779473824984390752
 GameObject:
   m_ObjectHideFlags: 0
@@ -1443,7 +1444,7 @@ PrefabInstance:
     - target: {fileID: 8127942747360211357, guid: 1946c66cdc935d14d82a354da28609e9,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 4220055894
+      value: 1939918396
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

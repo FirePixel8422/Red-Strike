@@ -5,8 +5,7 @@
 [CreateAssetMenu(fileName = "New Skill", menuName = "ScriptableObjects/Combat/SkillSO", order = -1005)]
 public class SkillBaseSO : ScriptableObject
 {
-    [SerializeReference]
-    public SkillBase Skill;
+    [SerializeReference] public SkillBase Skill;
 
 
 #if UNITY_EDITOR

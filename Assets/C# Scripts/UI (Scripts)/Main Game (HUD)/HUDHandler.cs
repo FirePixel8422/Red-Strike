@@ -1,75 +1,22 @@
-﻿using Fire_Pixel.Utility;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 
-[RequireComponent(typeof(CanvasGroup))]
 public class HUDHandler : MonoBehaviour
 {
-    public static HUDHandler Instance { get; private set; }
+#pragma warning disable UDR0001
+    private static HUDHandler instance;
+#pragma warning restore UDR0001
 
 
     [SerializeField] private ResourceBarUI localHealthBar, opponentHealthBar;
     [SerializeField] private ResourceBarUI localEnergyBar;
-    public ResourceBarUI LocalHealthBar => localHealthBar;
-    public ResourceBarUI OpponentHealthBar => opponentHealthBar;
-    public ResourceBarUI LocalEnergyBar => localEnergyBar;
-
-    [Space(8)]
-
-    [SerializeField] private float fadeOutTime;
-    [SerializeField] private float fadeInTime;
-    [SerializeField] private Image screenBlock;
-
-    private CanvasGroup canvasGroup;
+    public static ResourceBarUI LocalHealthBar => instance.localHealthBar;
+    public static ResourceBarUI OpponentHealthBar => instance.opponentHealthBar;
+    public static ResourceBarUI LocalEnergyBar => instance.localEnergyBar;
 
 
     private void Awake()
     {
-        Instance = this;
-        canvasGroup = GetComponent<CanvasGroup>();
-    }
-
-
-    #region Fade In/Out system
-
-    public void FadeIn()
-    {
-        Instance.screenBlock.enabled = false;
-        CallbackScheduler.RegisterUpdate(FadeInSequence);
-    }
-    public void FadeOut()
-    {
-        Instance.screenBlock.enabled = true;
-        CallbackScheduler.RegisterUpdate(FadeOutSequence);
-    }
-    private void FadeInSequence()
-    {
-        float alpha = canvasGroup.alpha;
-        canvasGroup.alpha = Mathf.MoveTowards(alpha, 1, Time.deltaTime / fadeInTime);
-
-        if (alpha == 1)
-        {
-            CallbackScheduler.UnRegisterUpdate(FadeInSequence);
-        }
-    }
-    private void FadeOutSequence()
-    {
-        float alpha = canvasGroup.alpha;
-        canvasGroup.alpha = Mathf.MoveTowards(alpha, 0, Time.deltaTime / fadeOutTime);
-
-        if (alpha == 0)
-        {
-            CallbackScheduler.UnRegisterUpdate(FadeOutSequence);
-        }
-    }
-
-    #endregion
-
-
-    private void OnDestroy()
-    {
-        CallbackScheduler.UnRegisterUpdate(FadeInSequence);
-        CallbackScheduler.UnRegisterUpdate(FadeOutSequence);
+        instance = this;
     }
 }

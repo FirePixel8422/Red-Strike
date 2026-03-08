@@ -25,6 +25,7 @@ public class PlayerVisualsManager : SmartNetworkBehaviour
 
     public void DoAttackerAnimation_Local(float delayBeforeImpact)
     {
+        SkillUIManager.FadeOut();
         players[CombatTurnContext.AttackerGameId].Anim.StartWeaponAttack(delayBeforeImpact);
     }
 

@@ -51,7 +51,7 @@ public class CombatManager : SmartNetworkBehaviour
             CombatTurnContext.Players[i].UpdateEnergyBar();
         }
 
-        WeaponManager.SwapToRandomWeapon();
+        SwapToRandomWeapon_ServerRPC();
 
         TurnManager.TurnStarted += OnTurnStarted;
         TurnManager.TurnEnded += OnTurnEnded;
@@ -70,7 +70,7 @@ public class CombatManager : SmartNetworkBehaviour
             StartCoroutine(DebugDefenseResult_Local(result));
             DisplayDefenseResult_ServerRPC(result);
 
-            //StartCoroutine(DebugDefenseDurationLoop(AttackManager.defenseWindow.Dodge));
+            StartCoroutine(DebugDefenseDurationLoop(DefenseWindowSystem.DefenseWindow.Dodge));
 #endif
         }
     }
@@ -86,7 +86,7 @@ public class CombatManager : SmartNetworkBehaviour
             StartCoroutine(DebugDefenseResult_Local(result));
             DisplayDefenseResult_ServerRPC(result);
 
-            //StartCoroutine(DebugDefenseDurationLoop(AttackManager.defenseWindow.Parry));
+            StartCoroutine(DebugDefenseDurationLoop(DefenseWindowSystem.DefenseWindow.PerfectParry));
 #endif
         }
     }
@@ -109,14 +109,43 @@ public class CombatManager : SmartNetworkBehaviour
     {
         PlayerStats.Oponnent.RestoreEnergy(GameRules.MatchSettings.PassiveEnergyGain);
         PlayerStats.Oponnent.ApplyAndTickDownStatusEffects();
+
+        SkillUIManager.FadeIn();
     }
     private void OnTurnEnded()
     {
         PlayerStats.Local.RestoreEnergy(GameRules.MatchSettings.PassiveEnergyGain);
         PlayerStats.Local.ApplyAndTickDownStatusEffects();
 
-        WeaponManager.SwapToRandomWeapon();
+        SkillUIManager.FadeIn();
+        SwapToRandomWeapon_ServerRPC();
     }
+
+
+    #region Swap to random weapon
+
+    /// <summary>
+    /// Swap weapon of the client who called this RPC to random new weapon and update all clients weapon display to new weapon.
+    /// </summary>
+    [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
+    private void SwapToRandomWeapon_ServerRPC(ServerRpcParams rpcParams = default)
+    {
+        int targetClientGameId = rpcParams.GetSenderClientGameId();
+        int randomWeaponId = WeaponManager.GetRandomWeaponId();
+
+        SwapToRandomWeapon_ClientRPC(targetClientGameId, randomWeaponId);
+    }
+    [ClientRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
+    private void SwapToRandomWeapon_ClientRPC(int targetClientGameId, int randomWeaponId)
+    {
+        if (LocalClientGameId == targetClientGameId)
+        {
+            WeaponManager.SetLocalWeapon(randomWeaponId);
+        }
+    }
+
+    #endregion
+
 
     public void UseSkill_OnNetwork(int skillId)
     {
@@ -335,6 +364,7 @@ public class CombatManager : SmartNetworkBehaviour
 #if Enable_Debug_Systems
     private IEnumerator DebugDefenseDurationLoop(float defenseDuration)
     {
+        float _def = defenseDuration;
         while (defenseDuration > 0)
         {
             defenseDuration -= Time.deltaTime;
@@ -343,7 +373,7 @@ public class CombatManager : SmartNetworkBehaviour
             yield return null;
         }
 
-        MultiInstanceText.Instances[0].Text.text = "";
+        MultiInstanceText.Instances[0].Text.text = "Time was: " + _def.ToString();
     }
     private IEnumerator DebugAttackImpactDelayLoop(float impactDelay)
     {

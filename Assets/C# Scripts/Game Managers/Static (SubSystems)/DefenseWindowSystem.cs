@@ -71,4 +71,8 @@ public static class DefenseWindowSystem
         }
         return DefenseResult.None;
     }
+
+#if Enable_Debug_Systems
+    public static DefenseWindowParameters DefenseWindow => defenseWindow;
+#endif
 }

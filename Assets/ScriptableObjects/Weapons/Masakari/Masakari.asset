@@ -1,0 +1,159 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f256ffff785198b448081e86e57450d9, type: 3}
+  m_Name: Masakari
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponSO
+  weaponName: Masakari
+  skills:
+  - SkillSO: {fileID: 11400000, guid: 5cd41e10e87bc1e4daa4d75eb6509e29, type: 2}
+    animationName: 
+  - SkillSO: {fileID: 11400000, guid: 012780a162a9a554da7a89962ea845a8, type: 2}
+    animationName: 
+  - SkillSO: {fileID: 11400000, guid: 9a86ad0887047024b9acdc4b3006e515, type: 2}
+    animationName: 
+  - SkillSO: {fileID: 11400000, guid: 6248d6518d99e6d478eacc77bf4761c3, type: 2}
+    animationName: 
+  Debug_Skills:
+  - rid: 902968569990480021
+  - rid: 902968569990480022
+  - rid: 902968569990480023
+  - rid: 902968569990480024
+  references:
+    version: 2
+    RefIds:
+    - rid: 902968569990480021
+      type: {class: SkillAttack, ns: , asm: Assembly-CSharp}
+      data:
+        info:
+          Name: Furious Slash
+          Description: SIngle slash dealing VERY high damage and applying 1 stack
+            of weakened and broken for 3 turns.
+        costs:
+          Type: 1
+          Amount: 7
+        defenseWindowsSO: {fileID: 11400000, guid: 2deffe98fc730ee44adc95ffff4c2e30,
+          type: 2}
+        attackStartupTime: 2
+        effects:
+        - rid: 902968569990480025
+        - rid: 902968569990480026
+        - rid: 902968569990480027
+    - rid: 902968569990480022
+      type: {class: SkillAttack, ns: , asm: Assembly-CSharp}
+      data:
+        info:
+          Name: Infected Slash
+          Description: Single strike that deals low damage and applies 1 stack of
+            the bleeding effect and the broken effect for 2 turns.
+        costs:
+          Type: 0
+          Amount: 10
+        defenseWindowsSO: {fileID: 11400000, guid: bdaddf7e8e09f774c93e5f3034e8ba37,
+          type: 2}
+        attackStartupTime: 2
+        effects:
+        - rid: 902968569990480028
+        - rid: 902968569990480029
+        - rid: 902968569990480030
+    - rid: 902968569990480023
+      type: {class: SkillAttack, ns: , asm: Assembly-CSharp}
+      data:
+        info:
+          Name: Flame Strike
+          Description: Single strike dealing very low damage and applying 1 stack
+            of burning for 2 turns.
+        costs:
+          Type: 1
+          Amount: 0
+        defenseWindowsSO: {fileID: 11400000, guid: bdaddf7e8e09f774c93e5f3034e8ba37,
+          type: 2}
+        attackStartupTime: 2
+        effects:
+        - rid: 902968569990480031
+        - rid: 902968569990480032
+    - rid: 902968569990480024
+      type: {class: SkillSupport, ns: , asm: Assembly-CSharp}
+      data:
+        info:
+          Name: Great Restore
+          Description: Deals no damage, restores up to 35 health.
+        costs:
+          Type: 1
+          Amount: 3
+        qteWindowsSO: {fileID: 11400000, guid: 55b864cfe9c755c4cbc5267576533ad2, type: 2}
+        effects:
+        - rid: 902968569990480033
+    - rid: 902968569990480025
+      type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damage: 40
+    - rid: 902968569990480026
+      type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
+      data:
+        toApplyStatusEffect:
+          EffectInstance:
+            Type: 3
+            Duration: 3
+          StackCount: 1
+    - rid: 902968569990480027
+      type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
+      data:
+        toApplyStatusEffect:
+          EffectInstance:
+            Type: 2
+            Duration: 3
+          StackCount: 1
+    - rid: 902968569990480028
+      type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damage: 12
+    - rid: 902968569990480029
+      type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
+      data:
+        toApplyStatusEffect:
+          EffectInstance:
+            Type: 1
+            Duration: 0
+          StackCount: 1
+    - rid: 902968569990480030
+      type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
+      data:
+        toApplyStatusEffect:
+          EffectInstance:
+            Type: 2
+            Duration: 2
+          StackCount: 1
+    - rid: 902968569990480031
+      type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damage: 6
+    - rid: 902968569990480032
+      type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
+      data:
+        toApplyStatusEffect:
+          EffectInstance:
+            Type: 0
+            Duration: 1
+          StackCount: 1
+    - rid: 902968569990480033
+      type: {class: SkillRestoreEffect, ns: , asm: Assembly-CSharp}
+      data:
+        restoreEffects:
+          FailedQTE:
+            Type: 0
+            Amount: 15
+          SuccesfulQTE:
+            Type: 0
+            Amount: 25
+          PerfectQTE:
+            Type: 0
+            Amount: 35

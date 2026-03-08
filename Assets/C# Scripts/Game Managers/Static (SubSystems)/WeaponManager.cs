@@ -3,26 +3,29 @@
 
 public static class WeaponManager
 {
-    public static SkillSet[] SkillSets { get; private set; }
-    public static SkillSet ActiveWeapon_Local { get; private set; }
+    public static WeaponSkillSetData[] SkillSets { get; private set; }
+    public static WeaponSkillSetData ActiveWeapon_Local { get; private set; }
 
 
     public static void Init(GlobalWeaponListSO globalWeaponListSO)
     {
         int weaponCount = globalWeaponListSO.WeaponList.Length;
-        SkillSets = new SkillSet[weaponCount];
+        SkillSets = new WeaponSkillSetData[weaponCount];
 
         for (int i = 0; i < weaponCount; i++)
         {
-            SkillSets[i] = globalWeaponListSO.WeaponList[i].GetAsSkillSet();
+            SkillSets[i] = globalWeaponListSO.WeaponList[i].GetAsDataCopy();
         }
     }
-    public static int SwapToRandomWeapon()
+
+    public static int GetRandomWeaponId()
     {
-        int r = EzRandom.Range(0, SkillSets.Length);
-        ActiveWeapon_Local = SkillSets[r];
+        return EzRandom.Range(0, SkillSets.Length);
+    }
+    public static void SetLocalWeapon(int weaponId)
+    {
+        ActiveWeapon_Local = SkillSets[weaponId];
 
         SkillUIManager.UpdateSkillUI(ActiveWeapon_Local);
-        return r;
     }
 }
