@@ -97,7 +97,8 @@ public class SkillUIManager : MonoBehaviour
         int skillSlotCount = skillUIBlocks.Length;
         if (skillSet.Length > skillSlotCount)
         {
-            // Randomize order so a weapon with more skills then there are skillslots, chooses random skills to fill the slots
+            // If weapon has more available skills then there are skill slots,
+            // randomize order so random skills are picked later.
             skillSet.RandomizeSkillOrder();
         }
 

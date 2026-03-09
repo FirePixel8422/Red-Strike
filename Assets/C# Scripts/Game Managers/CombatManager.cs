@@ -142,6 +142,7 @@ public class CombatManager : SmartNetworkBehaviour
         {
             WeaponManager.SetLocalWeapon(randomWeaponId);
         }
+        // (Re)Create new weapon
     }
 
     #endregion
@@ -406,7 +407,7 @@ public class CombatManager : SmartNetworkBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.E))
         {
             PlayerStats.Local.RestoreEnergy(10);
             SkillUIManager.RecalculateCanAffordSkills();

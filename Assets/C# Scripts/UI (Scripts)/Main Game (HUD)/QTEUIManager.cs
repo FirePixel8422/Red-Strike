@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 /// <summary>
 /// Quick Time Event UI Manager. Handles the UI popups through <see cref="QTEUIBlock"/>s for quick time event sequences, which are used for support skills.
-/// </summary>
+/// </summary> 
 public class QTEUIManager : MonoBehaviour
 {
     public static QTEUIManager Instance { get; private set; }
@@ -18,7 +18,6 @@ public class QTEUIManager : MonoBehaviour
 #pragma warning disable UDR0001
     private static QTEUIBlock[] qteUIBlocks;
 #pragma warning restore UDR0001
-
 
 
 
@@ -74,13 +73,15 @@ public class QTEUIManager : MonoBehaviour
     }
 
 
+#if Enable_Debug_Systems
     public QTESequenceParametersSO testQTESequenceParams;
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.Y))
         {
             QTESequenceSystem.DebugStartQTESequence(testQTESequenceParams);
         }
     }
+#endif
 }

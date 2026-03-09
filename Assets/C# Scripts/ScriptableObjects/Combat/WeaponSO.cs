@@ -6,9 +6,8 @@
 public class WeaponSO : ScriptableObject
 {
     [SerializeField] private string weaponName;
-    [SerializeField] private WeaponSkill[] skills = new WeaponSkill[3];
+    [SerializeField] private WeaponSkillEntry[] skills = new WeaponSkillEntry[3];
 
-    public string WeaponName => weaponName;
     public WeaponSkillSetData GetAsDataCopy() => new WeaponSkillSetData(skills, weaponName);
 
 
@@ -36,7 +35,7 @@ public class WeaponSO : ScriptableObject
 }
 
 [System.Serializable]
-public struct WeaponSkill
+public struct WeaponSkillEntry
 {
     public SkillBaseSO SkillSO;
     public string animationName;
@@ -46,14 +45,14 @@ public struct WeaponSkill
 /// A datatype acting as a Weapon, holding X skills in an optimized and quick accesable layout.
 /// </summary>
 [System.Serializable]
-public struct WeaponSkillSetData
+public readonly struct WeaponSkillSetData
 {
-    public string WeaponName;
-    public SkillBase[] SkillData;
-    public int[] AnimHashes;
+    public readonly string WeaponName;
+    public readonly SkillBase[] SkillData;
+    public readonly int[] AnimHashes;
 
 
-    public WeaponSkillSetData(WeaponSkill[] weaponSkills, string weaponName)
+    public WeaponSkillSetData(WeaponSkillEntry[] weaponSkills, string weaponName)
     {
         WeaponName = weaponName;
 
@@ -67,10 +66,18 @@ public struct WeaponSkillSetData
             AnimHashes[i] = Animator.StringToHash(weaponSkills[i].animationName);
         }
     }
-
-    public readonly void RandomizeSkillOrder()
-    {
-        SkillData.Shuffle();
-    }
     public readonly int Length => SkillData.Length;
+
+    public void RandomizeSkillOrder()
+    {
+        int length = SkillData.Length;
+
+        for (int i = length - 1; i > 0; i--)
+        {
+            int j = Random.Range(0, i + 1);
+
+            (SkillData[j], SkillData[i]) = (SkillData[i], SkillData[j]);
+            (AnimHashes[j], AnimHashes[i]) = (AnimHashes[i], AnimHashes[j]);
+        }
+    }
 }
