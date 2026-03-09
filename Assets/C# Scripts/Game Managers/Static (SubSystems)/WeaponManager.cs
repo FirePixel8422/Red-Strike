@@ -14,7 +14,7 @@ public static class WeaponManager
 
         for (int i = 0; i < weaponCount; i++)
         {
-            WeaponSkillSetData[i] = globalWeaponListSO.WeaponList[i].GetAsDataCopy();
+            WeaponSkillSetData[i] = globalWeaponListSO.WeaponList[i].GetAsDataCopy(i);
         }
     }
 

@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
 
-public class HUDHandler : MonoBehaviour
+public class HUDManager : MonoBehaviour
 {
 #pragma warning disable UDR0001
-    private static HUDHandler instance;
+    private static HUDManager instance;
 #pragma warning restore UDR0001
 
 

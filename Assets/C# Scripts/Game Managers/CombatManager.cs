@@ -150,6 +150,8 @@ public class CombatManager : SmartNetworkBehaviour
 
     public void UseSkill_OnNetwork(int skillId)
     {
+        TurnManager.Instance.EndTurnTimer();
+
         SkillBase skill = SkillManager.GlobalSkillList[skillId];
 
         if (skill is SkillAttack)

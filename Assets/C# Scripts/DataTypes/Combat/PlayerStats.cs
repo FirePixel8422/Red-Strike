@@ -96,7 +96,7 @@ public class PlayerStats
     {
         float healthPercent01 = Health / GameRules.DefaultPlayerStats.MaxHealth;
 
-        ResourceBarUI healthBar = this == Local ? HUDHandler.LocalHealthBar : HUDHandler.OpponentHealthBar;
+        ResourceBarUI healthBar = this == Local ? HUDManager.LocalHealthBar : HUDManager.OpponentHealthBar;
         healthBar?.UpdateBar(healthPercent01);
     }
     public void UpdateEnergyBar()
@@ -106,7 +106,7 @@ public class PlayerStats
         // other client doesn’t update your energy bar
         if (IsLocal)
         { 
-            HUDHandler.LocalEnergyBar.UpdateBar(energyPercent01);
+            HUDManager.LocalEnergyBar.UpdateBar(energyPercent01);
         }
     }
 

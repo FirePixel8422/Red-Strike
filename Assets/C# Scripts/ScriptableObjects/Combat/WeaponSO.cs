@@ -6,9 +6,9 @@
 public class WeaponSO : ScriptableObject
 {
     [SerializeField] private string weaponName;
-    [SerializeField] private WeaponSkillEntry[] skills = new WeaponSkillEntry[3];
+    public WeaponSkillEntry[] Skills = new WeaponSkillEntry[3];
 
-    public WeaponSkillSetData GetAsDataCopy() => new WeaponSkillSetData(skills, weaponName);
+    public WeaponSkillSetData GetAsDataCopy(int assignedWeaponId) => new WeaponSkillSetData(Skills, weaponName, assignedWeaponId);
 
 
 #if UNITY_EDITOR
@@ -18,17 +18,19 @@ public class WeaponSO : ScriptableObject
     private void OnValidate()
     {
         weaponName = name;
-        if (skills.Length < 3)
+        if (Skills.Length < 3)
         {
-            DebugLogger.LogWarning("Weapons must have AT LEAST 3 skills");
-            System.Array.Resize(ref skills, 3);
+            DebugLogger.LogWarning("Weapons must have AT LEAST 3 Skills");
+            System.Array.Resize(ref Skills, 3);
         }
 
-        int skillCount = skills.Length;
+        int skillCount = Skills.Length;
         Debug_Skills = new SkillBase[skillCount];
         for (int i = 0; i < skillCount; i++)
         {
-            Debug_Skills[i] = skills[i].SkillSO.Skill;
+            if (Skills[i].SkillSO == null) continue;
+
+            Debug_Skills[i] = Skills[i].SkillSO.Skill;
         }
     }
 #endif
@@ -38,22 +40,26 @@ public class WeaponSO : ScriptableObject
 public struct WeaponSkillEntry
 {
     public SkillBaseSO SkillSO;
-    public string animationName;
+    public string AnimationName;
+    public float AttackStartupTime;
 }
 
 /// <summary>
-/// A datatype acting as a Weapon, holding X skills in an optimized and quick accesable layout.
+/// A datatype acting as a Weapon, holding X Skills in an optimized and quick accesable layout.
 /// </summary>
 [System.Serializable]
 public readonly struct WeaponSkillSetData
 {
+    public readonly int WeaponId;
     public readonly string WeaponName;
+
     public readonly SkillBase[] SkillData;
     public readonly int[] AnimHashes;
 
 
-    public WeaponSkillSetData(WeaponSkillEntry[] weaponSkills, string weaponName)
+    public WeaponSkillSetData(WeaponSkillEntry[] weaponSkills, string weaponName, int assignedWeaponId)
     {
+        WeaponId = assignedWeaponId;
         WeaponName = weaponName;
 
         int skillCount = weaponSkills.Length;
@@ -63,7 +69,7 @@ public readonly struct WeaponSkillSetData
         for (int i = 0; i < skillCount; i++)
         {
             SkillData[i] = weaponSkills[i].SkillSO.Skill;
-            AnimHashes[i] = Animator.StringToHash(weaponSkills[i].animationName);
+            AnimHashes[i] = Animator.StringToHash(weaponSkills[i].AnimationName);
         }
     }
     public readonly int Length => SkillData.Length;

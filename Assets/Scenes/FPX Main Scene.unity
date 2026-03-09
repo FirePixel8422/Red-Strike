@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: ef4e47b380dc2344ebe0e066a8ba2a1d, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
+  m_Sun: {fileID: 182282596}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -480,11 +480,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2035985976065786856, guid: e5595bd5f1f18214fa49f0c479941592,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 187.29999
-      objectReference: {fileID: 0}
     - target: {fileID: 2092552456436002309, guid: e5595bd5f1f18214fa49f0c479941592,
         type: 3}
       propertyPath: m_Name
@@ -500,21 +495,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 2044347680}
-    - target: {fileID: 4579840041100316850, guid: e5595bd5f1f18214fa49f0c479941592,
-        type: 3}
-      propertyPath: m_RenderMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4579840041100316850, guid: e5595bd5f1f18214fa49f0c479941592,
-        type: 3}
-      propertyPath: m_PlaneDistance
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4579840041100316850, guid: e5595bd5f1f18214fa49f0c479941592,
-        type: 3}
-      propertyPath: m_UpdateRectTransformForStandalone
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6513234893245566870, guid: e5595bd5f1f18214fa49f0c479941592,
         type: 3}
       propertyPath: GlobalObjectIdHash
@@ -625,6 +605,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5595bd5f1f18214fa49f0c479941592, type: 3}
+--- !u!114 &346839770 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2808577270252099299, guid: e5595bd5f1f18214fa49f0c479941592,
+    type: 3}
+  m_PrefabInstance: {fileID: 346839769}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &362555154
 GameObject:
   m_ObjectHideFlags: 0
@@ -1243,6 +1235,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurnManager
   ShowTopMostFoldoutHeaderGroup: 1
+  turnTimeLeftText: {fileID: 346839770}
+  turnTimerActiveColor: {r: 1, g: 1, b: 1, a: 1}
+  turnTimerLowColor: {r: 0.9411765, g: 0.34509805, b: 0.30980393, a: 1}
 --- !u!114 &1779185556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1256,7 +1251,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FirePixel.Networking.MatchManager
   ShowTopMostFoldoutHeaderGroup: 1
-  playerReadyCount: 0
 --- !u!114 &1779185557
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1695,6 +1689,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6344126454707729390, guid: c4c25c834b70d4e4398d5da6c09c4ae5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8000755852611517597, guid: c4c25c834b70d4e4398d5da6c09c4ae5,
         type: 3}
