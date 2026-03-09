@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5287381020941622744}
   - component: {fileID: 4552873996528808999}
   m_Layer: 0
-  m_Name: MatchManagement
+  m_Name: Netcode Management
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
