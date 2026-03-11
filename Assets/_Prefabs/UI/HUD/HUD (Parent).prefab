@@ -326,7 +326,7 @@ PrefabInstance:
     - target: {fileID: 6271718819982935310, guid: 5bc861ffe9ba3b5438277a1d42f37544,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 4220055894
+      value: 914616503
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

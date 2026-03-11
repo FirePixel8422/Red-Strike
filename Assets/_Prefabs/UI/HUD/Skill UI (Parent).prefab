@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
+  m_Color: {r: 0.23137255, g: 0.23137255, b: 0.23137255, a: 0.29803923}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -208,7 +208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
+  m_Color: {r: 0.23018861, g: 0.23018861, b: 0.23018861, a: 0.29803923}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -285,7 +285,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
+  m_Color: {r: 0.23137255, g: 0.23137255, b: 0.23137255, a: 0.29803923}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -645,6 +645,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Energy Bar (Parent)
       objectReference: {fileID: 0}
+    - target: {fileID: 4514538922104625117, guid: c07336b946fdf5742b2869ababfb2fe2,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.29803923
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -664,21 +669,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 398968791920890968}
     m_Modifications:
-    - target: {fileID: 1562724202872604208, guid: cd082efbdec8ec2478597c2cadcb3433,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: -5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1562724202872604208, guid: cd082efbdec8ec2478597c2cadcb3433,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1562724202872604208, guid: cd082efbdec8ec2478597c2cadcb3433,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 4758241977536130185, guid: cd082efbdec8ec2478597c2cadcb3433,
         type: 3}
       propertyPath: m_Pivot.x
@@ -778,16 +768,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4769883294840013337, guid: cd082efbdec8ec2478597c2cadcb3433,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4769883294840013337, guid: cd082efbdec8ec2478597c2cadcb3433,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 8660060341952684123, guid: cd082efbdec8ec2478597c2cadcb3433,
         type: 3}
