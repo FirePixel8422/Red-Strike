@@ -15,6 +15,8 @@ public class CombatManager : SmartNetworkBehaviour
     [SerializeField] private InputActionReference parryInput;
     [SerializeField] private InputActionReference qteInput;
 
+    [SerializeField] private CameraShakeSettings[] onHitShakeSequence;
+
 
     private void Awake()
     {
@@ -295,6 +297,11 @@ public class CombatManager : SmartNetworkBehaviour
     {
         SkillManager.GlobalSkillList[skillId].AsAttack().Resolve(defenseResult);
 
+        if (CombatTurnContext.AttackerGameId != LocalClientGameId)
+        {
+            CameraShakeSystem.PlaySequence(Camera.main, onHitShakeSequence);
+        }
+
         if (defenseResult == DefenseResult.PerfectParried)
         {
             // Resolve penalty skill on attacker for getting perfect parried.
@@ -407,6 +414,8 @@ public class CombatManager : SmartNetworkBehaviour
         MultiInstanceText.Instances[3].Text.text = "";
     }
 
+
+    public CameraShakeSettings[] DEBUG_ShakeSequence;
     private void Update()
     {
         if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.E))
@@ -414,6 +423,11 @@ public class CombatManager : SmartNetworkBehaviour
             PlayerStats.Local.RestoreEnergy(10);
             SkillUIManager.RecalculateCanAffordSkills();
             SkillUIManager.UpdateSkillUIActiveState(true);
+        }
+
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.O))
+        {
+            CameraShakeSystem.PlaySequence(Camera.main, DEBUG_ShakeSequence);
         }
     }
 
