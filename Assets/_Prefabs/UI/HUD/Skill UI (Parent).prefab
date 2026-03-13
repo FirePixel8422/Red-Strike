@@ -377,8 +377,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4283390192
-  m_fontColor: {r: 0.94117653, g: 0.34509805, b: 0.30980393, a: 1}
+    rgba: 4283520958
+  m_fontColor: {r: 0.74509805, g: 0.34117648, b: 0.31764707, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -644,11 +644,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Energy Bar (Parent)
-      objectReference: {fileID: 0}
-    - target: {fileID: 4514538922104625117, guid: c07336b946fdf5742b2869ababfb2fe2,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 0.29803923
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
