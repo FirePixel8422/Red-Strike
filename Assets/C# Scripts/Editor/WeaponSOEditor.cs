@@ -15,7 +15,7 @@ public class WeaponSkillEntryDrawer : PropertyDrawer
 
         SerializedProperty anim = property.FindPropertyRelative(nameof(WeaponSkillEntry.AnimationName));
 
-        SerializedProperty startup = property.FindPropertyRelative(nameof(WeaponSkillEntry.AttackStartupTime));
+        SerializedProperty startup = property.FindPropertyRelative(nameof(WeaponSkillEntry.AttackDuration));
 
         EditorGUI.PropertyField(rect, skillSO);
         rect.y += EditorGUIUtility.singleLineHeight + 2;

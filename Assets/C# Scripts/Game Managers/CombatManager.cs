@@ -15,7 +15,7 @@ public class CombatManager : SmartNetworkBehaviour
     [SerializeField] private InputActionReference parryInput;
     [SerializeField] private InputActionReference qteInput;
 
-    [SerializeField] private CameraShakeSettings[] onHitShakeSequence;
+    [SerializeField] private EnumStructArray<DefenseResult, ArrayWrapper<CameraShakeSettings>> onHitShakeSequences;
 
 
     private void Awake()
@@ -41,7 +41,6 @@ public class CombatManager : SmartNetworkBehaviour
             qteInput.action.performed += OnQuickTimeEvent;
         };
     }
-
     protected override void OnNetworkSystemsSetupPostStart()
     {
         PlayerStats.Local = CombatTurnContext.Players[LocalClientGameId];
@@ -72,7 +71,7 @@ public class CombatManager : SmartNetworkBehaviour
             StartCoroutine(DebugDefenseResult_Local(result));
             DisplayDefenseResult_ServerRPC(result);
 
-            StartCoroutine(DebugDefenseDurationLoop(DefenseWindowSystem.DefenseWindow.Dodge));
+            //StartCoroutine(DebugDefenseDurationLoop(DefenseWindowSystem.DefenseWindow.Dodge));
 #endif
         }
     }
@@ -88,7 +87,7 @@ public class CombatManager : SmartNetworkBehaviour
             StartCoroutine(DebugDefenseResult_Local(result));
             DisplayDefenseResult_ServerRPC(result);
 
-            StartCoroutine(DebugDefenseDurationLoop(DefenseWindowSystem.DefenseWindow.PerfectParry));
+            //StartCoroutine(DebugDefenseDurationLoop(DefenseWindowSystem.DefenseWindow.PerfectParry));
 #endif
         }
     }
@@ -163,8 +162,12 @@ public class CombatManager : SmartNetworkBehaviour
         else if (skill is SkillSupport)
         {
             UseSupportSkill_ServerRPC(skillId);
+
+            PlayerVisualsManager.Instance.DoSupportAnimation_Local(skill.AnimationNameHash);
             QTESequenceSystem.StartQTESequence(skillId);
         }
+
+        ResolveSkillUseCosts_GlobalRPC(skillId);
     }
 
 
@@ -177,12 +180,16 @@ public class CombatManager : SmartNetworkBehaviour
 
         StartSupportPhase_ClientRPC(skillId, RPCTargetFilters.SendToOppositeClient(attackerClientGameId));
     }
+    /// <summary>
+    /// Called on Defender
+    /// </summary>
     [ClientRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
     private void StartSupportPhase_ClientRPC(int skillId, ClientRpcParams rpcParams = default)
     {
         if (IsHost && RPCTargetFilters.ShouldHostSkip(rpcParams)) return;
 
-        ResolveSkillUseCosts_Local(skillId);
+        SkillBase skill = SkillManager.GlobalSkillList[skillId];
+        PlayerVisualsManager.Instance.DoSupportAnimation_Local(skill.AnimationNameHash);
     }
 
     #endregion
@@ -234,36 +241,39 @@ public class CombatManager : SmartNetworkBehaviour
 
         StartDefensePhase_ClientRPC(skillId, RPCTargetFilters.SendToOppositeClient(attackerClientGameId));
     }
+    /// <summary>
+    /// Called on Defender
+    /// </summary>
     [ClientRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
     private void StartDefensePhase_ClientRPC(int skillId, ClientRpcParams rpcParams = default)
     {
         if (IsHost && RPCTargetFilters.ShouldHostSkip(rpcParams)) return;
 
         DefenseWindowSystem.StartAttackSequence(skillId);
-        ResolveSkillUseCosts_Local(skillId);
 
-        float attackImpactDelay = SkillManager.GlobalSkillList[skillId].AsAttack().AttackStartupTime;
-        StartAttackAnimation_ServerRPC(attackImpactDelay);
-        PlayerVisualsManager.Instance.DoAttackerAnimation_Local(attackImpactDelay);
+        StartAttackAnimation_ServerRPC(skillId);
 
-#if Enable_Debug_Systems
-        //StartCoroutine(DebugAttackImpactDelayLoop(SkillManager.GlobalSkillList[skillId].AttackStartupTime));
-#endif
+        SkillAttack skill = SkillManager.GlobalSkillList[skillId].AsAttack();
+        PlayerVisualsManager.Instance.DoAttackAnimation_Local(skill.AnimationNameHash, skill.AttackStartupTime);
     }
 
     [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
-    private void StartAttackAnimation_ServerRPC(float attackImpactDelay, ServerRpcParams rpcParams = default)
+    private void StartAttackAnimation_ServerRPC(int skillId, ServerRpcParams rpcParams = default)
     {
-        int attackerClientGameId = rpcParams.GetSenderClientGameId();
+        int defenderClientGameId = rpcParams.GetSenderClientGameId();
 
-        StartAttackAnimation_ClientRPC(attackImpactDelay, RPCTargetFilters.SendToOppositeClient(attackerClientGameId));
+        StartAttackAnimation_ClientRPC(skillId, RPCTargetFilters.SendToOppositeClient(defenderClientGameId));
     }
+    /// <summary>
+    /// Called on Attacker
+    /// </summary>
     [ClientRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
-    private void StartAttackAnimation_ClientRPC(float attackImpactDelay, ClientRpcParams rpcParams = default)
+    private void StartAttackAnimation_ClientRPC(int skillId, ClientRpcParams rpcParams = default)
     {
         if (IsHost && RPCTargetFilters.ShouldHostSkip(rpcParams)) return;
 
-        PlayerVisualsManager.Instance.DoAttackerAnimation_Local(attackImpactDelay);
+        SkillAttack skill = SkillManager.GlobalSkillList[skillId].AsAttack();
+        PlayerVisualsManager.Instance.DoAttackAnimation_Local(skill.AnimationNameHash, skill.AttackStartupTime);
     }
 
     #endregion
@@ -299,7 +309,7 @@ public class CombatManager : SmartNetworkBehaviour
 
         if (CombatTurnContext.AttackerGameId != LocalClientGameId)
         {
-            CameraShakeSystem.PlaySequence(Camera.main, onHitShakeSequence);
+            CameraShakeSystem.PlaySequence(Camera.main, onHitShakeSequences[defenseResult].Value);
         }
 
         if (defenseResult == DefenseResult.PerfectParried)
@@ -332,7 +342,11 @@ public class CombatManager : SmartNetworkBehaviour
 
 
 
-    public void ResolveSkillUseCosts_Local(int skillId)
+    /// <summary>
+    /// Resolve skill use cosst of the attacker on all clients.
+    /// </summary>
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone, Delivery = RpcDelivery.Reliable)]
+    private void ResolveSkillUseCosts_GlobalRPC(int skillId)
     {
         SkillCosts skillCosts = SkillManager.GlobalSkillList[skillId].Costs;
         if (skillCosts.Amount <= 0) return;

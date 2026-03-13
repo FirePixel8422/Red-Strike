@@ -8,7 +8,7 @@
 public class SkillEmpowerEffect : SkillSupportEffectBase
 {
     [Header("Status effect applied to the attacker")]
-    [SerializeField] private QTEResultBinding<StatusEffectStack> toApplyStatusEffect;
+    [SerializeField] private EnumStructArray<QTESequenceResult, StatusEffectStack> toApplyStatusEffect;
 
     public override void Resolve(QTESequenceResult supportQTEResult)
     {
@@ -22,7 +22,7 @@ public class SkillEmpowerEffect : SkillSupportEffectBase
     }
 
 #if UNITY_EDITOR
-    public QTEResultBinding<StatusEffectStack> ToApplyStatusEffect
+    public EnumStructArray<QTESequenceResult, StatusEffectStack> ToApplyStatusEffect
     {
         get => toApplyStatusEffect;
         set => toApplyStatusEffect = value;

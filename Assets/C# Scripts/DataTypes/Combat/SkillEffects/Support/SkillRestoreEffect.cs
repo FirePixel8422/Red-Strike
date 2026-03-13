@@ -8,7 +8,7 @@
 public class SkillRestoreEffect : SkillSupportEffectBase
 {
     [Header("Restore done to the attacker")]
-    [SerializeField] private QTEResultBinding<RestoreEffectInstance> restoreEffects;
+    [SerializeField] private EnumStructArray<QTESequenceResult, RestoreEffectInstance> restoreEffects;
 
     public override void Resolve(QTESequenceResult supportQTEResult)
     {

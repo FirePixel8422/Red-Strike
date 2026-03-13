@@ -33,18 +33,16 @@ MonoBehaviour:
       type: {class: SkillEmpowerEffect, ns: , asm: Assembly-CSharp}
       data:
         toApplyStatusEffect:
-          FailedQTE:
-            EffectInstance:
+          values:
+          - EffectInstance:
               Type: 4
               Duration: 1
             StackCount: 1
-          SuccesfulQTE:
-            EffectInstance:
+          - EffectInstance:
               Type: 4
               Duration: 2
             StackCount: 1
-          PerfectQTE:
-            EffectInstance:
+          - EffectInstance:
               Type: 4
               Duration: 3
             StackCount: 1

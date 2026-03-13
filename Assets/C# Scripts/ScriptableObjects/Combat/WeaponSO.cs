@@ -32,6 +32,16 @@ public class WeaponSO : ScriptableObject
 
             Debug_Skills[i] = Skills[i].SkillSO.Skill;
         }
+
+        for (int i = 0; i < skillCount; i++)
+        {
+            if (Skills[i].SkillSO == null) continue;
+
+            if (Debug_Skills[i] is SkillAttack internalSkill)
+            {
+                internalSkill.SetAttackData(Skills[i].AnimationName, Skills[i].AttackDuration);
+            }
+        }
     }
 #endif
 }
@@ -41,7 +51,7 @@ public struct WeaponSkillEntry
 {
     public SkillBaseSO SkillSO;
     public string AnimationName;
-    public float AttackStartupTime;
+    public float AttackDuration;
 }
 
 /// <summary>

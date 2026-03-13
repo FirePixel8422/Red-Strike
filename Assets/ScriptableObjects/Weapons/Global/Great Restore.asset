@@ -22,7 +22,7 @@ MonoBehaviour:
       data:
         info:
           Name: Great Restore
-          Description: Deals no damage, restores up to 35 health.
+          Description: Deals no damage, restores up to 25 health.
         costs:
           Type: 1
           Amount: 3
@@ -33,12 +33,10 @@ MonoBehaviour:
       type: {class: SkillRestoreEffect, ns: , asm: Assembly-CSharp}
       data:
         restoreEffects:
-          FailedQTE:
-            Type: 0
-            Amount: 15
-          SuccesfulQTE:
-            Type: 0
+          values:
+          - Type: 0
+            Amount: 10
+          - Type: 0
+            Amount: 18
+          - Type: 0
             Amount: 25
-          PerfectQTE:
-            Type: 0
-            Amount: 35

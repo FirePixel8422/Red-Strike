@@ -318,22 +318,22 @@ public struct ValueWrapper<T>
 [System.Serializable]
 public struct ArrayWrapper<T>
 {
-    public T[] Array;
+    public T[] Value;
 
     public ArrayWrapper(T[] _values)
     {
-        Array = _values;
+        Value = _values;
     }
     public ArrayWrapper(int length)
     {
-        Array = new T[length];
+        Value = new T[length];
     }
 
-    public T this[int index]
+    public readonly T this[int index]
     {
-        get => Array[index];
-        set => Array[index] = value;
+        get => Value[index];
+        set => Value[index] = value;
     }
 
-    public int Length => Array?.Length ?? 0;
+    public readonly int Length => Value?.Length ?? 0;
 }

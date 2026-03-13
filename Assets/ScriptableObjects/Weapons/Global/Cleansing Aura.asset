@@ -22,7 +22,7 @@ MonoBehaviour:
       data:
         info:
           Name: Cleansing Aura
-          Description: Deals no damage, cleanses and restores up to 12 health.
+          Description: Deals no damage, cleanses and restores up to 10 health.
         costs:
           Type: 1
           Amount: 2
@@ -34,19 +34,15 @@ MonoBehaviour:
       type: {class: SkillCleanseEffect, ns: , asm: Assembly-CSharp}
       data:
         doCleanse:
-          NoneQTE: 0
-          SuccesfulQTE: 1
-          PerfectQTE: 1
+          values: 000101
     - rid: 8095731033299484791
       type: {class: SkillRestoreEffect, ns: , asm: Assembly-CSharp}
       data:
         restoreEffects:
-          NoneQTE:
-            Type: 0
+          values:
+          - Type: 0
             Amount: 0
-          SuccesfulQTE:
-            Type: 0
+          - Type: 0
             Amount: 6
-          PerfectQTE:
-            Type: 0
-            Amount: 12
+          - Type: 0
+            Amount: 10

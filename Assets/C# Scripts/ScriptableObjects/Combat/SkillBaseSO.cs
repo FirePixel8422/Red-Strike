@@ -68,8 +68,9 @@ public class SkillBaseSO : ScriptableObject
 
                     DebugLogger.Log("Bleeding status effect always has a duration of 0, since it doesnt go away unless you heal");
                 }
-                QTEResultBinding<StatusEffectStack> statusEffectQTEBinding = empoweredEffect.ToApplyStatusEffect;
-                statusEffectQTEBinding.AsArray = effectStacks;
+
+                EnumStructArray<QTESequenceResult, StatusEffectStack> statusEffectQTEBinding = empoweredEffect.ToApplyStatusEffect;
+                statusEffectQTEBinding.SetFromArray(effectStacks);
                 empoweredEffect.ToApplyStatusEffect = statusEffectQTEBinding;
             }
         }

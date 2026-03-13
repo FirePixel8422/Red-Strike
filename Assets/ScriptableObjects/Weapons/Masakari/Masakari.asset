@@ -16,21 +16,25 @@ MonoBehaviour:
   Skills:
   - SkillSO: {fileID: 11400000, guid: 9a86ad0887047024b9acdc4b3006e515, type: 2}
     AnimationName: 
-    AttackStartupTime: 0
+    AttackDuration: 2
   - SkillSO: {fileID: 11400000, guid: 5cd41e10e87bc1e4daa4d75eb6509e29, type: 2}
     AnimationName: 
-    AttackStartupTime: 0
+    AttackDuration: 2
   - SkillSO: {fileID: 11400000, guid: 012780a162a9a554da7a89962ea845a8, type: 2}
     AnimationName: 
-    AttackStartupTime: 0
+    AttackDuration: 2
+  - SkillSO: {fileID: 11400000, guid: 3c6e03bf1eeba0f4bbc7c3b911d6ba9d, type: 2}
+    AnimationName: 
+    AttackDuration: 2
   Debug_Skills:
-  - rid: 902968639353258114
-  - rid: 902968639353258115
-  - rid: 902968639353258124
+  - rid: 902968728815927768
+  - rid: 902968728815927769
+  - rid: 902968728815927770
+  - rid: 902968728815927779
   references:
     version: 2
     RefIds:
-    - rid: 902968639353258114
+    - rid: 902968728815927768
       type: {class: SkillAttack, ns: , asm: Assembly-CSharp}
       data:
         info:
@@ -44,9 +48,9 @@ MonoBehaviour:
           type: 2}
         attackStartupTime: 2
         effects:
-        - rid: 902968639353258117
-        - rid: 902968639353258118
-    - rid: 902968639353258115
+        - rid: 902968728815927771
+        - rid: 902968728815927772
+    - rid: 902968728815927769
       type: {class: SkillAttack, ns: , asm: Assembly-CSharp}
       data:
         info:
@@ -60,42 +64,10 @@ MonoBehaviour:
           type: 2}
         attackStartupTime: 2
         effects:
-        - rid: 902968639353258119
-        - rid: 902968639353258120
-        - rid: 902968639353258121
-    - rid: 902968639353258117
-      type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
-      data:
-        damage: 6
-    - rid: 902968639353258118
-      type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
-      data:
-        toApplyStatusEffect:
-          EffectInstance:
-            Type: 0
-            Duration: 1
-          StackCount: 1
-    - rid: 902968639353258119
-      type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
-      data:
-        damage: 40
-    - rid: 902968639353258120
-      type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
-      data:
-        toApplyStatusEffect:
-          EffectInstance:
-            Type: 3
-            Duration: 3
-          StackCount: 1
-    - rid: 902968639353258121
-      type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
-      data:
-        toApplyStatusEffect:
-          EffectInstance:
-            Type: 2
-            Duration: 3
-          StackCount: 1
-    - rid: 902968639353258124
+        - rid: 902968728815927773
+        - rid: 902968728815927774
+        - rid: 902968728815927775
+    - rid: 902968728815927770
       type: {class: SkillAttack, ns: , asm: Assembly-CSharp}
       data:
         info:
@@ -109,14 +81,46 @@ MonoBehaviour:
           type: 2}
         attackStartupTime: 2
         effects:
-        - rid: 902968639353258125
-        - rid: 902968639353258126
-        - rid: 902968639353258127
-    - rid: 902968639353258125
+        - rid: 902968728815927776
+        - rid: 902968728815927777
+        - rid: 902968728815927778
+    - rid: 902968728815927771
+      type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damage: 6
+    - rid: 902968728815927772
+      type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
+      data:
+        toApplyStatusEffect:
+          EffectInstance:
+            Type: 0
+            Duration: 1
+          StackCount: 1
+    - rid: 902968728815927773
+      type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damage: 40
+    - rid: 902968728815927774
+      type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
+      data:
+        toApplyStatusEffect:
+          EffectInstance:
+            Type: 3
+            Duration: 3
+          StackCount: 1
+    - rid: 902968728815927775
+      type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
+      data:
+        toApplyStatusEffect:
+          EffectInstance:
+            Type: 2
+            Duration: 3
+          StackCount: 1
+    - rid: 902968728815927776
       type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
       data:
         damage: 12
-    - rid: 902968639353258126
+    - rid: 902968728815927777
       type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
       data:
         toApplyStatusEffect:
@@ -124,7 +128,7 @@ MonoBehaviour:
             Type: 1
             Duration: 0
           StackCount: 1
-    - rid: 902968639353258127
+    - rid: 902968728815927778
       type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
       data:
         toApplyStatusEffect:
@@ -132,3 +136,32 @@ MonoBehaviour:
             Type: 2
             Duration: 2
           StackCount: 1
+    - rid: 902968728815927779
+      type: {class: SkillSupport, ns: , asm: Assembly-CSharp}
+      data:
+        info:
+          Name: Offensive Stance
+          Description: Deals no damage, grants the empowered effect for up to 3 turns.
+        costs:
+          Type: 1
+          Amount: 2
+        qteWindowsSO: {fileID: 11400000, guid: e75e7ea959bab3c438ac6e4e98258a19, type: 2}
+        effects:
+        - rid: 902968728815927780
+    - rid: 902968728815927780
+      type: {class: SkillEmpowerEffect, ns: , asm: Assembly-CSharp}
+      data:
+        toApplyStatusEffect:
+          values:
+          - EffectInstance:
+              Type: 4
+              Duration: 1
+            StackCount: 1
+          - EffectInstance:
+              Type: 4
+              Duration: 2
+            StackCount: 1
+          - EffectInstance:
+              Type: 4
+              Duration: 3
+            StackCount: 1

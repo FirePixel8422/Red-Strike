@@ -37,7 +37,6 @@ public class SkillUIBlock : MonoBehaviour
 
         SkillUIManager.UpdateSkillUIActiveState(false);
 
-        CombatManager.Instance.ResolveSkillUseCosts_Local(currentSkillId);
         CombatManager.Instance.UseSkill_OnNetwork(currentSkillId);
     }
 

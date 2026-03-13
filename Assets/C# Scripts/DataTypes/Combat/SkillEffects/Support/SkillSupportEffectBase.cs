@@ -10,36 +10,3 @@ public abstract class SkillSupportEffectBase
 {
     public virtual void Resolve(QTESequenceResult supportQTEResult) { }
 }
-
-/// <summary>
-/// SkillEffect container that holds different values for each possible QTE result, and returns the correct one based on the result of the QTE.
-/// </summary>
-[System.Serializable]
-public struct QTEResultBinding<T>
-{
-    [SerializeField] private T FailedQTE, SuccesfulQTE, PerfectQTE;
-
-    public readonly T GetValue(QTESequenceResult result)
-    {
-        return result switch
-        {
-            QTESequenceResult.Success => SuccesfulQTE,
-            QTESequenceResult.Perfect => PerfectQTE,
-            QTESequenceResult.Failed or _ => FailedQTE,
-        };
-    }
-
-
-#if UNITY_EDITOR
-    public T[] AsArray
-    {
-        get => new T[] { FailedQTE, SuccesfulQTE, PerfectQTE };
-        set
-        {
-            FailedQTE = value[0];
-            SuccesfulQTE = value[1];
-            PerfectQTE = value[2];
-        }
-    }
-#endif
-}

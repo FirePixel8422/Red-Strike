@@ -8,9 +8,12 @@ public class PlayerVisualsManager : SmartNetworkBehaviour
     public static PlayerVisualsManager Instance { get; private set; }
 
     [SerializeField] private Player[] players;
+    [SerializeField] private float attackPrepareTime = 0.5f;
+    [SerializeField] private float attackResetDelay = 1f;
+
+    public static float AttackPrepareTime => Instance.attackPrepareTime;
 
     private Camera mainCam;
-
 
 
     private void Awake()
@@ -23,10 +26,15 @@ public class PlayerVisualsManager : SmartNetworkBehaviour
         mainCam.transform.SetParent(players[LocalClientGameId].CamTransform, false, false);
     }
 
-    public void DoAttackerAnimation_Local(float delayBeforeImpact)
+    public void DoAttackAnimation_Local(int animationNameHash, float delayBeforeImpact)
     {
         SkillUIManager.FadeOut();
-        players[CombatTurnContext.AttackerGameId].Anim.StartWeaponAttack(delayBeforeImpact);
+        players[CombatTurnContext.AttackerGameId].Anim.StartWeaponAttack(animationNameHash, delayBeforeImpact, attackPrepareTime, attackResetDelay);
+    }
+    public void DoSupportAnimation_Local(int animationNameHash)
+    {
+        SkillUIManager.FadeOut();
+        players[CombatTurnContext.AttackerGameId].Anim.StartWeaponSupport(animationNameHash);
     }
 
 

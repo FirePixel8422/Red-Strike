@@ -1,5 +1,4 @@
-﻿using Unity.Mathematics;
-using UnityEngine;
+﻿using UnityEngine;
 
 
 [System.Serializable]
@@ -7,14 +6,15 @@ public class SkillSupport : SkillBase
 {
     [Header(">>Support Handling Data<<")]
     [SerializeField] private QTESequenceParametersSO qteWindowsSO;
-    public QTESequenceParameters QTESequenceParameters { get; private set; }
-
 
     [SerializeReference] public SkillSupportEffectBase[] effects;
+    public QTESequenceParameters QTESequenceParameters { get; private set; }
+
 
 
     public override void Init()
     {
+        base.Init();
         QTESequenceParameters = qteWindowsSO.Value;
     }
     public void Resolve(QTESequenceResult supportQTEResult)
@@ -51,8 +51,8 @@ public struct QTESequenceParameters
         }
     };
 
-    public QTEParameters this[int i] => QuickTimeEvents[i];
-    public int Length => QuickTimeEvents.Length;
+    public readonly QTEParameters this[int i] => QuickTimeEvents[i];
+    public readonly int Length => QuickTimeEvents.Length;
 }
 
 [System.Serializable]

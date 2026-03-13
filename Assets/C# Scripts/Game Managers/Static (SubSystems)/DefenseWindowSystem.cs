@@ -27,7 +27,7 @@ public static class DefenseWindowSystem
         defenseResult = DefenseResult.None;
         skillId = incomingSkillId;
 
-        CallbackScheduler.Invoke(skill.AttackStartupTime, () =>
+        CallbackScheduler.Invoke(skill.AttackStartupTime + PlayerVisualsManager.AttackPrepareTime, () =>
         {
             if (CombatManager.Instance != null)
             {

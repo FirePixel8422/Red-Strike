@@ -8,7 +8,7 @@
 public class SkillCleanseEffect : SkillSupportEffectBase
 {
     [Header("Cleanses all bad statusEffects on the attacker")]
-    [SerializeField] private QTEResultBinding<bool> doCleanse;
+    [SerializeField] private EnumStructArray<QTESequenceResult, bool> doCleanse;
 
     public override void Resolve(QTESequenceResult supportQTEResult)
     {

@@ -12,14 +12,19 @@ public abstract class SkillBase
 
     [SerializeField] private SkillInfo info = SkillInfo.Default;
     [SerializeField] private SkillCosts costs = SkillCosts.Default;
+    [SerializeField] private string animationName;
     public SkillInfo Info => info;
     public SkillCosts Costs => costs;
+    public int AnimationNameHash { get; private set; }
 
 
     /// <summary>
-    /// Loads SO data into skill.
+    /// Loads SO data into skill and sets up/creates data for skill usage.
     /// </summary>
-    public virtual void Init() { }
+    public virtual void Init()
+    {
+        AnimationNameHash = Animator.StringToHash(animationName);
+    }
 
     /// <summary>
     /// Casts to  <see cref="SkillAttack"/>
@@ -35,6 +40,10 @@ public abstract class SkillBase
     public void SetSkillInfo(SkillInfo newInfo)
     {
         info = newInfo;
+    }
+    public void SetSkillData(string animationName)
+    {
+        this.animationName = animationName;
     }
     public virtual void DebugValidateSkillData(string objName) { }
 #endif

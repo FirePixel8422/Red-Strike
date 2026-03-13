@@ -7,9 +7,6 @@ public class PlayerAnimator : MonoBehaviour
 {
     [SerializeField] private Transform attackPointTransform;
 
-    [SerializeField] private float attackPrepareTime = 0.5f;
-    [SerializeField] private float attackResetDelay = 1f;
-
     private Animator anim;
 
 
@@ -19,12 +16,13 @@ public class PlayerAnimator : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    public void StartWeaponAttack(float delayBeforeImpact)
+    public void StartWeaponAttack(int animationNameHash, float delayBeforeImpact, float attackPrepareTime, float attackResetDelay)
     {
-        StartCoroutine(AttackSequence(delayBeforeImpact));
-    }
+        anim.Play(animationNameHash);
 
-    private IEnumerator AttackSequence(float delayBeforeImpact)
+        StartCoroutine(AttackSequence(delayBeforeImpact, attackPrepareTime, attackResetDelay));
+    }
+    private IEnumerator AttackSequence(float delayBeforeImpact, float attackPrepareTime, float attackResetDelay)
     {
         float t = 0;
         Vector3 startPointTransform = transform.position;
@@ -53,5 +51,11 @@ public class PlayerAnimator : MonoBehaviour
             transform.position = Vector3.Lerp(transform.position, startPointTransform, t);
         }
         while (t < 1);
+    }
+
+
+    public void StartWeaponSupport(int animationNameHash)
+    {
+        anim.Play(animationNameHash);
     }
 }
