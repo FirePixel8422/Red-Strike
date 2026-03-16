@@ -376,8 +376,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4535909838189838741}
-  - component: {fileID: 6271718819982935310}
-  - component: {fileID: 8568913968141779575}
   m_Layer: 5
   m_Name: Health Bars (Parent)
   m_TagString: Untagged
@@ -408,46 +406,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &6271718819982935310
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1083015580103690545}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 1939918396
-  InScenePlacedSourceGlobalObjectIdHash: 0
-  DeferredDespawnTick: 0
-  Ownership: 1
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 0
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
-  SyncOwnerTransformWhenParented: 1
-  AllowOwnerToParent: 0
---- !u!114 &8568913968141779575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1083015580103690545}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0dacef702faba7a4a80c35a661a56f30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Fire_Pixel.Networking.PlayerNameDisplayer
-  ShowTopMostFoldoutHeaderGroup: 1
-  localNameText: {fileID: 8575110714591842482}
-  oponnentNameText: {fileID: 7901929338019822349}
 --- !u!1 &1947232105658377725
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,7 +23,6 @@ namespace Fire_Pixel.Networking
         {
             base.OnNetworkSpawn();
 
-            pingtext = GetComponentInChildren<TextMeshProUGUI>();
             transport = NetworkManager.NetworkConfig.NetworkTransport as UnityTransport;
             serverClientId = NetworkManager.NetworkConfig.NetworkTransport.ServerClientId;
 
