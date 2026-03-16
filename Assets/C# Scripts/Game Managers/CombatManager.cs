@@ -149,7 +149,7 @@ public class CombatManager : SmartNetworkBehaviour
     #endregion
 
 
-    public void UseSkill_OnNetwork(int skillId)
+    public void UseSkill_OnNetwork(int weaponId, int skillId)
     {
         TurnManager.Instance.EndTurnTimer();
 
@@ -157,13 +157,13 @@ public class CombatManager : SmartNetworkBehaviour
 
         if (skill is SkillAttack)
         {
-            UseAttackSkill_ServerRPC(skillId);
+            UseAttackSkill_ServerRPC(weaponId, skillId);
         }
         else if (skill is SkillSupport)
         {
-            UseSupportSkill_ServerRPC(skillId);
+            UseSupportSkill_ServerRPC(weaponId, skillId);
 
-            PlayerVisualsManager.Instance.DoSupportAnimation_Local(skill.AnimationNameHash);
+            PlayerVisualsManager.Instance.DoSupportAnimation_Local(weaponId, skill.AnimationNameHash);
             QTESequenceSystem.StartQTESequence(skillId);
         }
 
@@ -174,22 +174,22 @@ public class CombatManager : SmartNetworkBehaviour
     #region Start Support Sequence
 
     [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
-    private void UseSupportSkill_ServerRPC(int skillId, ServerRpcParams rpcParams = default)
+    private void UseSupportSkill_ServerRPC(int weaponId, int skillId, ServerRpcParams rpcParams = default)
     {
         int attackerClientGameId = rpcParams.GetSenderClientGameId();
 
-        StartSupportPhase_ClientRPC(skillId, RPCTargetFilters.SendToOppositeClient(attackerClientGameId));
+        StartSupportPhase_ClientRPC(skillId, weaponId, RPCTargetFilters.SendToOppositeClient(attackerClientGameId));
     }
     /// <summary>
     /// Called on Defender
     /// </summary>
     [ClientRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
-    private void StartSupportPhase_ClientRPC(int skillId, ClientRpcParams rpcParams = default)
+    private void StartSupportPhase_ClientRPC(int weaponId, int skillId, ClientRpcParams rpcParams = default)
     {
         if (IsHost && RPCTargetFilters.ShouldHostSkip(rpcParams)) return;
 
         SkillBase skill = SkillManager.GlobalSkillList[skillId];
-        PlayerVisualsManager.Instance.DoSupportAnimation_Local(skill.AnimationNameHash);
+        PlayerVisualsManager.Instance.DoSupportAnimation_Local(weaponId, skill.AnimationNameHash);
     }
 
     #endregion
@@ -235,45 +235,45 @@ public class CombatManager : SmartNetworkBehaviour
     #region Start Combat Sequence
 
     [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
-    private void UseAttackSkill_ServerRPC(int skillId, ServerRpcParams rpcParams = default)
+    private void UseAttackSkill_ServerRPC(int weaponId, int skillId, ServerRpcParams rpcParams = default)
     {
         int attackerClientGameId = rpcParams.GetSenderClientGameId();
 
-        StartDefensePhase_ClientRPC(skillId, RPCTargetFilters.SendToOppositeClient(attackerClientGameId));
+        StartDefensePhase_ClientRPC(skillId, weaponId, RPCTargetFilters.SendToOppositeClient(attackerClientGameId));
     }
     /// <summary>
     /// Called on Defender
     /// </summary>
     [ClientRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
-    private void StartDefensePhase_ClientRPC(int skillId, ClientRpcParams rpcParams = default)
+    private void StartDefensePhase_ClientRPC(int weaponId, int skillId, ClientRpcParams rpcParams = default)
     {
         if (IsHost && RPCTargetFilters.ShouldHostSkip(rpcParams)) return;
 
         DefenseWindowSystem.StartAttackSequence(skillId);
 
-        StartAttackAnimation_ServerRPC(skillId);
+        StartAttackAnimation_ServerRPC(weaponId, skillId);
 
         SkillAttack skill = SkillManager.GlobalSkillList[skillId].AsAttack();
-        PlayerVisualsManager.Instance.DoAttackAnimation_Local(skill.AnimationNameHash, skill.AttackStartupTime);
+        PlayerVisualsManager.Instance.DoAttackAnimation_Local(weaponId, skill.AnimationNameHash, skill.AttackStartupTime);
     }
 
     [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
-    private void StartAttackAnimation_ServerRPC(int skillId, ServerRpcParams rpcParams = default)
+    private void StartAttackAnimation_ServerRPC(int weaponId, int skillId, ServerRpcParams rpcParams = default)
     {
         int defenderClientGameId = rpcParams.GetSenderClientGameId();
 
-        StartAttackAnimation_ClientRPC(skillId, RPCTargetFilters.SendToOppositeClient(defenderClientGameId));
+        StartAttackAnimation_ClientRPC(skillId, weaponId, RPCTargetFilters.SendToOppositeClient(defenderClientGameId));
     }
     /// <summary>
     /// Called on Attacker
     /// </summary>
     [ClientRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
-    private void StartAttackAnimation_ClientRPC(int skillId, ClientRpcParams rpcParams = default)
+    private void StartAttackAnimation_ClientRPC(int weaponId, int skillId, ClientRpcParams rpcParams = default)
     {
         if (IsHost && RPCTargetFilters.ShouldHostSkip(rpcParams)) return;
 
         SkillAttack skill = SkillManager.GlobalSkillList[skillId].AsAttack();
-        PlayerVisualsManager.Instance.DoAttackAnimation_Local(skill.AnimationNameHash, skill.AttackStartupTime);
+        PlayerVisualsManager.Instance.DoAttackAnimation_Local(weaponId, skill.AnimationNameHash, skill.AttackStartupTime);
     }
 
     #endregion

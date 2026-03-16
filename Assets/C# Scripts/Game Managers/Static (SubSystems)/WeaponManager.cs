@@ -12,9 +12,9 @@ public static class WeaponManager
         int weaponCount = globalWeaponListSO.WeaponList.Length;
         WeaponSkillSetData = new WeaponSkillSetData[weaponCount];
 
-        for (int i = 0; i < weaponCount; i++)
+        for (int weaponId = 0; weaponId < weaponCount; weaponId++)
         {
-            WeaponSkillSetData[i] = globalWeaponListSO.WeaponList[i].GetAsDataCopy(i);
+            WeaponSkillSetData[weaponId] = globalWeaponListSO.WeaponList[weaponId].GetAsDataCopy(weaponId);
         }
     }
 

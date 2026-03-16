@@ -37,7 +37,7 @@ public class SkillUIBlock : MonoBehaviour
 
         SkillUIManager.UpdateSkillUIActiveState(false);
 
-        CombatManager.Instance.UseSkill_OnNetwork(currentSkillId);
+        CombatManager.Instance.UseSkill_OnNetwork(WeaponManager.ActiveWeapon_Local.WeaponId, currentSkillId);
     }
 
     /// <summary>

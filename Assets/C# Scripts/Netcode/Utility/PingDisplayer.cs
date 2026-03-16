@@ -8,11 +8,13 @@ namespace Fire_Pixel.Networking
 {
     public class PingDisplayer : SmartNetworkBehaviour
     {
+        [SerializeField] private TextMeshProUGUI pingtext;
+
         [SerializeField] private float updateInterval = 0.5f;
         [SerializeField] private bool halveRTT = true;
+
         private float updateGlobalTime = 0f;
 
-        private TextMeshProUGUI pingtext;
         private UnityTransport transport;
         private ulong serverClientId;
 

@@ -5,5 +5,6 @@
 [CreateAssetMenu(fileName = "New GlobalWeaponList", menuName = "ScriptableObjects/GlobalDataLists/WeaponListSO", order = -1004)]
 public class GlobalWeaponListSO : ScriptableObject
 {
-    public WeaponSO[] WeaponList;
+    [SerializeField] private WeaponSO[] weaponList;
+    public WeaponSO[] WeaponList => weaponList;
 }
