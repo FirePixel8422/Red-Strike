@@ -180,6 +180,79 @@ public static class ExtensionMethods
     #endregion
 
 
+    #region GetComponents Ordered
+
+    public static T[] GetComponentsOrdered<T>(this Component comp) where T : Component
+    {
+        T[] components = comp.GetComponents<T>();
+
+        System.Array.Sort(components, (a, b) =>
+        {
+            return a.GetInstanceID().CompareTo(b.GetInstanceID());
+        });
+
+        return components;
+    }
+
+    public static T[] GetComponentsInChildrenOrdered<T>(this Transform trans, bool includeInactive = false) where T : Component
+    {
+        T[] components = trans.GetComponentsInChildren<T>(includeInactive);
+
+        System.Array.Sort(components, (a, b) =>
+        {
+            string pathA = GetHierarchyPath(a.transform);
+            string pathB = GetHierarchyPath(b.transform);
+            return string.CompareOrdinal(pathA, pathB);
+        });
+
+        return components;
+    }
+
+    public static T[] GetComponentsInParentOrdered<T>(this Transform trans, bool includeInactive = false) where T : Component
+    {
+        T[] components = trans.GetComponentsInParent<T>(includeInactive);
+
+        System.Array.Sort(components, (a, b) =>
+        {
+            string pathA = GetHierarchyPath(a.transform);
+            string pathB = GetHierarchyPath(b.transform);
+            return string.CompareOrdinal(pathA, pathB);
+        });
+
+        return components;
+    }
+
+    public static T[] FindObjectsOfTypeOrdered<T>() where T : Component
+    {
+        T[] objects = UnityEngine.Object.FindObjectsOfType<T>();
+
+        System.Array.Sort(objects, (a, b) =>
+        {
+            string pathA = GetHierarchyPath(a.transform);
+            string pathB = GetHierarchyPath(b.transform);
+            return string.CompareOrdinal(pathA, pathB);
+        });
+
+        return objects;
+    }
+
+    private static string GetHierarchyPath(Transform t)
+    {
+        System.Text.StringBuilder builder = new System.Text.StringBuilder(64);
+
+        while (t != null)
+        {
+            builder.Insert(0, '/');
+            builder.Insert(1, t.name);
+            t = t.parent;
+        }
+
+        return builder.ToString();
+    }
+
+    #endregion
+
+
     #region HasComponent
 
     public static bool HasComponent<T>(this Transform trans) where T : Component
