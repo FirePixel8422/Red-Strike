@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: stoep
+  m_Name: Yatai
   m_Shader: {fileID: -6465566751694194690, guid: 84f7a70c2f702a04d8a413831357dea2,
     type: 3}
   m_Parent: {fileID: 0}
@@ -31,7 +31,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseTexture:
-        m_Texture: {fileID: 2800000, guid: 3dec977bb6c134d46858f92c8e4e2505, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9fd3c1165cf51a043a9aa10957c4ce7b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -67,11 +67,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Mettelic_texture:
-        m_Texture: {fileID: 2800000, guid: 966cc06996ff1f34abcaa8e872d76666, type: 3}
+        m_Texture: {fileID: 2800000, guid: 5217f3ff80ad0fd4cb3601a3443a7d79, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
-        m_Texture: {fileID: 2800000, guid: aac3646e6f3baf2448e8db2eb66319ec, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1f5135d3e38ce9648880f67229e80b86, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
