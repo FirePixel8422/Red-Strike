@@ -156,7 +156,7 @@ Material:
     - _ZWriteControl: 0
     - _usenettekuctexture: 0
     m_Colors:
-    - _BaseColor: {r: 0.93962264, g: 0.13466834, b: 0.13296534, a: 1}
+    - _BaseColor: {r: 0.6830188, g: 0.21521533, b: 0.21521533, a: 1}
     - _Color: {r: 0.93962264, g: 0.13466829, b: 0.1329653, a: 1}
     - _EmissionCollor: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

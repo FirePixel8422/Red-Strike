@@ -18,7 +18,8 @@ public class PlayerAnimator : MonoBehaviour
 
     public void StartWeaponAttack(int animationNameHash, float delayBeforeImpact, float attackPrepareTime, float attackResetDelay)
     {
-        anim.Play(animationNameHash);
+        print(animationNameHash);
+        anim.PlayInFixedTime(animationNameHash / delayBeforeImpact);
 
         StartCoroutine(AttackSequence(delayBeforeImpact, attackPrepareTime, attackResetDelay));
     }
@@ -56,6 +57,15 @@ public class PlayerAnimator : MonoBehaviour
 
     public void StartWeaponSupport(int animationNameHash)
     {
-        anim.Play(animationNameHash);
+        print(animationNameHash);
+        anim.PlayInFixedTime(animationNameHash);
+    }
+
+
+    public string animName;
+    [ContextMenu("Test")]
+    private void Test()
+    {
+        anim.PlayInFixedTime(Animator.StringToHash(animName));
     }
 }
