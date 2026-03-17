@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ded018729d93a7e46a91f9922e1bb2df, type: 3}
-  m_Name: Pierce
+  m_Name: Drill
   m_EditorClassIdentifier: Assembly-CSharp::BaseSkillSO
   Skill:
     rid: 8095731021591609415
@@ -21,15 +21,16 @@ MonoBehaviour:
       type: {class: SkillAttack, ns: , asm: Assembly-CSharp}
       data:
         info:
-          Name: Pierce
-          Description: Single stab that pierces the skin, dealing moderate damage
-            and applying 2 stacks of bleeding.
+          Name: Drill
+          Description: Single twisting stab that pierces the skin, dealing moderate
+            damage and applying 3 stacks of bleeding.
         costs:
           Type: 1
-          Amount: 2
+          Amount: 5
+        animationName: 
         defenseWindowsSO: {fileID: 11400000, guid: bdaddf7e8e09f774c93e5f3034e8ba37,
           type: 2}
-        attackStartupTime: 2
+        attackStartupTime: 0
         effects:
         - rid: 8095731021591609416
         - rid: 8095731021591609426
@@ -42,6 +43,6 @@ MonoBehaviour:
       data:
         toApplyStatusEffect:
           EffectInstance:
-            Type: 0
-            Duration: 1
-          StackCount: 1
+            Type: 1
+            Duration: 0
+          StackCount: 3

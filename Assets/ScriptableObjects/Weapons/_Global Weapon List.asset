@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GlobalWeaponListSO
   weaponList:
   - {fileID: 11400000, guid: c9a5c862b9a099444b3164deda879f31, type: 2}
+  - {fileID: 11400000, guid: c12a2bb402529aa4eb98a4bcb65b3d67, type: 2}

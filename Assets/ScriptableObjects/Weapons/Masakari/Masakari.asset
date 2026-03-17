@@ -14,43 +14,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponSO
   weaponName: Masakari
   Skills:
-  - SkillSO: {fileID: 11400000, guid: 9a86ad0887047024b9acdc4b3006e515, type: 2}
-    AnimationName: 
-    AttackDuration: 2
+  - SkillSO: {fileID: 11400000, guid: e59e28a8105c5bc44a5865043c391507, type: 2}
+    AnimationName: Masakari
+    AttackDuration: 1
   - SkillSO: {fileID: 11400000, guid: 5cd41e10e87bc1e4daa4d75eb6509e29, type: 2}
-    AnimationName: 
-    AttackDuration: 2
+    AnimationName: Masakari
+    AttackDuration: 1
   - SkillSO: {fileID: 11400000, guid: 012780a162a9a554da7a89962ea845a8, type: 2}
-    AnimationName: 
-    AttackDuration: 2
+    AnimationName: Masakari
+    AttackDuration: 1
   - SkillSO: {fileID: 11400000, guid: 3c6e03bf1eeba0f4bbc7c3b911d6ba9d, type: 2}
-    AnimationName: 
+    AnimationName: Masakari
     AttackDuration: 2
   Debug_Skills:
-  - rid: 902968728815927768
-  - rid: 902968728815927769
-  - rid: 902968728815927770
-  - rid: 902968728815927779
+  - rid: 902968819520635042
+  - rid: 902968819520635017
+  - rid: 902968819520635018
+  - rid: 902968819520635019
   references:
     version: 2
     RefIds:
-    - rid: 902968728815927768
-      type: {class: SkillAttack, ns: , asm: Assembly-CSharp}
-      data:
-        info:
-          Name: Flame Strike
-          Description: Single strike dealing very low damage and applying 1 stack
-            of burning for 2 turns.
-        costs:
-          Type: 1
-          Amount: 0
-        defenseWindowsSO: {fileID: 11400000, guid: bdaddf7e8e09f774c93e5f3034e8ba37,
-          type: 2}
-        attackStartupTime: 2
-        effects:
-        - rid: 902968728815927771
-        - rid: 902968728815927772
-    - rid: 902968728815927769
+    - rid: 902968819520635017
       type: {class: SkillAttack, ns: , asm: Assembly-CSharp}
       data:
         info:
@@ -60,14 +44,15 @@ MonoBehaviour:
         costs:
           Type: 1
           Amount: 7
+        animationName: 
         defenseWindowsSO: {fileID: 11400000, guid: 2deffe98fc730ee44adc95ffff4c2e30,
           type: 2}
-        attackStartupTime: 2
+        attackStartupTime: 1
         effects:
-        - rid: 902968728815927773
-        - rid: 902968728815927774
-        - rid: 902968728815927775
-    - rid: 902968728815927770
+        - rid: 902968819520635022
+        - rid: 902968819520635023
+        - rid: 902968819520635024
+    - rid: 902968819520635018
       type: {class: SkillAttack, ns: , asm: Assembly-CSharp}
       data:
         info:
@@ -77,66 +62,15 @@ MonoBehaviour:
         costs:
           Type: 0
           Amount: 10
+        animationName: 
         defenseWindowsSO: {fileID: 11400000, guid: bdaddf7e8e09f774c93e5f3034e8ba37,
           type: 2}
-        attackStartupTime: 2
+        attackStartupTime: 1
         effects:
-        - rid: 902968728815927776
-        - rid: 902968728815927777
-        - rid: 902968728815927778
-    - rid: 902968728815927771
-      type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
-      data:
-        damage: 6
-    - rid: 902968728815927772
-      type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
-      data:
-        toApplyStatusEffect:
-          EffectInstance:
-            Type: 0
-            Duration: 1
-          StackCount: 1
-    - rid: 902968728815927773
-      type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
-      data:
-        damage: 40
-    - rid: 902968728815927774
-      type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
-      data:
-        toApplyStatusEffect:
-          EffectInstance:
-            Type: 3
-            Duration: 3
-          StackCount: 1
-    - rid: 902968728815927775
-      type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
-      data:
-        toApplyStatusEffect:
-          EffectInstance:
-            Type: 2
-            Duration: 3
-          StackCount: 1
-    - rid: 902968728815927776
-      type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
-      data:
-        damage: 12
-    - rid: 902968728815927777
-      type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
-      data:
-        toApplyStatusEffect:
-          EffectInstance:
-            Type: 1
-            Duration: 0
-          StackCount: 1
-    - rid: 902968728815927778
-      type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
-      data:
-        toApplyStatusEffect:
-          EffectInstance:
-            Type: 2
-            Duration: 2
-          StackCount: 1
-    - rid: 902968728815927779
+        - rid: 902968819520635025
+        - rid: 902968819520635026
+        - rid: 902968819520635027
+    - rid: 902968819520635019
       type: {class: SkillSupport, ns: , asm: Assembly-CSharp}
       data:
         info:
@@ -145,10 +79,51 @@ MonoBehaviour:
         costs:
           Type: 1
           Amount: 2
+        animationName: 
         qteWindowsSO: {fileID: 11400000, guid: e75e7ea959bab3c438ac6e4e98258a19, type: 2}
         effects:
-        - rid: 902968728815927780
-    - rid: 902968728815927780
+        - rid: 902968819520635028
+    - rid: 902968819520635022
+      type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damage: 40
+    - rid: 902968819520635023
+      type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
+      data:
+        toApplyStatusEffect:
+          EffectInstance:
+            Type: 3
+            Duration: 3
+          StackCount: 1
+    - rid: 902968819520635024
+      type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
+      data:
+        toApplyStatusEffect:
+          EffectInstance:
+            Type: 2
+            Duration: 3
+          StackCount: 1
+    - rid: 902968819520635025
+      type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damage: 12
+    - rid: 902968819520635026
+      type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
+      data:
+        toApplyStatusEffect:
+          EffectInstance:
+            Type: 1
+            Duration: 0
+          StackCount: 1
+    - rid: 902968819520635027
+      type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
+      data:
+        toApplyStatusEffect:
+          EffectInstance:
+            Type: 2
+            Duration: 2
+          StackCount: 1
+    - rid: 902968819520635028
       type: {class: SkillEmpowerEffect, ns: , asm: Assembly-CSharp}
       data:
         toApplyStatusEffect:
@@ -165,3 +140,32 @@ MonoBehaviour:
               Type: 4
               Duration: 3
             StackCount: 1
+    - rid: 902968819520635042
+      type: {class: SkillAttack, ns: , asm: Assembly-CSharp}
+      data:
+        info:
+          Name: Beeg Flame Strike
+          Description: Single strike dealing moderate damage and applying 2 stacks
+            of burning for 2 turns.
+        costs:
+          Type: 1
+          Amount: 4
+        animationName: 
+        defenseWindowsSO: {fileID: 11400000, guid: bdaddf7e8e09f774c93e5f3034e8ba37,
+          type: 2}
+        attackStartupTime: 1
+        effects:
+        - rid: 902968819520635043
+        - rid: 902968819520635044
+    - rid: 902968819520635043
+      type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damage: 25
+    - rid: 902968819520635044
+      type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
+      data:
+        toApplyStatusEffect:
+          EffectInstance:
+            Type: 0
+            Duration: 1
+          StackCount: 1
