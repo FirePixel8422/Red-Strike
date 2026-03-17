@@ -727,11 +727,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerVisualsManager
   ShowTopMostFoldoutHeaderGroup: 1
   players:
-  - Anim: {fileID: 0}
-    WeaponHandler: {fileID: 0}
+  - Anim: {fileID: 2111473980}
+    WeaponHandler: {fileID: 293669731}
     CamTransform: {fileID: 362555155}
-  - Anim: {fileID: 0}
-    WeaponHandler: {fileID: 0}
+  - Anim: {fileID: 813560405}
+    WeaponHandler: {fileID: 1856796020}
     CamTransform: {fileID: 186824813}
   attackPrepareTime: 0.5
   attackResetDelay: 1
@@ -741,6 +741,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2102836788442602609}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &293669731 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7380457177945051041, guid: 8481c4a1c6b888d40af94a2bd066089e,
+    type: 3}
+  m_PrefabInstance: {fileID: 2102836788442602609}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c5375e525319024fb860fba83e55065, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerWeaponHandler
 --- !u!1001 &316447577
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1527,6 +1539,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1856796019}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &813560405 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4584613932037557881, guid: 8481c4a1c6b888d40af94a2bd066089e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1856796019}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73a108aada24fae46a9faee2623043da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimator
 --- !u!1 &820500333
 GameObject:
   m_ObjectHideFlags: 0
@@ -2925,6 +2949,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8481c4a1c6b888d40af94a2bd066089e, type: 3}
+--- !u!114 &1856796020 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7380457177945051041, guid: 8481c4a1c6b888d40af94a2bd066089e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1856796019}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c5375e525319024fb860fba83e55065, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerWeaponHandler
 --- !u!1001 &1933329554
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3373,6 +3409,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2109580794}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2111473980 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4584613932037557881, guid: 8481c4a1c6b888d40af94a2bd066089e,
+    type: 3}
+  m_PrefabInstance: {fileID: 2102836788442602609}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73a108aada24fae46a9faee2623043da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimator
 --- !u!1001 &2117743642
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3548,11 +3596,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 261061329}
     m_Modifications:
+    - target: {fileID: 972682486267503734, guid: 8481c4a1c6b888d40af94a2bd066089e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2178727986319953766, guid: 8481c4a1c6b888d40af94a2bd066089e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4584613932037557881, guid: 8481c4a1c6b888d40af94a2bd066089e,
         type: 3}
       propertyPath: attackPointTransform
       value: 
       objectReference: {fileID: 1385076660}
+    - target: {fileID: 6805961235243439107, guid: 8481c4a1c6b888d40af94a2bd066089e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8340724234161843584, guid: 8481c4a1c6b888d40af94a2bd066089e,
         type: 3}
       propertyPath: m_LocalPosition.x

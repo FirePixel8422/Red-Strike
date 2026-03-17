@@ -19,7 +19,7 @@ public struct EnumStructArray<TEnum, TValue> where TEnum : Enum
 
     public readonly TValue GetValue(TEnum key)
     {
-        return values[(int)(object)key];
+        return values[Convert.ToInt32(key)];
     }
     public void SetFromArray(TValue[] array)
     {

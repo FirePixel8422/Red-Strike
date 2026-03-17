@@ -16,7 +16,10 @@ public class PlayerWeaponHandler : MonoBehaviour
 
         for (int i = 0; i < childCount; i++)
         {
-            weaponObjs[i] = transform.GetChild(i).gameObject;
+            GameObject obj = transform.GetChild(i).gameObject;
+            obj.SetActive(false);
+
+            weaponObjs[i] = obj;
         }
     }
 
@@ -27,6 +30,6 @@ public class PlayerWeaponHandler : MonoBehaviour
             weaponObjs[cWeaponId].SetActive(false);
         }
         cWeaponId = newWeaponId;
-        weaponObjs[cWeaponId].SetActive(false);
+        weaponObjs[cWeaponId].SetActive(true);
     }
 }

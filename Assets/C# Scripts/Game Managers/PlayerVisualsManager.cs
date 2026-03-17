@@ -27,17 +27,19 @@ public class PlayerVisualsManager : SmartNetworkBehaviour
         mainCam.transform.SetParent(players[LocalClientGameId].CamTransform, false, false);
     }
 
-    public void DoAttackAnimation_Local(int weaponId, int animationNameHash, float delayBeforeImpact)
+    public void DoAttackAnimation_Local(int animationNameHash, float delayBeforeImpact)
     {
         SkillUIManager.FadeOut();
-        AttackerPlayer.WeaponHandler.SwapToWeapon(weaponId);
         AttackerPlayer.Anim.StartWeaponAttack(animationNameHash, delayBeforeImpact, attackPrepareTime, attackResetDelay);
     }
-    public void DoSupportAnimation_Local(int weaponId, int animationNameHash)
+    public void DoSupportAnimation_Local(int animationNameHash)
     {
         SkillUIManager.FadeOut();
-        AttackerPlayer.WeaponHandler.SwapToWeapon(weaponId);
         AttackerPlayer.Anim.StartWeaponSupport(animationNameHash);
+    }
+    public void UpdateWeapon(int playerId, int weaponId)
+    {
+        players[playerId].WeaponHandler.SwapToWeapon(weaponId);
     }
 
 
