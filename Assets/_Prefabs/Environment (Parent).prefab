@@ -1189,6 +1189,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: StreetLamps (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3459940471651924555, guid: 7a4acffed34564e489466a6172443855,
+        type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: cd7ef54742fb4c14a8ad3a26c8f53bde, type: 2}
+    - target: {fileID: 3459940471651924555, guid: 7a4acffed34564e489466a6172443855,
+        type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 1013964c6af9347488365dc90dc4fb99, type: 2}
+    - target: {fileID: 3459940471651924555, guid: 7a4acffed34564e489466a6172443855,
+        type: 3}
+      propertyPath: 'm_Materials.Array.data[2]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 904984857623a8d4d8da46ece4bc6174, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2511,6 +2526,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: StreetLamps
       objectReference: {fileID: 0}
+    - target: {fileID: 3459940471651924555, guid: 7a4acffed34564e489466a6172443855,
+        type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: cd7ef54742fb4c14a8ad3a26c8f53bde, type: 2}
+    - target: {fileID: 3459940471651924555, guid: 7a4acffed34564e489466a6172443855,
+        type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 1013964c6af9347488365dc90dc4fb99, type: 2}
+    - target: {fileID: 3459940471651924555, guid: 7a4acffed34564e489466a6172443855,
+        type: 3}
+      propertyPath: 'm_Materials.Array.data[2]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 904984857623a8d4d8da46ece4bc6174, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
