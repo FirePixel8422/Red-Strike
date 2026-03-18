@@ -130,7 +130,7 @@ Material:
     - _ReceiveShadows: 1
     - _RedBoundryGreater: 0.999
     - _RedBoundryLesser: 0.01
-    - _Smoothness: 0.5
+    - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -143,7 +143,7 @@ Material:
     - _ZWriteControl: 1
     - _usenettekuctexture: 1
     m_Colors:
-    - _BaseColor: {r: 1, g: 0.64465404, b: 0.64465404, a: 1}
+    - _BaseColor: {r: 0.93207544, g: 0.5821074, b: 0.5821074, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionCollor: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

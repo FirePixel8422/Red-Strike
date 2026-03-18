@@ -19,7 +19,7 @@ public class PlayerAnimator : MonoBehaviour
     public void StartWeaponAttack(int animationNameHash, float delayBeforeImpact, float attackPrepareTime, float attackResetDelay)
     {
         print(animationNameHash);
-        anim.PlayInFixedTime(animationNameHash / delayBeforeImpact);
+        anim.PlayInFixedTime(animationNameHash);
 
         StartCoroutine(AttackSequence(delayBeforeImpact, attackPrepareTime, attackResetDelay));
     }
