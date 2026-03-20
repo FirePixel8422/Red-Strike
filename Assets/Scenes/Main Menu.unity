@@ -673,26 +673,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 42633448}
-    - target: {fileID: 5935479734687706117, guid: 1767c25e0f45e0b4c813fd6d382b2c53,
-        type: 3}
-      propertyPath: m_fontColor.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5935479734687706117, guid: 1767c25e0f45e0b4c813fd6d382b2c53,
-        type: 3}
-      propertyPath: m_fontColor.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5935479734687706117, guid: 1767c25e0f45e0b4c813fd6d382b2c53,
-        type: 3}
-      propertyPath: m_fontColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5935479734687706117, guid: 1767c25e0f45e0b4c813fd6d382b2c53,
-        type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4278190335
-      objectReference: {fileID: 0}
     - target: {fileID: 6099303365117602034, guid: 1767c25e0f45e0b4c813fd6d382b2c53,
         type: 3}
       propertyPath: m_Pivot.x

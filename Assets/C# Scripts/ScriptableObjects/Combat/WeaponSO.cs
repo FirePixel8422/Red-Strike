@@ -37,9 +37,11 @@ public class WeaponSO : ScriptableObject
         {
             if (Skills[i].SkillSO == null) continue;
 
+            Debug_Skills[i].SetSkillData(Skills[i].AnimationName);
+
             if (Debug_Skills[i] is SkillAttack internalSkill)
             {
-                internalSkill.SetAttackData(Skills[i].AnimationName, Skills[i].AttackDuration);
+                internalSkill.SetAttackData(Skills[i].AttackDuration);
             }
         }
     }

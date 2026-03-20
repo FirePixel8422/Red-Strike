@@ -18,12 +18,9 @@ public class PlayerAnimator : MonoBehaviour
 
     public void StartWeaponAttack(int animationNameHash, float delayBeforeImpact, float attackPrepareTime, float attackResetDelay)
     {
-        print(animationNameHash);
-        anim.PlayInFixedTime(animationNameHash);
-
-        StartCoroutine(AttackSequence(delayBeforeImpact, attackPrepareTime, attackResetDelay));
+        StartCoroutine(AttackSequence(animationNameHash, delayBeforeImpact, attackPrepareTime, attackResetDelay));
     }
-    private IEnumerator AttackSequence(float delayBeforeImpact, float attackPrepareTime, float attackResetDelay)
+    private IEnumerator AttackSequence(int animationNameHash, float delayBeforeImpact, float attackPrepareTime, float attackResetDelay)
     {
         float t = 0;
         Vector3 startPointTransform = transform.position;
@@ -38,8 +35,9 @@ public class PlayerAnimator : MonoBehaviour
         while (t < 1);
 
         float animTime = Mathf.Clamp(delayBeforeImpact - attackPrepareTime, 0, float.MaxValue);
+
         anim.speed = 1 / animTime;
-        anim.SetTrigger("Attack");
+        anim.PlayInFixedTime(animationNameHash);
 
         yield return new WaitForSeconds(animTime + attackResetDelay);
 
@@ -57,6 +55,7 @@ public class PlayerAnimator : MonoBehaviour
 
     public void StartWeaponSupport(int animationNameHash)
     {
+        anim.speed = 1;
         anim.PlayInFixedTime(animationNameHash);
     }
 
@@ -65,6 +64,7 @@ public class PlayerAnimator : MonoBehaviour
     [ContextMenu("Test")]
     private void Test()
     {
+        print(Animator.StringToHash(animName));
         anim.PlayInFixedTime(Animator.StringToHash(animName));
     }
 }

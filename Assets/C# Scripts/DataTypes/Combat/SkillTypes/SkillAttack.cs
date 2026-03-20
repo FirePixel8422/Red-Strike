@@ -38,7 +38,7 @@ public class SkillAttack : SkillBase
             DebugLogger.LogWarning("No DefenseWindowParametersSO assigned to " + objName + ". Play mode will throw errors");
         }
     }
-    public void SetAttackData(string animationName, float attackStartupTime)
+    public void SetAttackData(float attackStartupTime)
     {
         this.attackStartupTime = attackStartupTime;
     }
