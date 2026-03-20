@@ -432,7 +432,7 @@ public class CombatManager : SmartNetworkBehaviour
     public CameraShakeSettings[] DEBUG_ShakeSequence;
     private void Update()
     {
-        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.E))
+        if (TurnManager.IsMyTurn && Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.LeftWindows))
         {
             PlayerStats.Local.RestoreEnergy(10);
             SkillUIManager.RecalculateCanAffordSkills();
