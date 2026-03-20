@@ -16,29 +16,29 @@ MonoBehaviour:
   Skills:
   - SkillSO: {fileID: 11400000, guid: 79b2e2d9234cf844f89b757cdc8c5529, type: 2}
     AnimationName: Tri-Dagger
-    AttackDuration: 0
+    AttackDuration: 1
   - SkillSO: {fileID: 11400000, guid: 08df5068d5b860644b309e818f196f1b, type: 2}
     AnimationName: Tri-Dagger
-    AttackDuration: 0
+    AttackDuration: 1
+  - SkillSO: {fileID: 11400000, guid: 981b11d076885304b8c41c3c561d17d6, type: 2}
+    AnimationName: Tri-Dagger
+    AttackDuration: 1
   - SkillSO: {fileID: 11400000, guid: 71c6026405ea83c4c86cbeb355796705, type: 2}
     AnimationName: Tri-Dagger
     AttackDuration: 0
   - SkillSO: {fileID: 11400000, guid: b43cfe7b891bf9e45a288a96e23d9cfa, type: 2}
     AnimationName: Tri-Dagger
     AttackDuration: 0
-  - SkillSO: {fileID: 11400000, guid: 981b11d076885304b8c41c3c561d17d6, type: 2}
-    AnimationName: Tri-Dagger
-    AttackDuration: 0
   Debug_Skills:
-  - rid: 902968819520634982
-  - rid: 902968819520634983
-  - rid: 902968819520634984
-  - rid: 902968819520634985
-  - rid: 902968819520634986
+  - rid: 902968887247896915
+  - rid: 902968887247896916
+  - rid: 902968887247896919
+  - rid: 902968887247896917
+  - rid: 902968887247896918
   references:
     version: 2
     RefIds:
-    - rid: 902968819520634982
+    - rid: 902968887247896915
       type: {class: SkillAttack, ns: , asm: Assembly-CSharp}
       data:
         info:
@@ -51,11 +51,11 @@ MonoBehaviour:
         animationName: 
         defenseWindowsSO: {fileID: 11400000, guid: bdaddf7e8e09f774c93e5f3034e8ba37,
           type: 2}
-        attackStartupTime: 0
+        attackStartupTime: 1
         effects:
-        - rid: 902968819520634987
-        - rid: 902968819520634988
-    - rid: 902968819520634983
+        - rid: 902968887247896920
+        - rid: 902968887247896921
+    - rid: 902968887247896916
       type: {class: SkillAttack, ns: , asm: Assembly-CSharp}
       data:
         info:
@@ -68,11 +68,11 @@ MonoBehaviour:
         animationName: 
         defenseWindowsSO: {fileID: 11400000, guid: bdaddf7e8e09f774c93e5f3034e8ba37,
           type: 2}
-        attackStartupTime: 0
+        attackStartupTime: 1
         effects:
-        - rid: 902968819520634989
-        - rid: 902968819520634990
-    - rid: 902968819520634984
+        - rid: 902968887247896922
+        - rid: 902968887247896923
+    - rid: 902968887247896917
       type: {class: SkillSupport, ns: , asm: Assembly-CSharp}
       data:
         info:
@@ -84,8 +84,8 @@ MonoBehaviour:
         animationName: 
         qteWindowsSO: {fileID: 11400000, guid: 55b864cfe9c755c4cbc5267576533ad2, type: 2}
         effects:
-        - rid: 902968819520634991
-    - rid: 902968819520634985
+        - rid: 902968887247896924
+    - rid: 902968887247896918
       type: {class: SkillSupport, ns: , asm: Assembly-CSharp}
       data:
         info:
@@ -97,8 +97,8 @@ MonoBehaviour:
         animationName: 
         qteWindowsSO: {fileID: 11400000, guid: 5aa76b9326cf2f24f8ab1615dbed6fcc, type: 2}
         effects:
-        - rid: 902968819520634992
-    - rid: 902968819520634986
+        - rid: 902968887247896925
+    - rid: 902968887247896919
       type: {class: SkillAttack, ns: , asm: Assembly-CSharp}
       data:
         info:
@@ -110,14 +110,14 @@ MonoBehaviour:
         animationName: 
         defenseWindowsSO: {fileID: 11400000, guid: bdaddf7e8e09f774c93e5f3034e8ba37,
           type: 2}
-        attackStartupTime: 0
+        attackStartupTime: 1
         effects:
-        - rid: 902968819520634993
-    - rid: 902968819520634987
+        - rid: 902968887247896926
+    - rid: 902968887247896920
       type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
       data:
         damage: 15
-    - rid: 902968819520634988
+    - rid: 902968887247896921
       type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
       data:
         toApplyStatusEffect:
@@ -125,11 +125,11 @@ MonoBehaviour:
             Type: 1
             Duration: 0
           StackCount: 3
-    - rid: 902968819520634989
+    - rid: 902968887247896922
       type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
       data:
         damage: 15
-    - rid: 902968819520634990
+    - rid: 902968887247896923
       type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
       data:
         toApplyStatusEffect:
@@ -137,7 +137,7 @@ MonoBehaviour:
             Type: 1
             Duration: 0
           StackCount: 2
-    - rid: 902968819520634991
+    - rid: 902968887247896924
       type: {class: SkillRestoreEffect, ns: , asm: Assembly-CSharp}
       data:
         restoreEffects:
@@ -148,7 +148,7 @@ MonoBehaviour:
             Amount: 6
           - Type: 0
             Amount: 12
-    - rid: 902968819520634992
+    - rid: 902968887247896925
       type: {class: SkillRestoreEffect, ns: , asm: Assembly-CSharp}
       data:
         restoreEffects:
@@ -159,7 +159,7 @@ MonoBehaviour:
             Amount: 1
           - Type: 1
             Amount: 2
-    - rid: 902968819520634993
+    - rid: 902968887247896926
       type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
       data:
         damage: 25

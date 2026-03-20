@@ -141,6 +141,8 @@ public class RebindManager : MonoBehaviour
     {
         (bool success, ValueWrapper<string> rebindJson) = await FileManager.LoadInfoAsync<ValueWrapper<string>>(REBINDS_PATH);
 
+        await Task.Yield();
+
         if (success && !string.IsNullOrEmpty(rebindJson.Value))
         {
             inputActions.LoadBindingOverridesFromJson(rebindJson.Value);

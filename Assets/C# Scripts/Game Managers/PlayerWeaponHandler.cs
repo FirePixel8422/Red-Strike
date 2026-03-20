@@ -4,22 +4,30 @@
 
 public class PlayerWeaponHandler : MonoBehaviour
 {
-    [SerializeField] private GameObject weaponHolder;
-    [SerializeField] private GameObject[] weaponObjs;
+    [SerializeField] private Transform weaponHolderL, weaponHolderR;
+    [SerializeField] private GameObject[] weaponObjsL, weaponObjsR;
     private int cWeaponId = -1;
 
 
     private void Awake()
     {
-        int childCount = transform.childCount;
-        weaponObjs = new GameObject[childCount];
+        int childCount = weaponHolderL.childCount;
+        weaponObjsL = new GameObject[childCount];
+        weaponObjsR = new GameObject[childCount];
 
         for (int i = 0; i < childCount; i++)
         {
-            GameObject obj = transform.GetChild(i).gameObject;
+            GameObject obj = weaponHolderL.GetChild(i).gameObject;
             obj.SetActive(false);
 
-            weaponObjs[i] = obj;
+            weaponObjsL[i] = obj;
+        }
+        for (int i = 0; i < childCount; i++)
+        {
+            GameObject obj = weaponHolderR.GetChild(i).gameObject;
+            obj.SetActive(false);
+
+            weaponObjsR[i] = obj;
         }
     }
 
@@ -27,9 +35,11 @@ public class PlayerWeaponHandler : MonoBehaviour
     {
         if (cWeaponId != -1)
         {
-            weaponObjs[cWeaponId].SetActive(false);
+            weaponObjsL[cWeaponId].SetActive(false);
+            weaponObjsR[cWeaponId].SetActive(false);
         }
         cWeaponId = newWeaponId;
-        weaponObjs[cWeaponId].SetActive(true);
+        weaponObjsL[cWeaponId].SetActive(true);
+        weaponObjsR[cWeaponId].SetActive(true);
     }
 }

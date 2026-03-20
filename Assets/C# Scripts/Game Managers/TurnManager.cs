@@ -43,9 +43,7 @@ namespace Fire_Pixel.Networking
         }
         private void StartGame_OnServer()
         {
-            clientOnTurnId = EzRandom.Range(0, GlobalGameData.MAX_PLAYERS);
-
-            SwapToNextTurn_ClientRPC(-1, clientOnTurnId);
+            SwapToNextTurn_ClientRPC(-1, 0);
         }
 
         [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]

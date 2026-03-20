@@ -57,7 +57,6 @@ public class PlayerAnimator : MonoBehaviour
 
     public void StartWeaponSupport(int animationNameHash)
     {
-        print(animationNameHash);
         anim.PlayInFixedTime(animationNameHash);
     }
 
