@@ -269,17 +269,79 @@ PrefabInstance:
       propertyPath: ShapeModule.m_Scale.z
       value: 0.33
       objectReference: {fileID: 0}
+    - target: {fileID: 7177528794421783134, guid: b18e0dacc63d0f04582158db04f02b9d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7637940645869840440, guid: b18e0dacc63d0f04582158db04f02b9d,
         type: 3}
       propertyPath: m_RenderAlignment
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8219598531530242218, guid: b18e0dacc63d0f04582158db04f02b9d,
+        type: 3}
+      propertyPath: TrailModule.minVertexDistance
+      value: 0.01
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 6269532504194645743, guid: b18e0dacc63d0f04582158db04f02b9d, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2716860664853415438, guid: b18e0dacc63d0f04582158db04f02b9d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4531366964329045131}
+    - targetCorrespondingSourceObject: {fileID: 8819064024023007247, guid: b18e0dacc63d0f04582158db04f02b9d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3856916733701649410}
   m_SourcePrefab: {fileID: 100100000, guid: b18e0dacc63d0f04582158db04f02b9d, type: 3}
+--- !u!1 &1547722003088008743 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2716860664853415438, guid: b18e0dacc63d0f04582158db04f02b9d,
+    type: 3}
+  m_PrefabInstance: {fileID: 3516931528603738153}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4531366964329045131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1547722003088008743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74a1d1830051911448dccdd6f7938cf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SmartBillboard
+  target: {fileID: 0}
+  freezeX: 0
+  freezeY: 0
+  freezeZ: 0
+--- !u!1 &5381021547284504614 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8819064024023007247, guid: b18e0dacc63d0f04582158db04f02b9d,
+    type: 3}
+  m_PrefabInstance: {fileID: 3516931528603738153}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3856916733701649410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5381021547284504614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74a1d1830051911448dccdd6f7938cf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SmartBillboard
+  target: {fileID: 8560499402476593954}
+  freezeX: 0
+  freezeY: 0
+  freezeZ: 0
 --- !u!4 &7891713262383781380 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6722284285766923821, guid: b18e0dacc63d0f04582158db04f02b9d,
