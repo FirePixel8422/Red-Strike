@@ -12,18 +12,81 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f256ffff785198b448081e86e57450d9, type: 3}
   m_Name: Sai
   m_EditorClassIdentifier: Assembly-CSharp::WeaponSO
-  weaponName: 
+  weaponName: Sai
   Skills:
-  - SkillSO: {fileID: 0}
-    AnimationName: 
-    AttackDuration: 0
-  - SkillSO: {fileID: 0}
-    AnimationName: 
-    AttackDuration: 0
-  - SkillSO: {fileID: 0}
-    AnimationName: 
-    AttackDuration: 0
-  Debug_Skills: []
+  - SkillSO: {fileID: 11400000, guid: 2df0f77a99c130341b7a4847190091fa, type: 2}
+    AnimationName: rig_001|DualTypeAttack
+    AttackDuration: 1
+  - SkillSO: {fileID: 11400000, guid: 50041bb58ccf2c84db03ca0c46251547, type: 2}
+    AnimationName: rig_001|DualTypeAttack
+    AttackDuration: 1
+  - SkillSO: {fileID: 11400000, guid: 973c23d593a22804894b9cf39f090b9a, type: 2}
+    AnimationName: rig_001|DualTypeAttack
+    AttackDuration: 1
+  Debug_Skills:
+  - rid: 3212008180522680469
+  - rid: 3212008180522680470
+  - rid: 3212008180522680471
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 3212008180522680469
+      type: {class: SkillAttack, ns: , asm: Assembly-CSharp}
+      data:
+        info:
+          Name: Brutal Piercing Strike
+          Description: Heavy piercing strike dealing high damage and applying 2 stacks
+            of bleeding.
+        costs:
+          Type: 1
+          Amount: 6
+        animationName: rig_001|DualTypeAttack
+        defenseWindowsSO: {fileID: 11400000, guid: 020355a22b809e94cb4f15eb20dd8ece,
+          type: 2}
+        attackStartupTime: 1
+        effects:
+        - rid: 3212008180522680472
+    - rid: 3212008180522680470
+      type: {class: SkillAttack, ns: , asm: Assembly-CSharp}
+      data:
+        info:
+          Name: Crippling Strike
+          Description: Single strike dealing low damage and applying 1 stack of weakened
+            for 2 turns.
+        costs:
+          Type: 1
+          Amount: 4
+        animationName: rig_001|DualTypeAttack
+        defenseWindowsSO: {fileID: 11400000, guid: 2deffe98fc730ee44adc95ffff4c2e30,
+          type: 2}
+        attackStartupTime: 1
+        effects:
+        - rid: 3212008180522680473
+    - rid: 3212008180522680471
+      type: {class: SkillAttack, ns: , asm: Assembly-CSharp}
+      data:
+        info:
+          Name: Piercing strike
+          Description: Piercing strike dealing medium damage and applying 1 stack
+            of bleeding.
+        costs:
+          Type: 1
+          Amount: 2
+        animationName: rig_001|DualTypeAttack
+        defenseWindowsSO: {fileID: 11400000, guid: bdaddf7e8e09f774c93e5f3034e8ba37,
+          type: 2}
+        attackStartupTime: 1
+        effects:
+        - rid: 3212008180522680474
+    - rid: 3212008180522680472
+      type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damage: 20
+    - rid: 3212008180522680473
+      type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damage: 8
+    - rid: 3212008180522680474
+      type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damage: 12

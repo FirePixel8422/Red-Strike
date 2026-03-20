@@ -27,9 +27,10 @@ MonoBehaviour:
         costs:
           Type: 0
           Amount: 10
+        animationName: rig_001|SpearTypeAttack
         defenseWindowsSO: {fileID: 11400000, guid: bdaddf7e8e09f774c93e5f3034e8ba37,
           type: 2}
-        attackStartupTime: 2
+        attackStartupTime: 1
         effects:
         - rid: 8095731021591609416
         - rid: 8095731033299484830
@@ -37,7 +38,7 @@ MonoBehaviour:
     - rid: 8095731021591609416
       type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
       data:
-        damage: 12
+        damage: 8
     - rid: 8095731033299484830
       type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
       data:

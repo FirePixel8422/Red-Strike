@@ -10,39 +10,39 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ded018729d93a7e46a91f9922e1bb2df, type: 3}
-  m_Name: Flame Strike
-  m_EditorClassIdentifier: Assembly-CSharp::BaseSkillSO
+  m_Name: Crippling Strike
+  m_EditorClassIdentifier: Assembly-CSharp::SkillBaseSO
   Skill:
-    rid: 8095731021591609415
+    rid: 3212008180522680399
   references:
     version: 2
     RefIds:
-    - rid: 8095731021591609415
+    - rid: 3212008180522680399
       type: {class: SkillAttack, ns: , asm: Assembly-CSharp}
       data:
         info:
-          Name: Flame Strike
-          Description: Single strike dealing very low damage and applying 2 stack
-            of burning for 2 turns.
+          Name: Crippling Strike
+          Description: Single strike dealing low damage and applying 1 stack of weakened
+            for 2 turns.
         costs:
           Type: 1
           Amount: 4
-        animationName: rig_001|SpearTypeAttack
-        defenseWindowsSO: {fileID: 11400000, guid: bdaddf7e8e09f774c93e5f3034e8ba37,
+        animationName: rig_001|DualTypeAttack
+        defenseWindowsSO: {fileID: 11400000, guid: 2deffe98fc730ee44adc95ffff4c2e30,
           type: 2}
         attackStartupTime: 1
         effects:
-        - rid: 8095731021591609416
-        - rid: 8095731021591609426
-    - rid: 8095731021591609416
+        - rid: 3212008180522680400
+        - rid: 3212008180522680496
+    - rid: 3212008180522680400
       type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
       data:
         damage: 8
-    - rid: 8095731021591609426
+    - rid: 3212008180522680496
       type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
       data:
         toApplyStatusEffect:
           EffectInstance:
-            Type: 0
+            Type: 3
             Duration: 2
-          StackCount: 2
+          StackCount: 1
