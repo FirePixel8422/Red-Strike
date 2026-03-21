@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ded018729d93a7e46a91f9922e1bb2df, type: 3}
-  m_Name: Blazing Strike
+  m_Name: Crack & Tear
   m_EditorClassIdentifier: Assembly-CSharp::SkillBaseSO
   Skill:
-    rid: 3212008180522680491
+    rid: 3212008203688869996
   references:
     version: 2
     RefIds:
-    - rid: 3212008180522680491
+    - rid: 3212008203688869996
       type: {class: SkillAttack, ns: , asm: Assembly-CSharp}
       data:
         info:
-          Name: Blazing Strike
-          Description: Single strike dealing medium damage and applying 1 stack of
-            burn for 2 turns.
+          Name: Crack & Tear
+          Description: Single strike dealing low damage and applying 2 stacks of
+            vulnerable for 2 turns.
         costs:
           Type: 1
           Amount: 4
@@ -32,17 +32,17 @@ MonoBehaviour:
           type: 2}
         attackStartupTime: 1
         effects:
-        - rid: 3212008180522680492
-        - rid: 3212008180522680493
-    - rid: 3212008180522680492
+        - rid: 3212008203688869997
+        - rid: 3212008203688869998
+    - rid: 3212008203688869997
+      type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damage: 7
+    - rid: 3212008203688869998
       type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
       data:
         toApplyStatusEffect:
           EffectInstance:
-            Type: 0
+            Type: 5
             Duration: 2
-          StackCount: 1
-    - rid: 3212008180522680493
-      type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
-      data:
-        damage: 8
+          StackCount: 2

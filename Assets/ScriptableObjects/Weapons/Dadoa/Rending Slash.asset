@@ -10,39 +10,39 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ded018729d93a7e46a91f9922e1bb2df, type: 3}
-  m_Name: Blazing Strike
+  m_Name: Rending Slash
   m_EditorClassIdentifier: Assembly-CSharp::SkillBaseSO
   Skill:
-    rid: 3212008180522680491
+    rid: 3212008203688870062
   references:
     version: 2
     RefIds:
-    - rid: 3212008180522680491
+    - rid: 3212008203688870062
       type: {class: SkillAttack, ns: , asm: Assembly-CSharp}
       data:
         info:
-          Name: Blazing Strike
-          Description: Single strike dealing medium damage and applying 1 stack of
-            burn for 2 turns.
+          Name: Rending Slash
+          Description: Single slashing strike dealing medium damage and applying
+            2 stacks of bleeding.
         costs:
           Type: 1
           Amount: 4
         animationName: 
         defenseWindowsSO: {fileID: 11400000, guid: 2deffe98fc730ee44adc95ffff4c2e30,
           type: 2}
-        attackStartupTime: 1
+        attackStartupTime: 0
         effects:
-        - rid: 3212008180522680492
-        - rid: 3212008180522680493
-    - rid: 3212008180522680492
+        - rid: 3212008203688870063
+        - rid: 3212008203688870064
+    - rid: 3212008203688870063
+      type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damage: 15
+    - rid: 3212008203688870064
       type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
       data:
         toApplyStatusEffect:
           EffectInstance:
-            Type: 0
-            Duration: 2
-          StackCount: 1
-    - rid: 3212008180522680493
-      type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
-      data:
-        damage: 8
+            Type: 1
+            Duration: 0
+          StackCount: 2

@@ -12,18 +12,98 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f256ffff785198b448081e86e57450d9, type: 3}
   m_Name: Scimitar
   m_EditorClassIdentifier: Assembly-CSharp::WeaponSO
-  weaponName: 
+  weaponName: Scimitar
   Skills:
-  - SkillSO: {fileID: 0}
+  - SkillSO: {fileID: 11400000, guid: d4e911fd591e9cf47b4d56fdc514371b, type: 2}
     AnimationName: 
-    AttackDuration: 0
-  - SkillSO: {fileID: 0}
+    AttackDuration: 1
+  - SkillSO: {fileID: 11400000, guid: 8d299a66a3dbb004491f5d271663343c, type: 2}
     AnimationName: 
-    AttackDuration: 0
-  - SkillSO: {fileID: 0}
+    AttackDuration: 1
+  - SkillSO: {fileID: 11400000, guid: 327ddfaacf0bc984e8fc542b707a7c2d, type: 2}
     AnimationName: 
-    AttackDuration: 0
-  Debug_Skills: []
+    AttackDuration: 1
+  Debug_Skills:
+  - rid: 3212008203688870039
+  - rid: 3212008203688870042
+  - rid: 3212008203688870045
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 3212008203688870039
+      type: {class: SkillAttack, ns: , asm: Assembly-CSharp}
+      data:
+        info:
+          Name: Blazing Strike
+          Description: Single strike dealing medium damage and applying 1 stack of
+            burn for 2 turns.
+        costs:
+          Type: 1
+          Amount: 4
+        animationName: 
+        defenseWindowsSO: {fileID: 11400000, guid: 2deffe98fc730ee44adc95ffff4c2e30,
+          type: 2}
+        attackStartupTime: 1
+        effects:
+        - rid: 3212008203688870040
+        - rid: 3212008203688870041
+    - rid: 3212008203688870040
+      type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
+      data:
+        toApplyStatusEffect:
+          EffectInstance:
+            Type: 0
+            Duration: 2
+          StackCount: 1
+    - rid: 3212008203688870041
+      type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damage: 8
+    - rid: 3212008203688870042
+      type: {class: SkillAttack, ns: , asm: Assembly-CSharp}
+      data:
+        info:
+          Name: Fracture Slash
+          Description: Single slashing strike dealing low damage and broken efffect
+            for 1 turn.
+        costs:
+          Type: 1
+          Amount: 2
+        animationName: 
+        defenseWindowsSO: {fileID: 11400000, guid: bdaddf7e8e09f774c93e5f3034e8ba37,
+          type: 2}
+        attackStartupTime: 1
+        effects:
+        - rid: 3212008203688870043
+        - rid: 3212008203688870044
+    - rid: 3212008203688870043
+      type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damage: 8
+    - rid: 3212008203688870044
+      type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
+      data:
+        toApplyStatusEffect:
+          EffectInstance:
+            Type: 2
+            Duration: 1
+          StackCount: 1
+    - rid: 3212008203688870045
+      type: {class: SkillAttack, ns: , asm: Assembly-CSharp}
+      data:
+        info:
+          Name: Heavy Slash
+          Description: Single slashing strike dealing high damage.
+        costs:
+          Type: 1
+          Amount: 5
+        animationName: 
+        defenseWindowsSO: {fileID: 11400000, guid: 020355a22b809e94cb4f15eb20dd8ece,
+          type: 2}
+        attackStartupTime: 1
+        effects:
+        - rid: 3212008203688870046
+    - rid: 3212008203688870046
+      type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damage: 35

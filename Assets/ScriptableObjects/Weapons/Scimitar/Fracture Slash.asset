@@ -21,16 +21,16 @@ MonoBehaviour:
       type: {class: SkillAttack, ns: , asm: Assembly-CSharp}
       data:
         info:
-          Name: New Skill
+          Name: Fracture Slash
           Description: Single slashing strike dealing low damage and broken efffect
             for 1 turn.
         costs:
           Type: 1
           Amount: 2
         animationName: 
-        defenseWindowsSO: {fileID: 11400000, guid: 2deffe98fc730ee44adc95ffff4c2e30,
+        defenseWindowsSO: {fileID: 11400000, guid: bdaddf7e8e09f774c93e5f3034e8ba37,
           type: 2}
-        attackStartupTime: 0
+        attackStartupTime: 1
         effects:
         - rid: 3212008180522680504
         - rid: 3212008180522680505

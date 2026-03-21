@@ -28,7 +28,7 @@ MonoBehaviour:
           Type: 1
           Amount: 4
         animationName: rig_001|SpearTypeAttack
-        defenseWindowsSO: {fileID: 11400000, guid: bdaddf7e8e09f774c93e5f3034e8ba37,
+        defenseWindowsSO: {fileID: 11400000, guid: 2deffe98fc730ee44adc95ffff4c2e30,
           type: 2}
         attackStartupTime: 1
         effects:

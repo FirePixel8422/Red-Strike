@@ -27,10 +27,10 @@ MonoBehaviour:
         costs:
           Type: 1
           Amount: 6
-        animationName: 
-        defenseWindowsSO: {fileID: 11400000, guid: 2deffe98fc730ee44adc95ffff4c2e30,
+        animationName: Tri-Dagger
+        defenseWindowsSO: {fileID: 11400000, guid: 020355a22b809e94cb4f15eb20dd8ece,
           type: 2}
-        attackStartupTime: 0
+        attackStartupTime: 1
         effects:
         - rid: 8095731021591609416
         - rid: 8095731021591609426

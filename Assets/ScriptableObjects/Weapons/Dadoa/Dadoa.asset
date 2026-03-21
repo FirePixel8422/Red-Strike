@@ -12,18 +12,117 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f256ffff785198b448081e86e57450d9, type: 3}
   m_Name: Dadoa
   m_EditorClassIdentifier: Assembly-CSharp::WeaponSO
-  weaponName: 
+  weaponName: Dadoa
   Skills:
-  - SkillSO: {fileID: 0}
+  - SkillSO: {fileID: 11400000, guid: e7735595fa6fb2f4aa7d952488ca32ea, type: 2}
     AnimationName: 
-    AttackDuration: 0
-  - SkillSO: {fileID: 0}
+    AttackDuration: 1
+  - SkillSO: {fileID: 11400000, guid: 7d5c49af07bd75c43b3bea241b889e9b, type: 2}
     AnimationName: 
-    AttackDuration: 0
-  - SkillSO: {fileID: 0}
+    AttackDuration: 1
+  - SkillSO: {fileID: 11400000, guid: f40badd661ae42a42a8a8e8515dbd95e, type: 2}
     AnimationName: 
-    AttackDuration: 0
-  Debug_Skills: []
+    AttackDuration: 1
+  Debug_Skills:
+  - rid: 3212008203688870069
+  - rid: 3212008203688870073
+  - rid: 3212008203688870076
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 3212008203688870069
+      type: {class: SkillAttack, ns: , asm: Assembly-CSharp}
+      data:
+        info:
+          Name: Blazing Break
+          Description: Single slashing strike dealing medium damage and applying
+            1 stack of burn for 1 turn and 1 stack of broken for 1 turn.
+        costs:
+          Type: 1
+          Amount: 6
+        animationName: 
+        defenseWindowsSO: {fileID: 11400000, guid: 020355a22b809e94cb4f15eb20dd8ece,
+          type: 2}
+        attackStartupTime: 1
+        effects:
+        - rid: 3212008203688870070
+        - rid: 3212008203688870071
+        - rid: 3212008203688870072
+    - rid: 3212008203688870070
+      type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damage: 18
+    - rid: 3212008203688870071
+      type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
+      data:
+        toApplyStatusEffect:
+          EffectInstance:
+            Type: 0
+            Duration: 1
+          StackCount: 1
+    - rid: 3212008203688870072
+      type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
+      data:
+        toApplyStatusEffect:
+          EffectInstance:
+            Type: 2
+            Duration: 1
+          StackCount: 1
+    - rid: 3212008203688870073
+      type: {class: SkillAttack, ns: , asm: Assembly-CSharp}
+      data:
+        info:
+          Name: Rending Slash
+          Description: Single slashing strike dealing medium damage and applying
+            2 stacks of bleeding.
+        costs:
+          Type: 1
+          Amount: 4
+        animationName: 
+        defenseWindowsSO: {fileID: 11400000, guid: 2deffe98fc730ee44adc95ffff4c2e30,
+          type: 2}
+        attackStartupTime: 1
+        effects:
+        - rid: 3212008203688870074
+        - rid: 3212008203688870075
+    - rid: 3212008203688870074
+      type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damage: 15
+    - rid: 3212008203688870075
+      type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
+      data:
+        toApplyStatusEffect:
+          EffectInstance:
+            Type: 1
+            Duration: 0
+          StackCount: 2
+    - rid: 3212008203688870076
+      type: {class: SkillAttack, ns: , asm: Assembly-CSharp}
+      data:
+        info:
+          Name: Shallow Cut
+          Description: Single slashing strike dealing low damage and applying 1 stack
+            of bleeding.
+        costs:
+          Type: 1
+          Amount: 2
+        animationName: 
+        defenseWindowsSO: {fileID: 11400000, guid: bdaddf7e8e09f774c93e5f3034e8ba37,
+          type: 2}
+        attackStartupTime: 1
+        effects:
+        - rid: 3212008203688870077
+        - rid: 3212008203688870078
+    - rid: 3212008203688870077
+      type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damage: 7
+    - rid: 3212008203688870078
+      type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
+      data:
+        toApplyStatusEffect:
+          EffectInstance:
+            Type: 1
+            Duration: 0
+          StackCount: 1

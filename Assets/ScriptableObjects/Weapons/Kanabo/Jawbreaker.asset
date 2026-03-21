@@ -22,20 +22,21 @@ MonoBehaviour:
       data:
         info:
           Name: Jawbreaker
-          Description: SIngle strike dealing moderate damage and low true damage.
+          Description: SIngle strike dealing high damage and medium true damage.
         costs:
           Type: 1
-          Amount: 4
-        defenseWindowsSO: {fileID: 11400000, guid: bdaddf7e8e09f774c93e5f3034e8ba37,
+          Amount: 6
+        animationName: rig_001|DualTypeAttack
+        defenseWindowsSO: {fileID: 11400000, guid: 020355a22b809e94cb4f15eb20dd8ece,
           type: 2}
-        attackStartupTime: 2
+        attackStartupTime: 1
         effects:
         - rid: 8095731021591609416
         - rid: 8095731033299484810
     - rid: 8095731021591609416
       type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
       data:
-        damage: 25
+        damage: 30
     - rid: 8095731033299484810
       type: {class: SkillTrueDamageEffect, ns: , asm: Assembly-CSharp}
       data:

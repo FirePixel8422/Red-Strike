@@ -22,14 +22,15 @@ MonoBehaviour:
       data:
         info:
           Name: Crushing Slam
-          Description: SIngle slam dealing low damage and applying 2 stacks of weakened
-            for 2 turns.
+          Description: SIngle slam dealing medium damage and applying 2 stacks of
+            weakened for 2 turns.
         costs:
           Type: 1
-          Amount: 0
-        defenseWindowsSO: {fileID: 11400000, guid: 020355a22b809e94cb4f15eb20dd8ece,
+          Amount: 4
+        animationName: rig_001|DualTypeAttack
+        defenseWindowsSO: {fileID: 11400000, guid: 2deffe98fc730ee44adc95ffff4c2e30,
           type: 2}
-        attackStartupTime: 2
+        attackStartupTime: 1
         effects:
         - rid: 8095731021591609416
         - rid: 8095731033299484811
@@ -42,6 +43,6 @@ MonoBehaviour:
       data:
         toApplyStatusEffect:
           EffectInstance:
-            Type: 0
-            Duration: 1
-          StackCount: 1
+            Type: 3
+            Duration: 2
+          StackCount: 2

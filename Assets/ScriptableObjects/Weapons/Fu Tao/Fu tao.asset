@@ -12,18 +12,98 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f256ffff785198b448081e86e57450d9, type: 3}
   m_Name: Fu tao
   m_EditorClassIdentifier: Assembly-CSharp::WeaponSO
-  weaponName: 
+  weaponName: Fu tao
   Skills:
-  - SkillSO: {fileID: 0}
+  - SkillSO: {fileID: 11400000, guid: 8e6d0b097765e0a49b61b6f6581cd3a7, type: 2}
     AnimationName: 
-    AttackDuration: 0
-  - SkillSO: {fileID: 0}
+    AttackDuration: 1
+  - SkillSO: {fileID: 11400000, guid: 4c7ee0800c915eb47addebe98f98f4b1, type: 2}
     AnimationName: 
-    AttackDuration: 0
-  - SkillSO: {fileID: 0}
+    AttackDuration: 1
+  - SkillSO: {fileID: 11400000, guid: 2fa92d2e2431bff42b516192777c06f2, type: 2}
     AnimationName: 
-    AttackDuration: 0
-  Debug_Skills: []
+    AttackDuration: 1
+  Debug_Skills:
+  - rid: 3212008203688870001
+  - rid: 3212008203688870004
+  - rid: 3212008203688870006
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 3212008203688870001
+      type: {class: SkillAttack, ns: , asm: Assembly-CSharp}
+      data:
+        info:
+          Name: Crack & Tear
+          Description: Single strike dealing low damage and applying 2 stacks of
+            vulnerable for 2 turns.
+        costs:
+          Type: 1
+          Amount: 4
+        animationName: 
+        defenseWindowsSO: {fileID: 11400000, guid: 2deffe98fc730ee44adc95ffff4c2e30,
+          type: 2}
+        attackStartupTime: 1
+        effects:
+        - rid: 3212008203688870002
+        - rid: 3212008203688870003
+    - rid: 3212008203688870002
+      type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damage: 7
+    - rid: 3212008203688870003
+      type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
+      data:
+        toApplyStatusEffect:
+          EffectInstance:
+            Type: 5
+            Duration: 2
+          StackCount: 2
+    - rid: 3212008203688870004
+      type: {class: SkillAttack, ns: , asm: Assembly-CSharp}
+      data:
+        info:
+          Name: Sharp Slash
+          Description: Single slashing strike dealing medium damage.
+        costs:
+          Type: 1
+          Amount: 2
+        animationName: 
+        defenseWindowsSO: {fileID: 11400000, guid: bdaddf7e8e09f774c93e5f3034e8ba37,
+          type: 2}
+        attackStartupTime: 1
+        effects:
+        - rid: 3212008203688870005
+    - rid: 3212008203688870005
+      type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damage: 15
+    - rid: 3212008203688870006
+      type: {class: SkillAttack, ns: , asm: Assembly-CSharp}
+      data:
+        info:
+          Name: Skull Cracker
+          Description: Single heavy strike dealing high damage and applying 2 stacks
+            of bleeding.
+        costs:
+          Type: 0
+          Amount: 10
+        animationName: 
+        defenseWindowsSO: {fileID: 11400000, guid: 020355a22b809e94cb4f15eb20dd8ece,
+          type: 2}
+        attackStartupTime: 1
+        effects:
+        - rid: 3212008203688870007
+        - rid: 3212008203688870008
+    - rid: 3212008203688870007
+      type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damage: 25
+    - rid: 3212008203688870008
+      type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
+      data:
+        toApplyStatusEffect:
+          EffectInstance:
+            Type: 1
+            Duration: 0
+          StackCount: 2

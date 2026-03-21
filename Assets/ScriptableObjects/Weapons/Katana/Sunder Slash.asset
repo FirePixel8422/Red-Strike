@@ -10,39 +10,39 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ded018729d93a7e46a91f9922e1bb2df, type: 3}
-  m_Name: Blazing Strike
+  m_Name: Sunder Slash
   m_EditorClassIdentifier: Assembly-CSharp::SkillBaseSO
   Skill:
-    rid: 3212008180522680491
+    rid: 3212008203688869969
   references:
     version: 2
     RefIds:
-    - rid: 3212008180522680491
+    - rid: 3212008203688869969
       type: {class: SkillAttack, ns: , asm: Assembly-CSharp}
       data:
         info:
-          Name: Blazing Strike
-          Description: Single strike dealing medium damage and applying 1 stack of
-            burn for 2 turns.
+          Name: Sunder Slash
+          Description: Single slashing strike dealing medium damage and applying
+            1 stacks of broken for 1 turn
         costs:
           Type: 1
-          Amount: 4
+          Amount: 2
         animationName: 
-        defenseWindowsSO: {fileID: 11400000, guid: 2deffe98fc730ee44adc95ffff4c2e30,
+        defenseWindowsSO: {fileID: 11400000, guid: bdaddf7e8e09f774c93e5f3034e8ba37,
           type: 2}
         attackStartupTime: 1
         effects:
-        - rid: 3212008180522680492
-        - rid: 3212008180522680493
-    - rid: 3212008180522680492
+        - rid: 3212008203688869970
+        - rid: 3212008203688869971
+    - rid: 3212008203688869970
+      type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damage: 10
+    - rid: 3212008203688869971
       type: {class: SkillStatusEffect, ns: , asm: Assembly-CSharp}
       data:
         toApplyStatusEffect:
           EffectInstance:
-            Type: 0
-            Duration: 2
+            Type: 2
+            Duration: 1
           StackCount: 1
-    - rid: 3212008180522680493
-      type: {class: SkillDamageEffect, ns: , asm: Assembly-CSharp}
-      data:
-        damage: 8
