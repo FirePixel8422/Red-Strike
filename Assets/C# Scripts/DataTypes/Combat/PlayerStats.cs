@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Fire_Pixel.Networking;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.Collections;
 using Unity.Mathematics;
@@ -98,6 +99,11 @@ public class PlayerStats
 
         ResourceBarUI healthBar = this == Local ? HUDManager.LocalHealthBar : HUDManager.OpponentHealthBar;
         healthBar?.UpdateBar(healthPercent01);
+
+        if (Health <= 0 && IsLocal)
+        {
+            MatchManager.Instance.EndGame_RPC(ClientManager.LocalClientGameId);
+        }
     }
     public void UpdateEnergyBar()
     {
