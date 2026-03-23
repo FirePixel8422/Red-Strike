@@ -80,7 +80,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Mettelic_texture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 18da2fcd3a653284dab2e82cba5e0be8, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
@@ -134,7 +134,7 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Metallic: 0
-    - _MetealicValue: 0
+    - _MetealicValue: 1
     - _NormalStrenght: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.005
