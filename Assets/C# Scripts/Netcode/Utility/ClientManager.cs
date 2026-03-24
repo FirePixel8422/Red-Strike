@@ -221,6 +221,11 @@ namespace Fire_Pixel.Networking
             NetworkManager.OnClientDisconnectCallback += OnClientDisconnected_OnClient;
         }
 
+        public override void OnNetworkDespawn()
+        {
+            Destroy(gameObject);
+        }
+
         private void FinishSystemInitialization(PlayerIdDataArray newValue)
         {
             playerIdDataArray.OnValueChanged -= FinishSystemInitialization;

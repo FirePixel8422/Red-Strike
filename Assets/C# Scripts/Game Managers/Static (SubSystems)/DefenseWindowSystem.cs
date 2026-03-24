@@ -11,7 +11,7 @@ public static class DefenseWindowSystem
     private static DefenseResult defenseResult;
     private static int skillId;
 
-    public static bool CanDefend => attackImpactGlobalTime > Time.unscaledTime;
+    public static bool AttackActive => attackImpactGlobalTime > Time.unscaledTime;
 
     public static readonly int INVOKE_SYSTEMS_ID_HASH = "Defense_Window_System".GetHashCode();
 #pragma warning restore UDR0001
@@ -39,7 +39,7 @@ public static class DefenseWindowSystem
     /// <returns>Whether the quick time event was hit succesfully</returns>
     public static DefenseResult DoDefendAction(DefenseType defenseType)
     {
-        if (CanDefend == false) return DefenseResult.None;
+        if (AttackActive == false) return DefenseResult.None;
 
         float timeBeforeAttackImpact = attackImpactGlobalTime - Time.unscaledTime;
 

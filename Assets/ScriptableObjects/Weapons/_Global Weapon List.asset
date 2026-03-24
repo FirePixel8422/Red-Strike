@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: _Global Weapon List
   m_EditorClassIdentifier: Assembly-CSharp::GlobalWeaponListSO
   weaponList:
-  - {fileID: 11400000, guid: 0bc05ad0c35062d47a5507305b618a58, type: 2}
-  - {fileID: 11400000, guid: 6a0feb63a3b699a42bfa03e0730f6c3e, type: 2}
-  - {fileID: 11400000, guid: 242ff54f134a78241b9664a01a534d4f, type: 2}
-  - {fileID: 11400000, guid: 0e697b26da6679f4c8f70f2aeac68a83, type: 2}
-  - {fileID: 11400000, guid: c9a5c862b9a099444b3164deda879f31, type: 2}
-  - {fileID: 11400000, guid: 87fb794ec1fac60409c48542c9ae4f40, type: 2}
-  - {fileID: 11400000, guid: c12a2bb402529aa4eb98a4bcb65b3d67, type: 2}
-  - {fileID: 11400000, guid: 82d620abeb8b17247ae72fdee8e50016, type: 2}
   - {fileID: 11400000, guid: 9d4981ddbaf364c4aacbfdb48cdb4a45, type: 2}
+  - {fileID: 11400000, guid: 82d620abeb8b17247ae72fdee8e50016, type: 2}
+  - {fileID: 11400000, guid: c12a2bb402529aa4eb98a4bcb65b3d67, type: 2}
+  - {fileID: 11400000, guid: 87fb794ec1fac60409c48542c9ae4f40, type: 2}
+  - {fileID: 11400000, guid: c9a5c862b9a099444b3164deda879f31, type: 2}
+  - {fileID: 11400000, guid: 0e697b26da6679f4c8f70f2aeac68a83, type: 2}
+  - {fileID: 11400000, guid: 242ff54f134a78241b9664a01a534d4f, type: 2}
+  - {fileID: 11400000, guid: 6a0feb63a3b699a42bfa03e0730f6c3e, type: 2}
+  - {fileID: 11400000, guid: 0bc05ad0c35062d47a5507305b618a58, type: 2}

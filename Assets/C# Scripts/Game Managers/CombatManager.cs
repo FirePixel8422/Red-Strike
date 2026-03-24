@@ -17,6 +17,8 @@ public class CombatManager : SmartNetworkBehaviour
 
     [SerializeField] private EnumStructArray<DefenseResult, ArrayWrapper<CameraShakeSettings>> onHitShakeSequences;
 
+    private bool canDefend;
+
 
     private void Awake()
     {
@@ -63,22 +65,24 @@ public class CombatManager : SmartNetworkBehaviour
 
     private void OnDodge(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed && DefenseWindowSystem.CanDefend)
+        if (ctx.performed && DefenseWindowSystem.AttackActive && canDefend)
         {
+            canDefend = false;
             DefenseResult result = DefenseWindowSystem.DoDefendAction(DefenseType.Dodge);
 
 #if Enable_Debug_Systems
             StartCoroutine(DebugDefenseResult_Local(result));
             DisplayDefenseResult_ServerRPC(result);
 
-            //StartCoroutine(DebugDefenseDurationLoop(DefenseWindowSystem.DefenseWindow.Dodge));
+            StartCoroutine(DebugDefenseDurationLoop(DefenseWindowSystem.DefenseWindow.Dodge));
 #endif
         }
     }
     private void OnParry(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed && DefenseWindowSystem.CanDefend && PlayerStats.Local.Energy >= GameRules.MatchSettings.ParryEnergyCost)
+        if (ctx.performed && DefenseWindowSystem.AttackActive && canDefend && PlayerStats.Local.Energy >= GameRules.MatchSettings.ParryEnergyCost)
         {
+            canDefend = false;
             PlayerStats.Local.SpendEnergy(GameRules.MatchSettings.ParryEnergyCost);
 
             DefenseResult result = DefenseWindowSystem.DoDefendAction(DefenseType.Parry);
@@ -87,7 +91,7 @@ public class CombatManager : SmartNetworkBehaviour
             StartCoroutine(DebugDefenseResult_Local(result));
             DisplayDefenseResult_ServerRPC(result);
 
-            //StartCoroutine(DebugDefenseDurationLoop(DefenseWindowSystem.DefenseWindow.PerfectParry));
+            StartCoroutine(DebugDefenseDurationLoop(DefenseWindowSystem.DefenseWindow.PerfectParry));
 #endif
         }
     }
@@ -96,10 +100,6 @@ public class CombatManager : SmartNetworkBehaviour
         if (ctx.performed && QTESequenceSystem.CanDoQTE)
         {
             QTESequenceSystem.DoQuickTimeEvent();
-
-#if Enable_Debug_Systems
-
-#endif
         }
     }
 
@@ -119,7 +119,7 @@ public class CombatManager : SmartNetworkBehaviour
         PlayerStats.Local.ApplyAndTickDownStatusEffects();
 
         SkillUIManager.FadeIn();
-        SwapToRandomWeapon_ServerRPC();
+        this.Invoke(1, () => SwapToRandomWeapon_ServerRPC());
     }
 
 
@@ -167,7 +167,7 @@ public class CombatManager : SmartNetworkBehaviour
             QTESequenceSystem.StartQTESequence(skillId);
         }
 
-        ResolveSkillUseCosts_GlobalRPC(skillId);
+        ResolveSkillUseCosts_RPC(skillId);
     }
 
 
@@ -249,6 +249,7 @@ public class CombatManager : SmartNetworkBehaviour
     {
         if (IsHost && RPCTargetFilters.ShouldHostSkip(rpcParams)) return;
 
+        canDefend = true;
         DefenseWindowSystem.StartAttackSequence(skillId);
 
         StartAttackAnimation_ServerRPC(skillId);
@@ -346,7 +347,7 @@ public class CombatManager : SmartNetworkBehaviour
     /// Resolve skill use cosst of the attacker on all clients.
     /// </summary>
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone, Delivery = RpcDelivery.Reliable)]
-    private void ResolveSkillUseCosts_GlobalRPC(int skillId)
+    private void ResolveSkillUseCosts_RPC(int skillId)
     {
         SkillCosts skillCosts = SkillManager.GlobalSkillList[skillId].Costs;
         if (skillCosts.Amount <= 0) return;
@@ -386,6 +387,7 @@ public class CombatManager : SmartNetworkBehaviour
 
 
 #if Enable_Debug_Systems
+
     private IEnumerator DebugDefenseDurationLoop(float defenseDuration)
     {
         float _def = defenseDuration;

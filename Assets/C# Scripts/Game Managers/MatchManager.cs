@@ -58,7 +58,7 @@ namespace Fire_Pixel.Networking
         [Rpc(SendTo.ClientsAndHost, Delivery = RpcDelivery.Reliable)]
         public void EndGame_RPC(int winnerClientGameId)
         {
-            string winnerClientName = ClientManager.GetPlayerName(winnerClientGameId);
+            string winnerClientName = ClientManager.GetPlayerName(winnerClientGameId == 0 ? 1 : 0);
 
             gameOverScreenObj.SetActive(true);
             gameOverText.text = winnerClientName + " Won!";
