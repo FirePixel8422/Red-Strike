@@ -70,12 +70,12 @@ public class CombatManager : SmartNetworkBehaviour
             canDefend = false;
             DefenseResult result = DefenseWindowSystem.DoDefendAction(DefenseType.Dodge);
 
-#if Enable_Debug_Systems
+//#if Enable_Debug_Systems
             StartCoroutine(DebugDefenseResult_Local(result));
             DisplayDefenseResult_ServerRPC(result);
 
-            StartCoroutine(DebugDefenseDurationLoop(DefenseWindowSystem.DefenseWindow.Dodge));
-#endif
+            //StartCoroutine(DebugDefenseDurationLoop(DefenseWindowSystem.DefenseWindow.Dodge));
+//#endif
         }
     }
     private void OnParry(InputAction.CallbackContext ctx)
@@ -87,12 +87,12 @@ public class CombatManager : SmartNetworkBehaviour
 
             DefenseResult result = DefenseWindowSystem.DoDefendAction(DefenseType.Parry);
 
-#if Enable_Debug_Systems
+//#if Enable_Debug_Systems
             StartCoroutine(DebugDefenseResult_Local(result));
             DisplayDefenseResult_ServerRPC(result);
 
-            StartCoroutine(DebugDefenseDurationLoop(DefenseWindowSystem.DefenseWindow.PerfectParry));
-#endif
+            //StartCoroutine(DebugDefenseDurationLoop(DefenseWindowSystem.DefenseWindow.PerfectParry));
+//#endif
         }
     }
     private void OnQuickTimeEvent(InputAction.CallbackContext ctx)
@@ -161,7 +161,7 @@ public class CombatManager : SmartNetworkBehaviour
         }
         else if (skill is SkillSupport)
         {
-            UseSupportSkill_ServerRPC(weaponId, skillId);
+            UseSupportSkill_ServerRPC(skillId);
 
             PlayerVisualsManager.Instance.DoSupportAnimation_Local(skill.AnimationNameHash);
             QTESequenceSystem.StartQTESequence(skillId);
@@ -174,17 +174,17 @@ public class CombatManager : SmartNetworkBehaviour
     #region Start Support Sequence
 
     [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
-    private void UseSupportSkill_ServerRPC(int weaponId, int skillId, ServerRpcParams rpcParams = default)
+    private void UseSupportSkill_ServerRPC(int skillId, ServerRpcParams rpcParams = default)
     {
         int attackerClientGameId = rpcParams.GetSenderClientGameId();
 
-        StartSupportPhase_ClientRPC(skillId, weaponId, RPCTargetFilters.SendToOppositeClient(attackerClientGameId));
+        StartSupportPhase_ClientRPC(skillId, RPCTargetFilters.SendToOppositeClient(attackerClientGameId));
     }
     /// <summary>
     /// Called on Defender
     /// </summary>
     [ClientRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
-    private void StartSupportPhase_ClientRPC(int weaponId, int skillId, ClientRpcParams rpcParams = default)
+    private void StartSupportPhase_ClientRPC(int skillId, ClientRpcParams rpcParams = default)
     {
         if (IsHost && RPCTargetFilters.ShouldHostSkip(rpcParams)) return;
 
@@ -204,10 +204,10 @@ public class CombatManager : SmartNetworkBehaviour
 
         TurnManager.Instance.NextTurn_ServerRPC();
 
-#if Enable_Debug_Systems
+//#if Enable_Debug_Systems
         StartCoroutine(DebugQTESequenceResult_Local(qteResult));
         DisplayQTESequenceResult_ServerRPC(qteResult);
-#endif
+//#endif
     }
     [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
     private void ResolveSupportSkill_ServerRPC(int skillId, QTESequenceResult qteResult, ServerRpcParams rpcParams = default)
@@ -413,23 +413,6 @@ public class CombatManager : SmartNetworkBehaviour
 
         MultiInstanceText.Instances[1].Text.text = "";
     }
-    private IEnumerator DebugDefenseResult_Local(DefenseResult result)
-    {
-        MultiInstanceText.Instances[2].Text.text = result.ToString();
-
-        yield return new WaitForSeconds(1.5f);
-        
-        MultiInstanceText.Instances[2].Text.text = "";
-    }
-    public IEnumerator DebugQTESequenceResult_Local(QTESequenceResult result)
-    {
-        MultiInstanceText.Instances[3].Text.text = result.ToString();
-
-        yield return new WaitForSeconds(1.5f);
-
-        MultiInstanceText.Instances[3].Text.text = "";
-    }
-
 
     public CameraShakeSettings[] DEBUG_ShakeSequence;
     private void Update()
@@ -445,6 +428,25 @@ public class CombatManager : SmartNetworkBehaviour
         {
             CameraShakeSystem.PlaySequence(Camera.main, DEBUG_ShakeSequence);
         }
+    }
+
+#endif
+
+    private IEnumerator DebugDefenseResult_Local(DefenseResult result)
+    {
+        MultiInstanceText.Instances[2].Text.text = result.ToString();
+
+        yield return new WaitForSeconds(1.5f);
+        
+        MultiInstanceText.Instances[2].Text.text = "";
+    }
+    public IEnumerator DebugQTESequenceResult_Local(QTESequenceResult result)
+    {
+        MultiInstanceText.Instances[3].Text.text = result.ToString();
+
+        yield return new WaitForSeconds(1.5f);
+
+        MultiInstanceText.Instances[3].Text.text = "";
     }
 
     [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
@@ -474,5 +476,4 @@ public class CombatManager : SmartNetworkBehaviour
 
         StartCoroutine(DebugQTESequenceResult_Local(result));
     }
-#endif
 }
