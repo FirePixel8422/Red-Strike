@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 /// <summary>
 /// Quick Time Event UI Manager. Handles the UI popups through <see cref="QTEUIBlock"/>s for quick time event sequences, which are used for support skills.
 /// </summary> 
+[RequireComponent(typeof(ForceStateOnLoad))]
 public class QTEUIManager : MonoBehaviour
 {
     public static QTEUIManager Instance { get; private set; }

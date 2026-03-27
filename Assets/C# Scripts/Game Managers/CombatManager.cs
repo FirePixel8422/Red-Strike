@@ -1,4 +1,5 @@
 using Fire_Pixel.Networking;
+using Fire_Pixel.Utility;
 using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
@@ -17,6 +18,8 @@ public class CombatManager : SmartNetworkBehaviour
 
     [SerializeField] private EnumStructArray<DefenseResult, ArrayWrapper<CameraShakeSettings>> onHitShakeSequences;
 
+    public CombatTurnContext CombatCtx;
+
     private bool canDefend;
 
 
@@ -29,7 +32,7 @@ public class CombatManager : SmartNetworkBehaviour
         {
             playerStats[i] = GameRules.DefaultPlayerStats.GetStatsCopy();
         }
-        CombatTurnContext.Init(playerStats);
+        CombatCtx = new CombatTurnContext(playerStats);
 
         RebindManager.PostRebindsLoaded += () =>
         {
@@ -45,19 +48,19 @@ public class CombatManager : SmartNetworkBehaviour
     }
     protected override void OnNetworkSystemsSetupPostStart()
     {
-        PlayerStats.Local = CombatTurnContext.Players[LocalClientGameId];
-        PlayerStats.Oponnent = CombatTurnContext.Players[LocalClientGameId == 0 ? 1 : 0];
+        PlayerStats.Local = CombatCtx.Players[LocalClientGameId];
+        PlayerStats.Oponnent = CombatCtx.Players[LocalClientGameId == 0 ? 1 : 0];
 
         for (int i = 0; i < GlobalGameData.MAX_PLAYERS; i++)
         {
-            CombatTurnContext.Players[i].UpdateHealthBar();
-            CombatTurnContext.Players[i].UpdateEnergyBar();
+            CombatCtx.Players[i].UpdateHealthBar();
+            CombatCtx.Players[i].UpdateEnergyBar();
         }
 
         SwapToRandomWeapon_ServerRPC();
 
-        TurnManager.TurnStarted += OnTurnStarted;
-        TurnManager.TurnEnded += OnTurnEnded;
+        TurnManager.Instance.TurnStarted += OnTurnStarted;
+        TurnManager.Instance.TurnEnded += OnTurnEnded;
     }
 
 
@@ -111,14 +114,14 @@ public class CombatManager : SmartNetworkBehaviour
         PlayerStats.Oponnent.RestoreEnergy(GameRules.MatchSettings.PassiveEnergyGain);
         PlayerStats.Oponnent.ApplyAndTickDownStatusEffects();
 
-        SkillUIManager.FadeIn();
+        SkillUIManager.Instance.FadeIn();
     }
     private void OnTurnEnded()
     {
         PlayerStats.Local.RestoreEnergy(GameRules.MatchSettings.PassiveEnergyGain);
         PlayerStats.Local.ApplyAndTickDownStatusEffects();
 
-        SkillUIManager.FadeIn();
+        SkillUIManager.Instance.FadeIn();
         this.Invoke(1, () => SwapToRandomWeapon_ServerRPC());
     }
 
@@ -149,7 +152,7 @@ public class CombatManager : SmartNetworkBehaviour
     #endregion
 
 
-    public void UseSkill_OnNetwork(int weaponId, int skillId)
+    public void UseSkill_OnNetwork(int skillId)
     {
         TurnManager.Instance.EndTurnTimer();
 
@@ -226,7 +229,7 @@ public class CombatManager : SmartNetworkBehaviour
     }
     private void ResolveSupportSkill_Local(int skillId, QTESequenceResult qteResult)
     {
-        SkillManager.GlobalSkillList[skillId].AsSupport().Resolve(qteResult);
+        SkillManager.GlobalSkillList[skillId].AsSupport().Resolve(CombatCtx, qteResult);
     }
 
     #endregion
@@ -249,6 +252,8 @@ public class CombatManager : SmartNetworkBehaviour
     {
         if (IsHost && RPCTargetFilters.ShouldHostSkip(rpcParams)) return;
 
+        DebugLogger.LogError(skillId);
+
         canDefend = true;
         DefenseWindowSystem.StartAttackSequence(skillId);
 
@@ -256,6 +261,8 @@ public class CombatManager : SmartNetworkBehaviour
 
         SkillAttack skill = SkillManager.GlobalSkillList[skillId].AsAttack();
         PlayerVisualsManager.Instance.DoAttackAnimation_Local(skill.AnimationNameHash, skill.AttackStartupTime);
+        
+        StartCoroutine(DebugAttackImpactDelayLoop(skill.AttackStartupTime));
     }
 
     [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]
@@ -306,9 +313,9 @@ public class CombatManager : SmartNetworkBehaviour
     }
     private void ResolveAttack_Local(int skillId, DefenseResult defenseResult)
     {
-        SkillManager.GlobalSkillList[skillId].AsAttack().Resolve(defenseResult);
+        SkillManager.GlobalSkillList[skillId].AsAttack().Resolve(CombatCtx, defenseResult);
 
-        if (CombatTurnContext.AttackerGameId != LocalClientGameId)
+        if (CombatCtx.AttackerGameId != LocalClientGameId)
         {
             CameraShakeSystem.PlaySequence(Camera.main, onHitShakeSequences[defenseResult].Value);
         }
@@ -324,18 +331,18 @@ public class CombatManager : SmartNetworkBehaviour
         float perfectParriedDamage = GameRules.MatchSettings.PerfectParryRules.AttackerDamageTaken;
         if (perfectParriedDamage > 0)
         {
-            CombatTurnContext.Attacker.TakeDamage(perfectParriedDamage);
+            CombatCtx.Attacker.TakeDamage(perfectParriedDamage);
         }
         StatusEffectInstance perfectParriedEffect = GameRules.MatchSettings.PerfectParryRules.AttackerGainedEffect;
         if (perfectParriedEffect.Type == StatusEffectType.Bleeding || perfectParriedEffect.Duration != 0)
         {
-            CombatTurnContext.Attacker.AddStatusEffect(perfectParriedEffect);
+            CombatCtx.Attacker.AddStatusEffect(perfectParriedEffect);
         }
 
         int perfectParriedEnergyGain = GameRules.MatchSettings.PerfectParryRules.DefenderEnergyGain;
         if (perfectParriedEnergyGain != 0)
         {
-            CombatTurnContext.Defender.RestoreEnergy(perfectParriedEnergyGain);
+            CombatCtx.Defender.RestoreEnergy(perfectParriedEnergyGain);
         }
     }
 
@@ -355,11 +362,11 @@ public class CombatManager : SmartNetworkBehaviour
         switch (skillCosts.Type)
         {
             case PlayerResourceType.Health:
-                CombatTurnContext.Attacker.TakeDamage(skillCosts.Amount);
+                CombatCtx.Attacker.TakeDamage(skillCosts.Amount);
                 break;
 
             case PlayerResourceType.Energy:
-                CombatTurnContext.Attacker.SpendEnergy(skillCosts.Amount);
+                CombatCtx.Attacker.SpendEnergy(skillCosts.Amount);
                 break;
 
             default:
@@ -372,8 +379,10 @@ public class CombatManager : SmartNetworkBehaviour
     {
         base.OnDestroy();
 
-        TurnManager.TurnStarted -= OnTurnStarted;
-        TurnManager.TurnEnded -= OnTurnEnded;
+        CallbackScheduler.CancelAllInvokesInGroup(DefenseWindowSystem.INVOKE_SYSTEMS_ID_HASH);
+
+        TurnManager.Instance.TurnStarted -= OnTurnStarted;
+        TurnManager.Instance.TurnEnded -= OnTurnEnded;
 
         blockInput.action.performed -= OnDodge;
         blockInput.action.Disable();
@@ -417,16 +426,31 @@ public class CombatManager : SmartNetworkBehaviour
     public CameraShakeSettings[] DEBUG_ShakeSequence;
     private void Update()
     {
-        if (TurnManager.IsMyTurn && Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.LeftWindows))
-        {
-            PlayerStats.Local.RestoreEnergy(10);
-            SkillUIManager.RecalculateCanAffordSkills();
-            SkillUIManager.UpdateSkillUIActiveState(true);
-        }
-
         if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.O))
         {
             CameraShakeSystem.PlaySequence(Camera.main, DEBUG_ShakeSequence);
+        }
+
+        if (TurnManager.Instance.IsMyTurn == false) return;
+
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.LeftWindows))
+        {
+            PlayerStats.Local.RestoreEnergy(10);
+            SkillUIManager.Instance.RecalculateCanAffordSkills();
+            SkillUIManager.Instance.UpdateSkillUIActiveState(true);
+        }
+
+
+        // Custom Skill Overrides
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.LeftAlt) && Input.GetKey(KeyCode.K) && Input.GetKey(KeyCode.I) && Input.GetKeyDown(KeyCode.L))
+        {
+            // Gods Hammer
+            UseAttackSkill_ServerRPC(0);
+        }
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.LeftAlt) && Input.GetKey(KeyCode.H) && Input.GetKeyDown(KeyCode.P))
+        {
+            // Divine Intervention
+            UseAttackSkill_ServerRPC(1);
         }
     }
 

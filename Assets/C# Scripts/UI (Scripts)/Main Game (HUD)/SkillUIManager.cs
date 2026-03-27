@@ -22,10 +22,9 @@ public class SkillUIManager : MonoBehaviour
     private CanvasGroup canvasGroup;
     private Action<InputAction.CallbackContext>[] skillUseActions;
 
-#pragma warning disable UDR0001
-    private static SkillUIBlock[] skillUIBlocks;
-    private static TooltipHandler toolTipHandler;
-#pragma warning restore UDR0001
+    private SkillUIBlock[] skillUIBlocks;
+    private TooltipHandler toolTipHandler;
+
 
 
     private void Awake()
@@ -36,13 +35,11 @@ public class SkillUIManager : MonoBehaviour
         skillUIBlocks = GetComponentsInChildren<SkillUIBlock>(true);
         toolTipHandler = GetComponent<TooltipHandler>();
 
-        UpdateSkillUIActiveState(false);
-
         MatchManager.PostMatchStarted += OnGameStart;
-        TurnManager.TurnStarted += OnTurnStarted;
 
         int skillCount = skillQuickUseInputs.Length;
         skillUseActions = new Action<InputAction.CallbackContext>[skillCount];
+
 
         RebindManager.PostRebindsLoaded += () =>
         {
@@ -57,6 +54,10 @@ public class SkillUIManager : MonoBehaviour
                 skillQuickUseInputs[i].action.Enable();
             }
         };
+    }
+    private void Start()
+    {
+        TurnManager.Instance.TurnStarted += OnTurnStarted;
     }
     private Action<InputAction.CallbackContext> CreateSkillUseAction(int skillSlotId)
     {
@@ -75,14 +76,14 @@ public class SkillUIManager : MonoBehaviour
         {
             skillUIBlocks[i].Init();
         }
-        UpdateSkillUIActiveState(TurnManager.IsMyTurn);
+        UpdateSkillUIActiveState(TurnManager.Instance.IsMyTurn);
     }
     private void OnTurnStarted() => UpdateSkillUIActiveState(true);
 
 
     #region Manage Skill UI
 
-    public static void UpdateSkillUIActiveState(bool state)
+    public void UpdateSkillUIActiveState(bool state)
     {
         int skillSlotCount = skillUIBlocks.Length;
         for (int i = 0; i < skillSlotCount; i++)
@@ -90,7 +91,7 @@ public class SkillUIManager : MonoBehaviour
             skillUIBlocks[i].UpdateSkillActiveState(state);
         }
     }
-    public static void UpdateSkillUI(WeaponSkillSetData skillSet)
+    public void UpdateSkillUI(WeaponSkillSetData skillSet)
     {
         Instance.weaponNameText.text = skillSet.WeaponName;
 
@@ -109,7 +110,7 @@ public class SkillUIManager : MonoBehaviour
         // Update tooltip systems
         toolTipHandler.UpdateColoredWords();
     }
-    public static void RecalculateCanAffordSkills()
+    public void RecalculateCanAffordSkills()
     {
         int skillSlotCount = skillUIBlocks.Length;
         for (int i = 0; i < skillSlotCount; i++)
@@ -123,14 +124,14 @@ public class SkillUIManager : MonoBehaviour
 
     #region SkillUI Fade In/Out
 
-    public static void FadeIn()
+    public void FadeIn()
     {
-        Instance.screenBlock.enabled = false;
+        screenBlock.enabled = false;
         CallbackScheduler.RegisterUpdate(Instance.FadeInSequence);
     }
-    public static void FadeOut()
+    public void FadeOut()
     {
-        Instance.screenBlock.enabled = true;
+        screenBlock.enabled = true;
         CallbackScheduler.RegisterUpdate(Instance.FadeOutSequence);
     }
     private void FadeInSequence()
@@ -159,7 +160,10 @@ public class SkillUIManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        TurnManager.TurnStarted -= OnTurnStarted;
+        if (TurnManager.Instance != null)
+        {
+            TurnManager.Instance.TurnStarted -= OnTurnStarted;
+        }
 
         CallbackScheduler.UnRegisterUpdate(FadeInSequence);
         CallbackScheduler.UnRegisterUpdate(FadeOutSequence);

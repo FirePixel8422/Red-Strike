@@ -35,7 +35,7 @@ namespace Fire_Pixel.Networking
         }
         protected override void OnNetworkSystemsSetupPostStart()
         {
-            TurnManager.TurnChanged += OnTurnChanged;
+            TurnManager.Instance.TurnChanged += OnTurnChanged;
             MarkPlayerReady_ServerRPC();
         }
 
@@ -51,7 +51,7 @@ namespace Fire_Pixel.Networking
         }
         private void OnTurnChanged(int clientGameId)
         {
-            TurnManager.TurnChanged -= OnTurnChanged;
+            TurnManager.Instance.TurnChanged -= OnTurnChanged;
             PostMatchStarted.Invoke();
         }
 
@@ -73,7 +73,7 @@ namespace Fire_Pixel.Networking
         {
             base.OnDestroy();
 
-            TurnManager.TurnChanged -= OnTurnChanged;
+            TurnManager.Instance.TurnChanged -= OnTurnChanged;
             PostMatchStarted_OnServer = new OneTimeAction();
             PostMatchStarted = new OneTimeAction();
         }

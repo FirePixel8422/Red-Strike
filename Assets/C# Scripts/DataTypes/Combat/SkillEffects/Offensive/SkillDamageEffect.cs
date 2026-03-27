@@ -10,12 +10,12 @@ public class SkillDamageEffect : SkillOffsensiveEffectBase
     [Header("Damage dealt to the defender")]
     [SerializeField] private float damage = 10;
 
-    public override void Resolve(DefenseAbsorptionParameters absorptionParams)
+    public override void Resolve(CombatTurnContext ctx, DefenseAbsorptionParameters absorptionParams)
     {
-        CombatTurnContext.Defender.TakeDamage( 
+        ctx.Defender.TakeDamage( 
             damage *
-            CombatTurnContext.Attacker.GetDamageDealtMultiplier() *
-            CombatTurnContext.Defender.GetDamageReceivedMultiplier() *
+            ctx.Attacker.GetDamageDealtMultiplier() *
+            ctx.Defender.GetDamageReceivedMultiplier() *
             (1 - absorptionParams.DamageAbsorptionPercent));
     }
 }

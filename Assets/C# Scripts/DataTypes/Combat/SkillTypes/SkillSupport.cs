@@ -17,12 +17,12 @@ public class SkillSupport : SkillBase
         base.Init();
         QTESequenceParameters = qteWindowsSO.Value;
     }
-    public void Resolve(QTESequenceResult supportQTEResult)
+    public void Resolve(CombatTurnContext ctx, QTESequenceResult supportQTEResult)
     {
         int effectCount = effects.Length;
         for (int i = 0; i < effectCount; i++)
         {
-            effects[i].Resolve(supportQTEResult);
+            effects[i].Resolve(ctx, supportQTEResult);
         }
     }
 

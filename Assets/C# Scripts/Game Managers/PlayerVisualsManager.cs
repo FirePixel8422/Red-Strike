@@ -11,8 +11,8 @@ public class PlayerVisualsManager : SmartNetworkBehaviour
     [SerializeField] private float attackPrepareTime = 0.5f;
     [SerializeField] private float attackResetDelay = 1f;
 
-    public Player AttackerPlayer => players[CombatTurnContext.AttackerGameId];
-    public static float AttackPrepareTime => Instance.attackPrepareTime;
+    public Player AttackerPlayer => players[CombatManager.Instance.CombatCtx.AttackerGameId];
+    public float AttackPrepareTime => attackPrepareTime;
 
     private Camera mainCam;
 
@@ -29,12 +29,12 @@ public class PlayerVisualsManager : SmartNetworkBehaviour
 
     public void DoAttackAnimation_Local(int animationNameHash, float delayBeforeImpact)
     {
-        SkillUIManager.FadeOut();
+        SkillUIManager.Instance.FadeOut();
         AttackerPlayer.Anim.StartWeaponAttack(animationNameHash, delayBeforeImpact, attackPrepareTime, attackResetDelay);
     }
     public void DoSupportAnimation_Local(int animationNameHash)
     {
-        SkillUIManager.FadeOut();
+        SkillUIManager.Instance.FadeOut();
         AttackerPlayer.Anim.StartWeaponSupport(animationNameHash);
     }
     public void UpdateWeapon(int playerId, int weaponId)

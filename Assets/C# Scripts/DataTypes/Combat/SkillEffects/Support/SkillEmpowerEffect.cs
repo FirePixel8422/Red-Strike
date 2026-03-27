@@ -10,14 +10,14 @@ public class SkillEmpowerEffect : SkillSupportEffectBase
     [Header("Status effect applied to the attacker")]
     [SerializeField] private EnumStructArray<QTESequenceResult, StatusEffectStack> toApplyStatusEffect;
 
-    public override void Resolve(QTESequenceResult supportQTEResult)
+    public override void Resolve(CombatTurnContext ctx, QTESequenceResult supportQTEResult)
     {
         StatusEffectStack statusEffectStack = toApplyStatusEffect.GetValue(supportQTEResult);
 
         int effectStackCount = statusEffectStack.StackCount;
         for (int i = 0; i < effectStackCount; i++)
         {
-            CombatTurnContext.Defender.AddStatusEffect(statusEffectStack.EffectInstance);
+            ctx.Defender.AddStatusEffect(statusEffectStack.EffectInstance);
         }
     }
 

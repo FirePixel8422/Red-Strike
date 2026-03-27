@@ -53,6 +53,11 @@ public class ResourceBarUI
         }
     }
 
+    public void Destroy()
+    {
+        CallbackScheduler.UnRegisterUpdate(LerpBar);
+    }
+
     [System.Serializable]
     private struct AnimateSettings
     {

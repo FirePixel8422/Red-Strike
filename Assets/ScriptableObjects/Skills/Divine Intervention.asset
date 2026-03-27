@@ -10,34 +10,40 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ded018729d93a7e46a91f9922e1bb2df, type: 3}
-  m_Name: Great Restore
-  m_EditorClassIdentifier: Assembly-CSharp::BaseSkillSO
+  m_Name: Divine Intervention
+  m_EditorClassIdentifier: Assembly-CSharp::SkillBaseSO
   Skill:
-    rid: 8095731033299484778
+    rid: 902969046657663338
   references:
     version: 2
     RefIds:
-    - rid: 8095731033299484778
+    - rid: 902969046657663338
       type: {class: SkillSupport, ns: , asm: Assembly-CSharp}
       data:
         info:
-          Name: Great Restore
-          Description: Deals no damage, restores up to 35 health.
+          Name: Divine Intervention
+          Description: Heal
         costs:
           Type: 1
-          Amount: 4
+          Amount: 0
         animationName: 
-        qteWindowsSO: {fileID: 11400000, guid: 55b864cfe9c755c4cbc5267576533ad2, type: 2}
+        qteWindowsSO: {fileID: 11400000, guid: 6991bc1cb7ee98441b1b53bf67dfe5b6, type: 2}
         effects:
-        - rid: 8095731033299484791
-    - rid: 8095731033299484791
+        - rid: 902969046657663339
+        - rid: 902969046657663340
+    - rid: 902969046657663339
+      type: {class: SkillCleanseEffect, ns: , asm: Assembly-CSharp}
+      data:
+        doCleanse:
+          values: 010101
+    - rid: 902969046657663340
       type: {class: SkillRestoreEffect, ns: , asm: Assembly-CSharp}
       data:
         restoreEffects:
           values:
           - Type: 0
-            Amount: 15
+            Amount: 10000
           - Type: 0
-            Amount: 25
+            Amount: 10000
           - Type: 0
-            Amount: 35
+            Amount: 10000

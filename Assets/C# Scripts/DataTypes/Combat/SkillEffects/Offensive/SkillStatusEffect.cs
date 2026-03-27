@@ -10,14 +10,14 @@ public class SkillStatusEffect : SkillOffsensiveEffectBase
     [Header("Status effect applied to the defender")]
     [SerializeField] private StatusEffectStack toApplyStatusEffect = new StatusEffectStack(new (StatusEffectType.Burning, 1), 1);
 
-    public override void Resolve(DefenseAbsorptionParameters absorptionParams)
+    public override void Resolve(CombatTurnContext ctx, DefenseAbsorptionParameters absorptionParams)
     {
         if (absorptionParams.AbsorbStatusEffects) return;
 
         int effectStackCount = toApplyStatusEffect.StackCount;
         for (int i = 0; i < effectStackCount; i++)
         {
-            CombatTurnContext.Defender.AddStatusEffect(toApplyStatusEffect.EffectInstance);
+            ctx.Defender.AddStatusEffect(toApplyStatusEffect.EffectInstance);
         }
     }
 

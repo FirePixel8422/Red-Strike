@@ -32,7 +32,7 @@ public static class ExtensionMethods
         CallbackScheduler.CancelInvoke(ref callbackRef);
     }
     /// <summary>
-    /// Stops a previously scheduled Invoke Callback on <see cref="CallbackScheduler"/> and clears its reference.
+    /// Stops all previously scheduled Invoke Callback on <see cref="CallbackScheduler"/> and clears its reference.
     /// </summary>
     public static void CancelAllInvokes(this MonoBehaviour mb)
     {

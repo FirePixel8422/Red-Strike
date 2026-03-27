@@ -8,5 +8,5 @@
 [System.Serializable]
 public abstract class SkillSupportEffectBase
 {
-    public virtual void Resolve(QTESequenceResult supportQTEResult) { }
+    public virtual void Resolve(CombatTurnContext ctx, QTESequenceResult supportQTEResult) { }
 }

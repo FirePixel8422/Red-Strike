@@ -10,11 +10,11 @@ public class SkillTrueDamageEffect : SkillOffsensiveEffectBase
     [Header("True (unblockable) damage done to the defender")]
     [SerializeField] private float trueDamage = 10;
 
-    public override void Resolve(DefenseAbsorptionParameters absorptionParams)
+    public override void Resolve(CombatTurnContext ctx, DefenseAbsorptionParameters absorptionParams)
     {
-        CombatTurnContext.Defender.TakeDamage(
+        ctx.Defender.TakeDamage(
             trueDamage *
-            CombatTurnContext.Attacker.GetDamageDealtMultiplier() *
-            CombatTurnContext.Defender.GetDamageReceivedMultiplier());
+            ctx.Attacker.GetDamageDealtMultiplier() *
+            ctx.Defender.GetDamageReceivedMultiplier());
     }
 }

@@ -19,14 +19,14 @@ public class SkillAttack : SkillBase
         base.Init();
         DefenseWindows = defenseWindowsSO.Value;
     }
-    public void Resolve(DefenseResult defenseResult)
+    public void Resolve(CombatTurnContext ctx, DefenseResult defenseResult)
     {
         DefenseAbsorptionParameters defenseAbsorptionParams = GameRules.GetDefenseAbsorptionParams(defenseResult);
 
         int effectCount = effects.Length;
         for (int i = 0; i < effectCount; i++)
         {
-            effects[i].Resolve(defenseAbsorptionParams);
+            effects[i].Resolve(ctx, defenseAbsorptionParams);
         }
     }
 

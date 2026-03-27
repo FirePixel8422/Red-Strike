@@ -10,11 +10,11 @@ public class SkillCleanseEffect : SkillSupportEffectBase
     [Header("Cleanses all bad statusEffects on the attacker")]
     [SerializeField] private EnumStructArray<QTESequenceResult, bool> doCleanse;
 
-    public override void Resolve(QTESequenceResult supportQTEResult)
+    public override void Resolve(CombatTurnContext ctx, QTESequenceResult supportQTEResult)
     {
         bool shouldCleanse = doCleanse.GetValue(supportQTEResult);
         if (shouldCleanse == false) return;
 
-        CombatTurnContext.Attacker.CleanseStatusEffects();
+        ctx.Attacker.CleanseStatusEffects();
     }
 }

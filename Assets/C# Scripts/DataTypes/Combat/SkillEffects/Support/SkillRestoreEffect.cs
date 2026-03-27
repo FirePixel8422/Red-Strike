@@ -10,17 +10,17 @@ public class SkillRestoreEffect : SkillSupportEffectBase
     [Header("Restore done to the attacker")]
     [SerializeField] private EnumStructArray<QTESequenceResult, RestoreEffectInstance> restoreEffects;
 
-    public override void Resolve(QTESequenceResult supportQTEResult)
+    public override void Resolve(CombatTurnContext ctx, QTESequenceResult supportQTEResult)
     {
         RestoreEffectInstance targetEffect = restoreEffects.GetValue(supportQTEResult);
         switch (targetEffect.Type)
         {
             case PlayerResourceType.Health:
-                CombatTurnContext.Attacker.Heal(targetEffect.Amount);
+                ctx.Attacker.Heal(targetEffect.Amount);
                 break;
 
             case PlayerResourceType.Energy:
-                CombatTurnContext.Attacker.RestoreEnergy(Mathf.RoundToInt(targetEffect.Amount));
+                ctx.Attacker.RestoreEnergy(Mathf.RoundToInt(targetEffect.Amount));
                 break;
 
             default:

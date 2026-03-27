@@ -22,14 +22,14 @@ namespace Fire_Pixel.Networking
         private const float TIME_PER_TURN = 10;
 
         private int clientOnTurnId = -1;
-        public static int ClientOnTurnId => Instance.clientOnTurnId;
+        public int ClientOnTurnId => Instance.clientOnTurnId;
 
-        public static bool IsMyTurn => Instance.clientOnTurnId == LocalClientGameId;
+        public bool IsMyTurn => Instance.clientOnTurnId == LocalClientGameId;
 
 #pragma warning disable UDR0001
-        public static event Action<int> TurnChanged;
-        public static event Action TurnStarted;
-        public static event Action TurnEnded;
+        public event Action<int> TurnChanged;
+        public event Action TurnStarted;
+        public event Action TurnEnded;
 #pragma warning restore UDR0001
 
 
@@ -92,10 +92,15 @@ namespace Fire_Pixel.Networking
 
             if (turnTimeLeft <= 0)
             {
-                SkillUIManager.UpdateSkillUIActiveState(false);
+                SkillUIManager.Instance.UpdateSkillUIActiveState(false);
                 NextTurn_ServerRPC();
                 EndTurnTimer();
             }
+        }
+
+        public override void OnDestroy()
+        {
+            CallbackScheduler.UnRegisterUpdate(OnUpdateTimer);
         }
     }
 }

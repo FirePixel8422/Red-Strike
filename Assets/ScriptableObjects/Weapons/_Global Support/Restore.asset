@@ -22,12 +22,12 @@ MonoBehaviour:
       data:
         info:
           Name: Restore
-          Description: Deals no damage, restores up to 12 health.
+          Description: Deals no damage, restores up to 20 health.
         costs:
           Type: 1
           Amount: 2
-        animationName: 
-        qteWindowsSO: {fileID: 11400000, guid: 55b864cfe9c755c4cbc5267576533ad2, type: 2}
+        animationName: Tri-Dagger
+        qteWindowsSO: {fileID: 11400000, guid: c6656c76b5f206346a96849fc8b1969f, type: 2}
         effects:
         - rid: 8095731033299484791
     - rid: 8095731033299484791
@@ -36,8 +36,8 @@ MonoBehaviour:
         restoreEffects:
           values:
           - Type: 0
-            Amount: 0
-          - Type: 0
-            Amount: 6
+            Amount: 5
           - Type: 0
             Amount: 12
+          - Type: 0
+            Amount: 20

@@ -26,6 +26,6 @@ public static class WeaponManager
     {
         ActiveWeapon_Local = WeaponSkillSetData[weaponId];
 
-        SkillUIManager.UpdateSkillUI(ActiveWeapon_Local);
+        SkillUIManager.Instance.UpdateSkillUI(ActiveWeapon_Local);
     }
 }

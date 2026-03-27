@@ -43,10 +43,12 @@ public class RebindManager : MonoBehaviour
         cancelRebindAction.action.Disable();
     }
 
-    private void Awake()
+    private async void Awake()
     {
         Instance = this;
-        _ = LoadRebindsAsync();
+
+        await LoadRebindsAsync();
+        PostRebindsLoaded?.Invoke();
     }
 
     private void OnCancelRebind(InputAction.CallbackContext ctx)
@@ -150,7 +152,6 @@ public class RebindManager : MonoBehaviour
             DebugLogger.Log("Rebinds loaded.", logRebindOperations);
 #endif
         }
-        PostRebindsLoaded?.Invoke();
     }
     private async Task SaveRebindsAsync()
     {

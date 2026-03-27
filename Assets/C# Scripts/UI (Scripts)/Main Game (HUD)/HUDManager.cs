@@ -19,4 +19,12 @@ public class HUDManager : MonoBehaviour
     {
         instance = this;
     }
+
+
+    private void OnDestroy()
+    {
+        localHealthBar.Destroy();
+        opponentHealthBar.Destroy();
+        localEnergyBar.Destroy();
+    }
 }

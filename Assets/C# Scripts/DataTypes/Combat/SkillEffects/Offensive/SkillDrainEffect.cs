@@ -11,16 +11,16 @@ public class SkillDrainEffect : SkillOffsensiveEffectBase
     [SerializeField] private PlayerResourceType type;
     [SerializeField] private float amount;
 
-    public override void Resolve(DefenseAbsorptionParameters absorptionParams)
+    public override void Resolve(CombatTurnContext ctx, DefenseAbsorptionParameters absorptionParams)
     {
         switch (type)
         {
             case PlayerResourceType.Health:
-                CombatTurnContext.Attacker.TakeDamage(amount);
+                ctx.Attacker.TakeDamage(amount);
                 break;
 
             case PlayerResourceType.Energy:
-                CombatTurnContext.Attacker.SpendEnergy(Mathf.RoundToInt(amount));
+                ctx.Attacker.SpendEnergy(Mathf.RoundToInt(amount));
                 break;
 
             default:

@@ -9,5 +9,5 @@
 [System.Serializable]
 public abstract class SkillOffsensiveEffectBase
 {
-    public virtual void Resolve(DefenseAbsorptionParameters absorptionParams) { }
+    public virtual void Resolve(CombatTurnContext ctx, DefenseAbsorptionParameters absorptionParams) { }
 }

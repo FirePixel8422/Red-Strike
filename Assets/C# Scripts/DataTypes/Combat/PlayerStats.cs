@@ -78,7 +78,7 @@ public class PlayerStats
         if (IsLocal)
         {
             UpdateEnergyBar();
-            SkillUIManager.RecalculateCanAffordSkills();
+            SkillUIManager.Instance.RecalculateCanAffordSkills();
         }
     }
     public void SpendEnergy(int amount)
@@ -89,7 +89,7 @@ public class PlayerStats
         if (IsLocal)
         {
             UpdateEnergyBar();
-            SkillUIManager.RecalculateCanAffordSkills();
+            SkillUIManager.Instance.RecalculateCanAffordSkills();
         }
     }
 

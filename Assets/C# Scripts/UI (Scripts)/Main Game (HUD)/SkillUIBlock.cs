@@ -10,16 +10,20 @@ public class SkillUIBlock : MonoBehaviour
     [SerializeField] private TextMeshProUGUI description;
 
     [SerializeField] private ResourceUI[] resourceCostUIs;
+    [SerializeField] private float disabledAlpha = 0.4f;
+
+
     private int currentSkillId = -1;
     private int currentResourceCostId = -1;
     private bool canAfford;
 
-    private const float DISABLED_ALPHA = 0.05f;
+    private CanvasGroup canvasGroup;
 
 
 
     private void Awake()
     {
+        canvasGroup = GetComponent<CanvasGroup>();
         UpdateSkillActiveState(false);
     }
     /// <summary>
@@ -35,9 +39,9 @@ public class SkillUIBlock : MonoBehaviour
     {
         if (button.interactable == false || canAfford == false) return;
 
-        SkillUIManager.UpdateSkillUIActiveState(false);
+        SkillUIManager.Instance.UpdateSkillUIActiveState(false);
 
-        CombatManager.Instance.UseSkill_OnNetwork(WeaponManager.ActiveWeapon_Local.WeaponId, currentSkillId);
+        CombatManager.Instance.UseSkill_OnNetwork(currentSkillId);
     }
 
     /// <summary>
@@ -71,7 +75,7 @@ public class SkillUIBlock : MonoBehaviour
             int playerResourceId = (int)skill.Costs.Type;
             canAfford = PlayerStats.Local.Resources[playerResourceId] >= skill.Costs.Amount;
 
-            resourceCostUIs[playerResourceId].Enable(skill.Costs.Amount, canAfford);
+            resourceCostUIs[playerResourceId].Enable(skill.Costs.Amount);
             currentResourceCostId = playerResourceId;
         }
         else
@@ -89,14 +93,7 @@ public class SkillUIBlock : MonoBehaviour
         bool canUseSkill = canAfford && isActive;
         button.interactable = canUseSkill;
 
-        SetAlpha(title, canUseSkill ? 1f : DISABLED_ALPHA);
-        SetAlpha(description, canUseSkill ? 1f : DISABLED_ALPHA);
-    }
-    private void SetAlpha(TextMeshProUGUI text, float alpha)
-    {
-        Color c = text.color;
-        c.a = alpha;
-        text.color = c;
+        canvasGroup.alpha = isActive ? 1 : disabledAlpha;
     }
 
 
@@ -104,13 +101,11 @@ public class SkillUIBlock : MonoBehaviour
     public class ResourceUI
     {
         [SerializeField] private GameObject gameObject;
-        [SerializeField] private GameObject darkOverlayObj;
         [SerializeField] private TextMeshProUGUI text;
 
-        public void Enable(int resourceCost, bool canAfford)
+        public void Enable(int resourceCost)
         {
             gameObject.SetActiveSmart(true);
-            darkOverlayObj.SetActiveSmart(!canAfford);
 
             text.text = resourceCost.ToString();
         }

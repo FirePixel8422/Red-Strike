@@ -58,13 +58,4 @@ public class PlayerAnimator : MonoBehaviour
         anim.speed = 1;
         anim.PlayInFixedTime(animationNameHash);
     }
-
-
-    public string animName;
-    [ContextMenu("Test")]
-    private void Test()
-    {
-        print(Animator.StringToHash(animName));
-        anim.PlayInFixedTime(Animator.StringToHash(animName));
-    }
 }
