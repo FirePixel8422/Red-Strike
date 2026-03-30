@@ -33,7 +33,7 @@ namespace Fire_Pixel.Utility
 
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        private static void Initialize()
+        private static void Init()
         {
             CallbackRunnerInstance gameManager = new GameObject(">>UpdateScheduler<<").AddComponent<CallbackRunnerInstance>();
             gameManager.Init();

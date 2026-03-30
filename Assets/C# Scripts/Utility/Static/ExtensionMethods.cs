@@ -442,6 +442,25 @@ public static class ExtensionMethods
     #region Index Modify Utility
 
     /// <summary>
+    /// Flips input 0 to 1 and 1 to 0
+    /// </summary>
+    public static void Flip(this ref int value)
+    {
+        DebugLogger.Throw("Flip called with value other than 0 or 1", value != 0 && value != 1);
+
+        value = value == 0 ? 1 : 0;
+    }
+    /// <summary>
+    /// Flips input 0 to 1 and 1 to 0
+    /// </summary>
+    public static int AsFlipped(this int value)
+    {
+        DebugLogger.Throw("Flip called with value other than 0 or 1", value != 0 && value != 1);
+
+        return value == 0 ? 1 : 0;
+    }
+
+    /// <summary>
     /// Increments index by 1 and wraps to 0 if it reaches length
     /// </summary>
     public static int IncrementSmart(this ref int value, int length)
