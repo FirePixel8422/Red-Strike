@@ -14,10 +14,11 @@ public class QTEUIManager : MonoBehaviour
     [SerializeField] private InputActionReference qteInput;
     [SerializeField] private float qteAnimRemovalMultiplier = 0.25f;
     [SerializeField] private float qteGlobalReactionTime = 0.25f;
-    public static float QTEGlobalReactionTime => Instance.qteGlobalReactionTime;
+    public float QTEGlobalReactionTime => qteGlobalReactionTime;
 
 #pragma warning disable UDR0001
-    private static QTEUIBlock[] qteUIBlocks;
+    private QTEUIBlock[] qteUIBlocks;
+    private DefenseUIBlock defenseUIBlock;
 #pragma warning restore UDR0001
 
 
@@ -25,16 +26,18 @@ public class QTEUIManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        qteUIBlocks = GetComponentsInChildren<QTEUIBlock>();
+        qteUIBlocks = GetComponentsInChildren<QTEUIBlock>(true);
+        defenseUIBlock = GetComponentInChildren<DefenseUIBlock>(true);
 
         int qteCount = qteUIBlocks.Length;
         for (int i = 0; i < qteCount; i++)
         {
             qteUIBlocks[i].Init(qteInput);
         }
+        defenseUIBlock.Init();
     }
     
-    public static void StartQTESequence(QTESequenceParameters qteSequenceParams, float[] randomStartDelays)
+    public void StartQTESequence(QTESequenceParameters qteSequenceParams, float[] randomStartDelays)
     {
         int qteCount = qteSequenceParams.Length;
         for (int i = 0; i < qteCount; i++)
@@ -49,16 +52,29 @@ public class QTEUIManager : MonoBehaviour
             }, QTESequenceSystem.INVOKE_SYSTEMS_ID_HASH);
         }
     }
+    public void StartCombatQTE(float qteDuration, DefenseWindowParameters defenseWindows)
+    {
+        defenseUIBlock.Activate(qteDuration, QTEGlobalReactionTime, defenseWindows);
+    }
 
-    public static void SucceedQTE(int index)
+    public void SucceedQTE(int index)
     {
         qteUIBlocks[index].SucceedQTE();
     }
-    public static void FailQTE(int index, bool isFailedBecauseExpired)
+    public void FailQTE(int index, bool isFailedBecauseExpired)
     {
         qteUIBlocks[index].FailQTE(isFailedBecauseExpired);
     }
-    public static void DisableAll(QTESequenceParameters qteSequenceParams, float[] randomStartDelays)
+
+    public void SucceedCombatQTE()
+    {
+        defenseUIBlock.SucceedQTE();
+    }
+    public void FailCombatQTE(bool isFailedBecauseExpired)
+    {
+        defenseUIBlock.FailQTE(isFailedBecauseExpired);
+    }
+    public void DisableAll(QTESequenceParameters qteSequenceParams, float[] randomStartDelays)
     {
         int qteCount = qteSequenceParams.Length;
         for (int i = 0; i < qteCount; i++)
@@ -67,10 +83,16 @@ public class QTEUIManager : MonoBehaviour
             CallbackScheduler.Invoke(removeDelay, qteUIBlocks[i].Disable, QTESequenceSystem.INVOKE_SYSTEMS_ID_HASH);
         }
     }
+    public void DisableCombatQTE(float randomStartDelay)
+    {
+        float removeDelay = randomStartDelay * Instance.qteAnimRemovalMultiplier;
+        CallbackScheduler.Invoke(removeDelay, defenseUIBlock.Disable, DefenseWindowSystem.INVOKE_SYSTEMS_ID_HASH);
+    }
 
     private void OnDestroy()
     {
         CallbackScheduler.CancelAllInvokesInGroup(QTESequenceSystem.INVOKE_SYSTEMS_ID_HASH);
+        CallbackScheduler.CancelAllInvokesInGroup(DefenseWindowSystem.INVOKE_SYSTEMS_ID_HASH);
     }
 
 

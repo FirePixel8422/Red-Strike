@@ -1,21 +1,29 @@
 ﻿using Fire_Pixel.Utility;
-using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 
 /// <summary>
-/// Quick Time Event UI Block. Handles displaying a single UI popup, which is used for support skills.
+/// Quick Time Event UI Block. Handles displaying a single UI popup, which is used for Defending against attacks
 /// </summary>
-public class QTEUIBlock : MonoBehaviour
+public class DefenseUIBlock : MonoBehaviour
 {
     [SerializeField] private Image timerBar;
-    [SerializeField] private Image succesBar, timerBarCover, succesBarCover;
+    [SerializeField] private Image timerBarCover;
     [SerializeField] private float timerBarSize;
 
-    [SerializeField] private TextMeshProUGUI qteKeyText;
+    [Header("A")]
+    [SerializeField] private Image succesBarA;
+    [SerializeField] private Image succesBarCoverA;
+
+    [Header("B")]
+    [SerializeField] private Image succesBarB;
+    [SerializeField] private Image succesBarCoverB;
+
+    [Header("C")]
+    [SerializeField] private Image succesBarC;
+    [SerializeField] private Image succesBarCoverC;
 
     private Animator anim;
     private float qteDuration;
@@ -26,21 +34,21 @@ public class QTEUIBlock : MonoBehaviour
     private static readonly int EXPIRE_ANIM_HASH = Animator.StringToHash("Expire");
 
 
-    public void Init(InputActionReference qteInput)
+    public void Init()
     {
         anim = GetComponent<Animator>();
-        qteKeyText.text = qteInput.action.GetBindingDisplayString(0);
     }
 
-    public void Activate(float qteDuration, float qteWindow01, float qteStartDelay)
+    public void Activate(float qteDuration, float qteStartDelay, DefenseWindowParameters windowParams)
     {
         anim.SetBool(ACTIVATE_ANIM_HASH, true);
 
         timerBar.fillAmount = 1;
         timerBarCover.fillAmount = 1 - timerBarSize;
 
-        succesBar.fillAmount = qteWindow01;
-        succesBarCover.fillAmount = qteWindow01;
+        succesBarA.fillAmount = (windowParams.Dodge / qteDuration);
+        succesBarB.fillAmount = windowParams.Parry / qteDuration;
+        succesBarC.fillAmount = windowParams.PerfectParry / qteDuration;
 
         this.qteDuration = qteDuration;
 
@@ -69,7 +77,6 @@ public class QTEUIBlock : MonoBehaviour
 
             timerBar.fillAmount = 0;
             timerBarCover.fillAmount = 0;
-            succesBarCover.fillAmount = 0;
         }
         else
         {
@@ -89,8 +96,11 @@ public class QTEUIBlock : MonoBehaviour
 
         // Follow the timer bar until it reached the succes window, then stay at the succes window until the end of the timer.
         timerBarCover.fillAmount = barPercentageLeft - timerBarSize;
+
         // After timer bar reaches the succes window, follow the timer bar with the copySuccesBarOverlay until the end of the timer.
-        succesBarCover.fillAmount = math.clamp(barPercentageLeft - timerBarSize, 0, succesBar.fillAmount);
+        succesBarA.fillAmount = math.clamp(barPercentageLeft - timerBarSize, 0, succesBarCoverA.fillAmount);
+        succesBarB.fillAmount = math.clamp(barPercentageLeft - timerBarSize, 0, succesBarCoverB.fillAmount);
+        succesBarC.fillAmount = math.clamp(barPercentageLeft - timerBarSize, 0, succesBarCoverC.fillAmount);
     }
 
     private void OnDestroy()
@@ -106,14 +116,15 @@ public class QTEUIBlock : MonoBehaviour
     {
         if (Application.isPlaying) return;
 
-        float succesBarSize = succesBar.fillAmount;
-
         timerBar.fillAmount = DEBUG_OverrideFill;
 
         // Follow the timer bar until it reached the succes window, then stay at the succes window until the end of the timer.
         timerBarCover.fillAmount = DEBUG_OverrideFill - timerBarSize;
+
         // After timer bar reaches the succes window, follow the timer bar with the copySuccesBarOverlay until the end of the timer.
-        succesBarCover.fillAmount = math.clamp(DEBUG_OverrideFill - timerBarSize, 0, succesBarSize);
+        succesBarA.fillAmount = math.clamp(DEBUG_OverrideFill - timerBarSize, 0, succesBarCoverA.fillAmount);
+        succesBarB.fillAmount = math.clamp(DEBUG_OverrideFill - timerBarSize, 0, succesBarCoverB.fillAmount);
+        succesBarC.fillAmount = math.clamp(DEBUG_OverrideFill - timerBarSize, 0, succesBarCoverC.fillAmount);
     }
 #endif
 }

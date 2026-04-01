@@ -73,12 +73,12 @@ public class CombatManager : SmartNetworkBehaviour
             canDefend = false;
             DefenseResult result = DefenseWindowSystem.DoDefendAction(DefenseType.Dodge);
 
-//#if Enable_Debug_Systems
+#if Enable_Debug_Systems
             StartCoroutine(DebugDefenseResult_Local(result));
             DisplayDefenseResult_ServerRPC(result);
 
             //StartCoroutine(DebugDefenseDurationLoop(DefenseWindowSystem.DefenseWindow.Dodge));
-//#endif
+#endif
         }
     }
     private void OnParry(InputAction.CallbackContext ctx)
@@ -90,12 +90,12 @@ public class CombatManager : SmartNetworkBehaviour
 
             DefenseResult result = DefenseWindowSystem.DoDefendAction(DefenseType.Parry);
 
-//#if Enable_Debug_Systems
+#if Enable_Debug_Systems
             StartCoroutine(DebugDefenseResult_Local(result));
             DisplayDefenseResult_ServerRPC(result);
 
             //StartCoroutine(DebugDefenseDurationLoop(DefenseWindowSystem.DefenseWindow.PerfectParry));
-//#endif
+#endif
         }
     }
     private void OnQuickTimeEvent(InputAction.CallbackContext ctx)
@@ -252,8 +252,6 @@ public class CombatManager : SmartNetworkBehaviour
     {
         if (IsHost && RPCTargetFilters.ShouldHostSkip(rpcParams)) return;
 
-        DebugLogger.LogError(skillId);
-
         canDefend = true;
         DefenseWindowSystem.StartAttackSequence(skillId);
 
@@ -262,7 +260,7 @@ public class CombatManager : SmartNetworkBehaviour
         SkillAttack skill = SkillManager.GlobalSkillList[skillId].AsAttack();
         PlayerVisualsManager.Instance.DoAttackAnimation_Local(skill.AnimationNameHash, skill.AttackStartupTime);
         
-        StartCoroutine(DebugAttackImpactDelayLoop(skill.AttackStartupTime));
+        StartCoroutine(DebugAttackImpactDelayLoop(skill.AttackStartupTime + PlayerVisualsManager.Instance.AttackPrepareTime + QTEUIManager.Instance.QTEGlobalReactionTime));
     }
 
     [ServerRpc(RequireOwnership = false, Delivery = RpcDelivery.Reliable)]

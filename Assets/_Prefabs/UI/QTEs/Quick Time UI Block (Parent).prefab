@@ -281,12 +281,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::QTEUIBlock
   timerBar: {fileID: 990085203972520467}
-  timerBarCoverA: {fileID: 5132286307467255370}
-  timerBarCoverB: {fileID: 3158552488779136738}
   succesBar: {fileID: 5542361124870449340}
+  timerBarCover: {fileID: 5132286307467255370}
+  succesBarCover: {fileID: 3158552488779136738}
   timerBarSize: 0.05
   qteKeyText: {fileID: 6868325734799304613}
-  DEBUG_OverrideFill: 0
+  DEBUG_OverrideFill: 0.344
 --- !u!95 &4977228478479001389
 Animator:
   serializedVersion: 7
@@ -333,7 +333,7 @@ GameObject:
   - component: {fileID: 2949205749923261350}
   - component: {fileID: 3158552488779136738}
   m_Layer: 5
-  m_Name: timer bar cover B
+  m_Name: succes bar cover A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -391,7 +391,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0
+  m_FillAmount: 0.294
   m_FillClockwise: 0
   m_FillOrigin: 2
   m_UseSpriteMesh: 0
@@ -506,7 +506,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0
+  m_FillAmount: 0.344
   m_FillClockwise: 0
   m_FillOrigin: 2
   m_UseSpriteMesh: 0
@@ -719,7 +719,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0
+  m_FillAmount: 0.294
   m_FillClockwise: 0
   m_FillOrigin: 2
   m_UseSpriteMesh: 0
@@ -736,7 +736,7 @@ GameObject:
   - component: {fileID: 5891957467131193623}
   - component: {fileID: 5542361124870449340}
   m_Layer: 5
-  m_Name: succes bar
+  m_Name: succes bar A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

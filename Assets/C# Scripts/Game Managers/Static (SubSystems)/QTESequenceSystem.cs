@@ -49,8 +49,8 @@ public static class QTESequenceSystem
             QTEParameters cQTEParams = qteSequenceParams[i];
 
             // Create QTE Instance config
-            randomStartDelays[i] = EzRandom.Range(cQTEParams.StartDelayRange);
-            qteActivationGlobalUTime = globalTime + randomStartDelays[i] + cQTEParams.Duration + QTEUIManager.QTEGlobalReactionTime;
+            randomStartDelays[i] = cQTEParams.StartDelayRange.RandomValue;
+            qteActivationGlobalUTime = globalTime + randomStartDelays[i] + cQTEParams.Duration + QTEUIManager.Instance.QTEGlobalReactionTime;
 
             // Create new QTE Instance
             qteInstances[i] = new QTEInstance(qteActivationGlobalUTime, cQTEParams.Duration, cQTEParams.SuccesWindowTime);
@@ -65,11 +65,11 @@ public static class QTESequenceSystem
         skillId = supportSkillId;
         succesfulQTECount = 0;
 
-        QTEUIManager.StartQTESequence(qteSequenceParams, randomStartDelays);
+        QTEUIManager.Instance.StartQTESequence(qteSequenceParams, randomStartDelays);
         CallbackScheduler.Invoke(totalQTESequenceDuration, () =>
         {
             ResolveQTESequence();
-            QTEUIManager.DisableAll(qteSequenceParams, randomStartDelays);
+            QTEUIManager.Instance.DisableAll(qteSequenceParams, randomStartDelays);
         }, INVOKE_SYSTEMS_ID_HASH);
     }
     private static void ResolveQTESequence()
@@ -95,7 +95,7 @@ public static class QTESequenceSystem
         if (currentIndex == index)
         {
             DebugLogger.Log("FailedQTE");
-            QTEUIManager.FailQTE(index, true);
+            QTEUIManager.Instance.FailQTE(index, true);
             currentIndex += 1;
         }
     }
@@ -109,7 +109,7 @@ public static class QTESequenceSystem
         if (qteActive == false) return;
         if (succesfulQTE)
         {
-            QTEUIManager.SucceedQTE(currentIndex);
+            QTEUIManager.Instance.SucceedQTE(currentIndex);
             DebugLogger.Log("SuccesQTE");
 
             currentIndex += 1;
@@ -117,7 +117,7 @@ public static class QTESequenceSystem
             return;
         }
 
-        QTEUIManager.FailQTE(currentIndex, false);
+        QTEUIManager.Instance.FailQTE(currentIndex, false);
         DebugLogger.Log("FailedQTE");
         currentIndex += 1;
     }
@@ -168,7 +168,7 @@ public static class QTESequenceSystem
 
             // Create QTE Instance config
             randomStartDelays[i] = EzRandom.Range(cQTEParams.StartDelayRange);
-            qteActivationGlobalUTime = globalTime + randomStartDelays[i] + cQTEParams.Duration + QTEUIManager.QTEGlobalReactionTime;
+            qteActivationGlobalUTime = globalTime + randomStartDelays[i] + cQTEParams.Duration + QTEUIManager.Instance.QTEGlobalReactionTime;
 
             // Create new QTE Instance
             qteInstances[i] = new QTEInstance(qteActivationGlobalUTime, cQTEParams.Duration, cQTEParams.SuccesWindowTime);
@@ -182,10 +182,10 @@ public static class QTESequenceSystem
 
         succesfulQTECount = 0;
 
-        QTEUIManager.StartQTESequence(qteSequenceParams, randomStartDelays);
+        QTEUIManager.Instance.StartQTESequence(qteSequenceParams, randomStartDelays);
         CallbackScheduler.Invoke(totalQTESequenceDuration, () =>
         {
-            QTEUIManager.DisableAll(qteSequenceParams, randomStartDelays);
+            QTEUIManager.Instance.DisableAll(qteSequenceParams, randomStartDelays);
         }, INVOKE_SYSTEMS_ID_HASH);
     }
 #endif

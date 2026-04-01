@@ -93,7 +93,7 @@ public class SkillUIBlock : MonoBehaviour
         bool canUseSkill = canAfford && isActive;
         button.interactable = canUseSkill;
 
-        canvasGroup.alpha = isActive ? 1 : disabledAlpha;
+        canvasGroup.alpha = canUseSkill ? 1 : disabledAlpha;
     }
 
 

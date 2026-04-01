@@ -15,4 +15,7 @@ public struct MinMaxFloat
         this.min = min;
         this.max = max;
     }
+
+    /// <returns>A random value between <see cref="min"/> and <see cref="max"/></returns>
+    public readonly float RandomValue => EzRandom.Range(min, max);
 }

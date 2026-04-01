@@ -18,7 +18,7 @@ public class RainAudio : MonoBehaviour
     {
         audioSource.pitch = EzRandom.Range(pitchRange);
 
-        this.Invoke(EzRandom.Range(pitchChangeDelayRange), ChangePitch);
+        this.Invoke(pitchChangeDelayRange.RandomValue, ChangePitch);
     }
 
     private void OnDestroy()

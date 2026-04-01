@@ -97,7 +97,7 @@ public class PlayerStats
     {
         float healthPercent01 = Health / GameRules.DefaultPlayerStats.MaxHealth;
 
-        ResourceBarUI healthBar = this == Local ? HUDManager.LocalHealthBar : HUDManager.OpponentHealthBar;
+        ResourceBarUI healthBar = this == Local ? HUDManager.Instance.LocalHealthBar : HUDManager.Instance.OpponentHealthBar;
         healthBar?.UpdateBar(healthPercent01);
 
         if (Health <= 0 && IsLocal)
@@ -112,7 +112,7 @@ public class PlayerStats
         // other client doesn’t update your energy bar
         if (IsLocal)
         { 
-            HUDManager.LocalEnergyBar.UpdateBar(energyPercent01);
+            HUDManager.Instance.LocalEnergyBar.UpdateBar(energyPercent01);
         }
     }
 
@@ -167,6 +167,16 @@ public class PlayerStats
 
             default: break;
         }
+
+        GetEffectStackCount(statusEffect.Type, out int stacks);
+        if (IsLocal)
+        {
+            HUDManager.Instance.LocalStatusBar.UpdateStatusUI(statusEffect.Type, stacks);
+        }
+        else
+        {
+            HUDManager.Instance.OpponentStatusBar.UpdateStatusUI(statusEffect.Type, stacks);
+        }
     }
 
     /// <summary>
@@ -196,6 +206,8 @@ public class PlayerStats
         float bleedDamage = CalculateEffectStrength(StatusEffectType.Bleeding, GameRules.StatusEffects.Bleeding.StrengthRules);
 
         Health -= (fireDamage + bleedDamage);
+
+        UpdateStatusEffectUI();
     }
 
     /// <summary>
@@ -212,6 +224,26 @@ public class PlayerStats
             if (type != StatusEffectType.Empowered)
             {
                 effectsList.RemoveAtSwapBack(i);
+            }
+        }
+
+        UpdateStatusEffectUI();
+    }
+
+    private void UpdateStatusEffectUI()
+    {
+        for (int i = 0; i < 6; i++)
+        {
+            StatusEffectType statusEffectType = (StatusEffectType)i;
+
+            GetEffectStackCount(statusEffectType, out int stacks);
+            if (IsLocal)
+            {
+                HUDManager.Instance.LocalStatusBar.UpdateStatusUI(statusEffectType, stacks);
+            }
+            else
+            {
+                HUDManager.Instance.OpponentStatusBar.UpdateStatusUI(statusEffectType, stacks);
             }
         }
     }

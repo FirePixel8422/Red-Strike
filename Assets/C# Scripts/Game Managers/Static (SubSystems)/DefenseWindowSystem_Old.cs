@@ -1,16 +1,17 @@
 ﻿using Fire_Pixel.Utility;
 using UnityEngine;
 
-public static class DefenseWindowSystem
+
+public static class DefenseWindowSystem_Old
 {
 #pragma warning disable UDR0001
     private static DefenseWindowParameters defenseWindow;
-    private static float qteEndGlobalTime;
+    private static float attackImpactGlobalTime;
 
-    private static int skillId;
     private static DefenseResult defenseResult;
+    private static int skillId;
 
-    public static bool AttackActive => qteEndGlobalTime > Time.unscaledTime;
+    public static bool AttackActive => attackImpactGlobalTime > Time.unscaledTime;
 
     public static readonly int INVOKE_SYSTEMS_ID_HASH = "Defense_Window_System".GetHashCode();
 #pragma warning restore UDR0001
@@ -21,26 +22,18 @@ public static class DefenseWindowSystem
         SkillAttack skill = SkillManager.GlobalSkillList[incomingSkillId].AsAttack();
 
         defenseWindow = skill.DefenseWindows;
+        attackImpactGlobalTime = Time.unscaledTime + skill.AttackStartupTime;
+
         defenseResult = DefenseResult.None;
         skillId = incomingSkillId;
 
-        float totalAttackImpactDelay = skill.AttackStartupTime + QTEUIManager.Instance.QTEGlobalReactionTime;
-        float qteDuration = skill.AttackStartupTime;
-
-        float globalTime = Time.unscaledTime;
-        qteEndGlobalTime = globalTime + totalAttackImpactDelay;
-
-        QTEUIManager.Instance.StartCombatQTE(qteDuration, defenseWindow);
-
-        CallbackScheduler.Invoke(totalAttackImpactDelay, ResolveAttack, INVOKE_SYSTEMS_ID_HASH);
-    }
-
-    private static void ResolveAttack()
-    {
-        QTEUIManager.Instance.FailCombatQTE(true);
-        QTEUIManager.Instance.DisableCombatQTE(PlayerVisualsManager.Instance.AttackPrepareTime);
-
-        CombatManager.Instance.ResolveAttack_OnDefender(skillId, defenseResult);
+        CallbackScheduler.Invoke(skill.AttackStartupTime + PlayerVisualsManager.Instance.AttackPrepareTime, () =>
+        {
+            if (CombatManager.Instance != null)
+            {
+                CombatManager.Instance.ResolveAttack_OnDefender(skillId, defenseResult);
+            }
+        }, INVOKE_SYSTEMS_ID_HASH);
     }
 
     /// <returns>Whether the quick time event was hit succesfully</returns>
@@ -48,27 +41,16 @@ public static class DefenseWindowSystem
     {
         if (AttackActive == false) return DefenseResult.None;
 
-        float timeBeforeQTEEnd = qteEndGlobalTime - Time.unscaledTime;
+        float timeBeforeAttackImpact = attackImpactGlobalTime - Time.unscaledTime;
 
         defenseResult = defenseType switch
         {
-            DefenseType.Dodge => ResolveDodge(timeBeforeQTEEnd),
-            DefenseType.Parry => ResolveParry(timeBeforeQTEEnd),
+            DefenseType.Dodge => ResolveDodge(timeBeforeAttackImpact),
+            DefenseType.Parry => ResolveParry(timeBeforeAttackImpact),
             _ => DefenseResult.None
         };
-
-        if (defenseResult == DefenseResult.None)
-        {
-            QTEUIManager.Instance.FailCombatQTE(false);
-        }
-        else
-        {
-            QTEUIManager.Instance.SucceedCombatQTE();
-        }
-
         return defenseResult;
     }
-
     private static DefenseResult ResolveDodge(float timeBeforeAttackImpact)
     {
         if (defenseWindow.Dodge > timeBeforeAttackImpact)
@@ -77,7 +59,6 @@ public static class DefenseWindowSystem
         }
         return DefenseResult.None;
     }
-
     private static DefenseResult ResolveParry(float timeBeforeAttackImpact)
     {
         if (defenseWindow.PerfectParry > timeBeforeAttackImpact)
