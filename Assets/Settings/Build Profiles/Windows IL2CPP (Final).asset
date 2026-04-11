@@ -39,8 +39,7 @@ MonoBehaviour:
     - line: '|   productName: Red Strike'
     - line: '|   defaultCursor: {instanceID: 0}'
     - line: '|   cursorHotspot: {x: 0, y: 0}'
-    - line: '|   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b:
-        0.1254902, a: 1}'
+    - line: '|   m_SplashScreenBackgroundColor: {r: 0, g: 0, b: 0, a: 1}'
     - line: '|   m_ShowUnitySplashScreen: 1'
     - line: '|   m_ShowUnitySplashLogo: 1'
     - line: '|   m_SplashScreenOverlayOpacity: 1'
@@ -66,6 +65,9 @@ MonoBehaviour:
     - line: '|   m_SplashScreenLogos:'
     - line: '|   - logo: {fileID: 10404, guid: 0000000000000000f000000000000000,
         type: 0}'
+    - line: '|     duration: 2'
+    - line: '|   - logo: {fileID: 666957855, guid: d4a964270c89ccd489b5ae2805e354bf,
+        type: 3}'
     - line: '|     duration: 2'
     - line: '|   m_VirtualRealitySplashScreen: {instanceID: 0}'
     - line: '|   m_HolographicTrackingLossScreen: {instanceID: 0}'
@@ -870,7 +872,7 @@ MonoBehaviour:
     - line: '|   webWasm2023: 0'
     - line: '|   webEnableSubmoduleStrippingCompatibility: 0'
     - line: '|   scriptingDefineSymbols:'
-    - line: '|     Standalone: Enable_Debug_Systems_'
+    - line: '|     Standalone: '
     - line: '|   additionalCompilerArguments: {}'
     - line: '|   platformArchitecture: {}'
     - line: '|   scriptingBackend:'
@@ -983,7 +985,7 @@ MonoBehaviour:
     - line: '|   qnxGraphicConfPath: '
     - line: '|   apiCompatibilityLevel: 6'
     - line: '|   captureStartupLogs: {}'
-    - line: '|   activeInputHandler: 1'
+    - line: '|   activeInputHandler: 2'
     - line: '|   windowsGamepadBackendHint: 0'
     - line: '|   cloudProjectId: a8a4b414-fa8c-4c5d-857c-7fe522d4868b'
     - line: '|   framebufferDepthMemorylessMode: 0'
